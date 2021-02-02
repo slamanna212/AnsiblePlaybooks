@@ -5,16 +5,13 @@
     - hosts: all
       become: true
       vars_files:
-        - group_vars/SetupUbuntu18.yml
+        - group_vars/SetupUbuntu20.yml
     
       tasks:
         - name: Install Prerequisites
           apt: name=aptitude update_cache=yes state=latest force_apt_get=yes
     
     # Install Packages
-        - name: Update apt
-          apt: update_cache=yes
-    
         - name: Install required system packages
           apt: name={{ sys_packages }} state=latest
 
@@ -58,7 +55,7 @@
     # MOTD Access Message
         - name: Upload custom MOTD access warning
           copy:
-           src: files/SetupUbuntu1804/issue.net
+           src: files/SetupUbuntu2004/issue.net
            dest: /etc/issue.net
            remote_src: no
 
@@ -85,7 +82,7 @@
     # Fail2Ban Config
         - name: Upload Fail2Ban config
           copy:
-           src: files/SetupUbuntu1804/jail.local
+           src: files/SetupUbuntu2004/jail.local
            dest: /etc/fail2ban/jail.local
            remote_src: no        
         
