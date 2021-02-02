@@ -48,12 +48,12 @@
             state: present
             key: "{{ copy_local_key }}"
     
-        - name: Disable password authentication for root
-          lineinfile:
-            path: /etc/ssh/sshd_config
-            state: present
-            regexp: '^#?PermitRootLogin'
-            line: 'PermitRootLogin prohibit-password'
+    # Upload SSH Config
+         - name: Upload ssh config
+          copy:
+           src: files/SetupUbuntu2004/ubuntu20ssh.conf
+           dest: /etc/ssh/sshd_config.d/benessh.conf
+           remote_src: no   
 
     # MOTD Access Message
         - name: Upload custom MOTD access warning
@@ -74,14 +74,6 @@
               - { From: 'session    optional     pam_motd.so  motd=/run/motd.dynamic', To: '# session    optional     pam_motd.so  motd=/run/motd.dynamic' }
               - { From: 'session    optional     pam_motd.so noupdate', To: '# session    optional     pam_motd.so noupdate' }
 
-        - name: Enable custom MOTD message
-          become: yes
-          become_user: root
-          ansible.builtin.lineinfile:
-            path: /etc/ssh/sshd_config
-            line: Banner /etc/issue.net
-            create: yes
-         
     # Fail2Ban Config
         - name: Upload Fail2Ban config
           copy:
