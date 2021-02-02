@@ -1,0 +1,15 @@
+#################################################
+#  HAproxy Load balancers
+#################################################
+---
+    - hosts: all
+      become: true
+      vars_files:
+        - group_vars/loadbalancer.yml
+
+    # Install Packages
+        - name: Update package mirrors and existing packages
+          apt: update_cache=yes upgrade=yes
+    
+        - name: Install required packages
+          apt: name={{ sys_packages }} state=latest
