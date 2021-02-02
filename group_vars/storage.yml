@@ -1,0 +1,2 @@
+---
+    sys_packages: [ 'nfs-kernel-server']
