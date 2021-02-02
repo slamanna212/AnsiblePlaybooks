@@ -5,7 +5,7 @@
     - hosts: all
       become: true
       vars_files:
-        - /group_vars/default.yml
+        - group_vars/default.yml
     
       tasks:
         - name: Install Prerequisites
@@ -58,7 +58,7 @@
     # MOTD Access Message
         - name: Upload custom MOTD access warning
           copy:
-           src: /group_vars/Ubuntu18.issue.net
+           src: group_vars/Ubuntu18.issue.net
            dest: /etc/issue.net
            remote_src: no
 
@@ -85,7 +85,7 @@
     # Fail2Ban Config
         - name: Upload Fail2Ban config
           copy:
-           src: /group_vars/Ubuntu18.jail.local
+           src: group_vars/Ubuntu18.jail.local
            dest: /etc/fail2ban/jail.local
            remote_src: no        
         
