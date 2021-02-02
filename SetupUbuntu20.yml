@@ -49,7 +49,7 @@
             key: "{{ copy_local_key }}"
     
     # Upload SSH Config
-         - name: Upload ssh config
+        - name: Upload custom ssh config
           copy:
            src: files/SetupUbuntu2004/ubuntu20ssh.conf
            dest: /etc/ssh/sshd_config.d/benessh.conf
