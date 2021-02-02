@@ -5,7 +5,7 @@
     - hosts: all
       become: true
       vars_files:
-        - group_vars/default.yml
+        - group_vars/SetupUbuntu18.yml
     
       tasks:
         - name: Install Prerequisites
