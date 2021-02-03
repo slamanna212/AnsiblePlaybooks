@@ -16,9 +16,3 @@
         - name: Install required system packages
           apt: name={{ sys_packages }} state=latest
 
-    # Add cloudflare origin cert
-        - name: Add Cloudflare origin certificate to server(s)
-          copy:
-           src: files/Loadbalancers/bene-it.com/pem
-           dest: /etc/ssl/private/bene-it.com.pem
-           remote_src: no            
