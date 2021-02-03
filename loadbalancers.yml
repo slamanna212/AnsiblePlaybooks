@@ -10,9 +10,9 @@
         - ./group_vars/loadbalancers.yml
 
     # Install Packages
-        - name: Update package mirrors and existing packages
-          apt: update_cache=yes upgrade=yes
+      - name: Update package mirrors and existing packages
+        apt: update_cache=yes upgrade=yes
     
-        - name: Install required system packages
-          apt: name={{ sys_packages }} state=latest
+      - name: Install required system packages
+        apt: name={{ sys_packages }} state=latest
 
