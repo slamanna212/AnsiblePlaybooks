@@ -16,5 +16,9 @@
         - name: Install required packages
           apt: name={{ sys_packages }} state=latest
 
-    # Configure HAProxy
-        - name: Update package mirrors and existing packages    
+    # Add cloudflare origin cert
+        - name: Add Cloudflare origin certificate to server(s)
+          copy:
+           src: files/Loadbalancers/bene-it.com/pem
+           dest: /etc/ssl/private/bene-it.com.pem
+           remote_src: no            
