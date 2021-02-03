@@ -5,7 +5,7 @@
     - hosts: all
       become: true
       vars_files:
-        - group_vars/SetupUbuntu20.yml
+        - group_vars/loadbalancers.yml
 
     # This shouldnt be needed but if its not here the playbook doesnt run, i have no idea
       tasks:
