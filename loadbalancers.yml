@@ -1,5 +1,7 @@
 #################################################
 #  HAproxy Load balancers
+# Make sure --ask-vault-pass is passed when this playbook
+# runs
 #################################################
 ---
     - hosts: all
