@@ -1,2 +1,2 @@
 ---
-    sys_packages: [ 'haproxy' ]
+    sys_packages: [ 'haproxy', 'liblua5.3-0' ]
