@@ -1,12 +1,16 @@
 #################################################
-# DO Community Playbooks: Initial Server Setup
+# Loadbalancers config
 #################################################
 ---
     - hosts: all
       become: true
       vars_files:
-        - group_vars/loadbalancers.yml
-        
+        - group_vars/SetupUbuntu20.yml
+    
+      tasks:
+        - name: Install Prerequisites
+          apt: name=aptitude update_cache=yes state=latest force_apt_get=yes
+    
     # Install Packages
         - name: Update package mirrors and existing packages
           apt: update_cache=yes upgrade=yes
