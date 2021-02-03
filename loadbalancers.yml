@@ -17,7 +17,7 @@
           apt: update_cache=yes upgrade=yes
     
         - name: Install required system packages
-          apt: name={{ sys_packages }} state=latest
+          apt: name= {{ sys_packages }} state=latest
           
     # Add cloudflare origin cert
         - name: Add Cloudflare origin certificate to server(s)
