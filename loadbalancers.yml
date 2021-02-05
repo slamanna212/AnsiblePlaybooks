@@ -31,9 +31,10 @@
         - name: Set ownership for certificate
           ansible.builtin.file:
             path: /etc/ssl/private/beneorigin.pem
-            owner: foo
-            group: foo
-            mode: '0644'    
+            owner: haproxy
+            group: haproxy
+
+    # Upload templated haproxy config
 
         - name: Update HAProxy config
           template: src=templates/haproxy.cfg 
