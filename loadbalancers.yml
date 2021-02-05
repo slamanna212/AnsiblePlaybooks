@@ -24,7 +24,12 @@
           copy:
            src: files/Loadbalancers/beneorigin.pem
            dest: /etc/ssl/private/beneorigin.pem
-           remote_src: no            
+           remote_src: no 
+
+        - name: Update HAProxy config
+          template: src=templates/haproxy.cfg 
+                      dest=/etc/haproxy/haproxy.cfg 
+                      backup=yes                
 
 
 
