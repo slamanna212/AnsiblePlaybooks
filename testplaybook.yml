@@ -6,7 +6,10 @@
       become: true
 
       tasks:
-        - name: host
-          debug: msg="{{ item }}"
-          with_items:
-             - "{{ groups['web'] }}"
+        - name: Connect to website using a previously stored cookie
+          uri:
+            url: http://169.254.169.254/metadata/v1/hostname
+            method: GET
+            return_content: yes
+            register: droplet_hostname
+            debug: msg= {{ droplet_hostname }} 
