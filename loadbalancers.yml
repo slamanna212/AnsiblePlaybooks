@@ -6,6 +6,8 @@
       become: true
       vars_files:
         - group_vars/loadbalancers.yml
+      vars:
+        backends: "{{ groups['web'] }}"  
 
     # This shouldnt be needed but if its not here the playbook doesnt run, i have no idea
       tasks:
