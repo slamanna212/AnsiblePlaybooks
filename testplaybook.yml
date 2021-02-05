@@ -5,6 +5,9 @@
     - hosts: all
       become: true
 
+      vars:
+        droplet_hostname: uwu
+
       tasks:
         - name: Connect to website using a previously stored cookie
           uri:
@@ -12,9 +15,9 @@
             method: GET
             return_content: yes
             register: droplet_hostname
-            debug: msg= {{ droplet_hostname }} 
+
 
         - name: print test var
           ansible.builtin.debug:
             msg:
-              - "These servers were built using the password of '{{ password_used }}'. Please retain this for later use."
+              - "These servers were built using the password of '{{ droplet_hostname }}'. Please retain this for later use."
