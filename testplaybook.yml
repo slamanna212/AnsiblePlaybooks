@@ -9,4 +9,4 @@
         - name: host
           debug: msg="{{ item }}"
           with_items:
-             - "{{ groups['tests'] }}"
+             - "{{ groups['web'] }}"
