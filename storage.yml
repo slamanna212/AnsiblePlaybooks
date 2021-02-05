@@ -44,4 +44,4 @@
           ansible.builtin.systemd: 
             name: nfs-kernel-server
             enabled: yes
-            state: reload
+            state: reloaded
