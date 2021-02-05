@@ -28,3 +28,10 @@
             path: /etc/exports
             line: /mnt/volume_nyc3_01/Web/		10.132.0.0/16(rw,sync,no_root_squash,no_subtree_check)
             create: yes
+
+    # Cleanup        
+        - name: Reload the NFS Server and make sure it starts at boot
+          ansible.builtin.systemd: 
+            name: nfs-kernel-server
+            enabled: yes
+            state: reload
