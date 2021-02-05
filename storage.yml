@@ -21,13 +21,13 @@
           apt: name={{ sys_packages }} state=latest  
 
     # Mount the DO Volume
-          - name: Mount the Web NFS Share
-            ansible.posix.mount:
-                src: /dev/disk/by-id/scsi-0DO_Volume_volume-nyc3-01
-                path: /mnt/volume_nyc3_01
-                opts: discard,defaults,noatime
-                state: mounted
-                fstype: ext4
+        - name: Mount the Web NFS Share
+          ansible.posix.mount:
+              src: /dev/disk/by-id/scsi-0DO_Volume_volume-nyc3-01
+              path: /mnt/volume_nyc3_01
+              opts: discard,defaults,noatime
+              state: mounted
+              fstype: ext4
 
 
     # Add Export for Nginx content
