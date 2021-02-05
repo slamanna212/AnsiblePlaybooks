@@ -21,3 +21,4 @@
           apt: name={{ sys_packages }} state=latest  
 
 
+Use new module in bookmarks to control the mount and then add code to check if mount folder exists before making it and before mounting.
