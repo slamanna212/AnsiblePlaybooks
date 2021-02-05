@@ -2,7 +2,7 @@
     - hosts: all
       become: true
 
-- name: host
-   debug: msg="{{ item }}" 
-   with_items:
-    - "{{ groups['web'] }}"
+        - name: host
+         debug: msg="{{ item }}" 
+         with_items:
+             - "{{ groups['web'] }}"
