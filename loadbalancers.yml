@@ -42,8 +42,6 @@
                       dest=/etc/haproxy/haproxy.cfg 
                       backup=yes                
 
-
-
     # Cleanup        
         - name: Restart HAProxy and make sure it starts at boot
           ansible.builtin.systemd: 
