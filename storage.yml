@@ -2,7 +2,7 @@
 # Storage config
 #################################################
 ---
-    - hosts: storage
+    - hosts: all
       become: true
       vars_files:
         - group_vars/storage.yml
