@@ -18,13 +18,6 @@
     
         - name: Install required system packages
           apt: name={{ sys_packages }} state=latest
-
-    # Set HAProxy to start at boot
-        - name: Enable init script
-          replace: dest='/etc/default/haproxy' 
-            regexp='ENABLED=0'
-            replace='ENABLED=1'
-
           
     # Add cloudflare origin cert
         - name: Add Cloudflare origin certificate to server(s)
@@ -32,3 +25,12 @@
            src: files/Loadbalancers/beneorigin.pem
            dest: /etc/ssl/private/beneorigin.pem
            remote_src: no            
+
+
+
+    # Cleanup        
+        - name: Restart HAProxy and make sure it starts at boot
+          ansible.builtin.systemd: 
+            name: haproxy
+            enabled: yes
+            state: restarted           
