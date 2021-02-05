@@ -8,7 +8,6 @@
         - group_vars/loadbalancers.yml
       vars:
         backends: "{{ groups['web'] }}"
-        benelb: "{{ groups['loadbalancers'] }}  
 
     # This shouldnt be needed but if its not here the playbook doesnt run, i have no idea
       tasks:
