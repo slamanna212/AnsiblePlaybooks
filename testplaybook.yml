@@ -1,8 +1,12 @@
+#################################################
+# Loadbalancers config
+#################################################
 ---
     - hosts: all
       become: true
 
+      tasks:
         - name: host
-         debug: msg="{{ item }}" 
-         with_items:
-             - "{{ groups['web'] }}"
+          debug: msg="{{ item }}"
+          with_items:
+             - "{{ groups['tests'] }}"
