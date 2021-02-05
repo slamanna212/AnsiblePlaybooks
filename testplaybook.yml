@@ -13,3 +13,8 @@
             return_content: yes
             register: droplet_hostname
             debug: msg= {{ droplet_hostname }} 
+
+        - name: print test var
+          ansible.builtin.debug:
+            msg:
+              - "These servers were built using the password of '{{ password_used }}'. Please retain this for later use."
