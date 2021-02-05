@@ -22,9 +22,9 @@
 
     # Add Export for Nginx content
         - name: Add NFS export for nginx content
-          become: yes
-          become_user: root
-          ansible.builtin.lineinfile:
-            path: /etc/exports
-            line: /mnt/volume_nyc3_01/Web/		10.132.0.0/16(rw,sync,no_root_squash,no_subtree_check)
-            create: yes
+            become: yes
+            become_user: root
+            ansible.builtin.lineinfile:
+              path: /etc/exports
+              line: /mnt/volume_nyc3_01/Web/		10.132.0.0/16(rw,sync,no_root_squash,no_subtree_check)
+              create: yes
