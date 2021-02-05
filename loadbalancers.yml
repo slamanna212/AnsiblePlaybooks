@@ -26,7 +26,14 @@
           copy:
            src: files/Loadbalancers/beneorigin.pem
            dest: /etc/ssl/private/beneorigin.pem
-           remote_src: no 
+           remote_src: no
+
+        - name: Set ownership for certificate
+          ansible.builtin.file:
+            path: /etc/ssl/private/beneorigin.pem
+            owner: foo
+            group: foo
+            mode: '0644'    
 
         - name: Update HAProxy config
           template: src=templates/haproxy.cfg 
