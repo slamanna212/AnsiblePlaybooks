@@ -20,5 +20,11 @@
         - name: Install required system packages
           apt: name={{ sys_packages }} state=latest  
 
-
-Use new module in bookmarks to control the mount and then add code to check if mount folder exists before making it and before mounting.
+    # Add Export for Nginx content
+        - name: Add NFS export for nginx content
+          become: yes
+          become_user: root
+          ansible.builtin.lineinfile:
+            path: /etc/exports
+            line: /mnt/volume_nyc3_01/Web/		10.132.0.0/16(rw,sync,no_root_squash,no_subtree_check)
+            create: yes
