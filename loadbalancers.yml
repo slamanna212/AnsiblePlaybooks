@@ -20,10 +20,10 @@
           apt: name={{ sys_packages }} state=latest
 
     # Set HAProxy to start at boot
-      - name: Enable init script
-        replace: dest='/etc/default/haproxy' 
-          regexp='ENABLED=0'
-          replace='ENABLED=1'
+        - name: Enable init script
+          replace: dest='/etc/default/haproxy' 
+            regexp='ENABLED=0'
+            replace='ENABLED=1'
 
           
     # Add cloudflare origin cert
