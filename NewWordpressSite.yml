@@ -43,11 +43,11 @@
   tasks: 
           - name: Create site directory if missing  
             ansible.builtin.file:
-              path: /mnt/Web/{{ domain }}
+              path: /mnt/Web/Websites/{{ domain }}
               state: directory
               mode: '0755'  
 
           - name: Download latest version of wordpress
             get_url:
               url: https://wordpress.org/latest.tar.gz
-              dest: /mnt/Web/{{ domain }}
+              dest: /mnt/Web/Websites/{{ domain }}
