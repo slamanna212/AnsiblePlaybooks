@@ -1,0 +1,10 @@
+#########################################################
+# Create New Wordpress Site
+#########################################################
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
