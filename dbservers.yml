@@ -4,6 +4,7 @@
 ---
     - hosts: databases
       become: true
+      become_user: root
       vars_files:
         - group_vars/databases.yml
 
