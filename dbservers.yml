@@ -22,10 +22,57 @@
 
     - hosts: BeneNYCDB01v          
       tasks:
-        - name: Install Prerequisites
-          apt: name=aptitude update_cache=yes state=latest force_apt_get=yes    
+        - name: Allow incoming connections on the master node
+          become: yes
+          become_user: root
+          lineinfile:
+           path: /etc/mysql/mariadb.conf.d/50-server.cnf
+           regexp: 'bind-address            = 127.0.0.1'
+           line: 'bind-address            = 0.0.0.0'
+           state: present  
+
+        - name: Update MariaDB config on master
+          lineinfile:
+            path: /etc/hosts
+            state: present
+            line: "{{ item }}"
+          with_items:
+          - 'server-id = 1'
+          - 'log_bin = /var/log/mysql/mysql-bin.log' 
+          - 'log_bin_index =/var/log/mysql/mysql-bin.log.index'
+          - 'relay_log = /var/log/mysql/mysql-relay-bin' 
+          - 'relay_log_index = /var/log/mysql/mysql-relay-bin.index'
+
+        - name: Restart MariaDB to load changes
+          ansible.builtin.systemd: 
+            name: mariadb
+            state: restarted          
+
 
     - hosts: BeneNYCDB02v          
       tasks:
-        - name: Install Prerequisites
-          apt: name=aptitude update_cache=yes state=latest force_apt_get=yes              
+        - name: Allow incoming connections on the slave node
+          become: yes
+          become_user: root
+          lineinfile:
+           path: /etc/mysql/mariadb.conf.d/50-server.cnf
+           regexp: 'bind-address            = 127.0.0.1'
+           line: 'bind-address            = 0.0.0.0'
+           state: present  
+
+        - name: Update MariaDB config on slave
+          lineinfile:
+            path: /etc/hosts
+            state: present
+            line: "{{ item }}"
+          with_items:
+          - 'server-id = 2'
+          - 'log_bin = /var/log/mysql/mysql-bin.log' 
+          - 'log_bin_index =/var/log/mysql/mysql-bin.log.index'
+          - 'relay_log = /var/log/mysql/mysql-relay-bin' 
+          - 'relay_log_index = /var/log/mysql/mysql-relay-bin.index'
+
+        - name: Restart MariaDB to load changes
+          ansible.builtin.systemd: 
+            name: mariadb
+            state: restarted                               
