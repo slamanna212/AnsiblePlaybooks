@@ -46,7 +46,7 @@
 
         - name: Restart MariaDB to load changes
           ansible.builtin.systemd: 
-            name: mariadb
+            name: mysql
             state: restarted          
 
 
@@ -75,5 +75,5 @@
 
         - name: Restart MariaDB to load changes
           ansible.builtin.systemd: 
-            name: mariadb
+            name: mysql
             state: restarted                               
