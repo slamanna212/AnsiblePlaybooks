@@ -39,7 +39,7 @@
         - name: Update HAProxy config
           template: src=templates/haproxy.cfg 
                       dest=/etc/haproxy/haproxy.cfg 
-                      backup=yes                
+                      backup=no                
 
     # Cleanup        
         - name: Restart HAProxy and make sure it starts at boot
