@@ -1,2 +1,2 @@
 ---
-    sys_packages: [ 'nfs-common' ]
+    sys_packages: [ 'nfs-common', 'nginx' ]
