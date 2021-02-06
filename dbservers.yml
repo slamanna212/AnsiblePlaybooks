@@ -31,21 +31,7 @@
            line: 'bind-address            = 0.0.0.0'
            state: present  
 
-        - name: Update MariaDB config on master
-          lineinfile:
-            path: /etc/hosts
-            state: present
-            become: yes
-            become_user: root
-            line: "{{ item }}"
-          with_items:
-          - 'server-id = 1'
-          - 'log_bin = /var/log/mysql/mysql-bin.log' 
-          - 'log_bin_index =/var/log/mysql/mysql-bin.log.index'
-          - 'relay_log = /var/log/mysql/mysql-relay-bin' 
-          - 'relay_log_index = /var/log/mysql/mysql-relay-bin.index'
-
-        - name: Insert/Update "Match User" configuration block in /etc/ssh/sshd_config
+        - name: Update master node config
           blockinfile:
             path: /etc/mysql/mariadb.conf.d/50-server.cnf
             block: |
@@ -73,19 +59,15 @@
            line: 'bind-address            = 0.0.0.0'
            state: present  
 
-        - name: Update MariaDB config on slave
-          lineinfile:
+        - name: Update slave node config
+          blockinfile:
             path: /etc/mysql/mariadb.conf.d/50-server.cnf
-            state: present
-            become: yes
-            become_user: root
-            line: "{{ item }}"
-          with_items:
-          - 'server-id = 2'
-          - 'log_bin = /var/log/mysql/mysql-bin.log' 
-          - 'log_bin_index =/var/log/mysql/mysql-bin.log.index'
-          - 'relay_log = /var/log/mysql/mysql-relay-bin' 
-          - 'relay_log_index = /var/log/mysql/mysql-relay-bin.index'
+            block: |
+              server-id = 2
+              log_bin = /var/log/mysql/mysql-bin.log
+              log_bin_index =/var/log/mysql/mysql-bin.log.index
+              relay_log = /var/log/mysql/mysql-relay-bin' 
+              relay_log_index = /var/log/mysql/mysql-relay-bin.index
 
         - name: Restart MariaDB to load changes
           ansible.builtin.systemd: 
