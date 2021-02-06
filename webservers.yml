@@ -47,7 +47,21 @@
             line: fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
             create: yes
 
-        - name: Update HAProxy config
+        - name: Update Nginx config
           template: src=templates/nginx.conf 
                       dest=/etc/nginx/nginx.conf 
-                      backup=no   
+                      backup=no
+
+   
+    # Configure PHP
+        - name: Set max upload size for PHP
+          become: yes
+          become_user: root
+          lineinfile:
+           path: /etc/php/7.4/fpm/php.ini
+           regexp: '{{item.From}}'
+           line: '{{item.To}}'
+           state: present  
+          with_items:
+              - { From: 'upload_max_filesize = 2M', To: 'upload_max_filesize = 15M' }
+              - { From: 'post_max_size = 8M', To: 'post_max_size = 15M' }
