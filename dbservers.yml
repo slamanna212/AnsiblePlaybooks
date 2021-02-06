@@ -74,4 +74,4 @@
           ansible.builtin.systemd: 
             name: mysql
             enabled: yes
-            state: restarted      
+            state: reloaded      
