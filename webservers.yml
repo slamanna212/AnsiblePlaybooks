@@ -37,3 +37,17 @@
             state: mounted
             fstype: nfs
 
+
+    # Configure Nginx
+        - name: Add FastCGI params
+          become: yes
+          become_user: root
+          ansible.builtin.lineinfile:
+            path: /etc/nginx/fastcgi_params
+            line: fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+            create: yes
+
+        - name: Update HAProxy config
+          template: src=templates/nginx.conf 
+                      dest=/etc/nginx/nginx.conf 
+                      backup=no   
