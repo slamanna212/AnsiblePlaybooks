@@ -1,19 +1,7 @@
 #################################################
 # Site Config
 #################################################
----
-    - hosts: all
-      become: true
-
-      tasks:
-        - name: Configure Loadbalancers
-          import_playbook: loadbalancers.yml  
-
-        - name: Configure Storage
-          import_playbook: storage.yml 
-
-        - name: Configure Databases
-          import_playbook: dbservers.yml
-
-        - name: Configure Web Servers
-          import_playbook: webservers.yml                
+ - import_playbook: loadbalancers.yml  
+ - import_playbook: storage.yml 
+ - import_playbook: dbservers.yml
+ - import_playbook: webservers.yml    
