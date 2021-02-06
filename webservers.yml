@@ -25,10 +25,10 @@
 
     # Mount the NFS Share for config files
         - name: Create Web directory if its missing
-            ansible.builtin.file:
-                path: /mnt/Web
-                state: directory
-                mode: '0755'
+          ansible.builtin.file:
+            path: /mnt/Web
+            state: directory
+            mode: '0755'
 
           - name: Mount the Web NFS Share
             ansible.posix.mount:
