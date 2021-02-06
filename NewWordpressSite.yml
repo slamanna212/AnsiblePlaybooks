@@ -3,6 +3,12 @@
 #########################################################
 ---
 - hosts: all
+  vars:
+       domain: "a"
+       domain2: "a"
+       sqluser: "a"
+       sqlpass: "a"
+       sqlname: "a"
   vars_prompt:
 
     - name: domain
@@ -29,7 +35,7 @@
 
 - hosts: BeneNYCDB01v
   tasks: 
-        - name: Create a new database with name 'bobdata'
+        - name: Create a new database for website'
           community.mysql.mysql_db:
             name: {{ sqlname }}
             state: present 
