@@ -36,7 +36,7 @@
           become_user: root
           ansible.builtin.lineinfile:
             path: /etc/exports
-            line: /mnt/volume_nyc3_01/Web/		10.132.0.0/24(rw,sync,no_root_squash,no_subtree_check)
+            line: /mnt/volume_nyc3_01/Web/		10.123.0.0/24(rw,sync,no_root_squash,no_subtree_check)
             create: yes
 
     # Cleanup        
