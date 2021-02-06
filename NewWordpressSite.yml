@@ -37,13 +37,13 @@
   tasks: 
         - name: Create a new database for website'
           community.mysql.mysql_db:
-            name: {{ sqlname }}
+            name: "{{ sqlname }}"
             state: present 
 
         - name: Create database user and great access to database
           community.mysql.mysql_user:
-            name: {{ sqluser }}
-            password: {{ sqlpass }}
+            name: "{{ sqluser }}"
+            password: "{{ sqlpass }}"
             priv: '{{ dbname }}.*:ALL'
             state: present       
 
