@@ -16,10 +16,8 @@
 
     # Install Packages
 
-        - name: Enable universe repository
-          ansible.builtin.apt_repository:
-            repo: universe
-
+        - name: Enable Universe repository
+          command: sudo add-apt-repository universe
 
         - name: Update package mirrors and existing packages
           apt: update_cache=yes upgrade=yes
