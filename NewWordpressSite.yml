@@ -41,13 +41,29 @@
       prompt: Is there a second domain for the website, like www.domain.com | Leave blank if no
       private: no   
   tasks: 
-          - name: Create site directory if missing  
+          - name: Create site directory if missing
+            become: yes
+            become_user: root  
             ansible.builtin.file:
               path: /mnt/Web/Websites/{{ domain }}
               state: directory
-              mode: '0755'  
+
 
           - name: Download latest version of wordpress
+            become: yes
+            become_user: root            
             get_url:
               url: https://wordpress.org/latest.tar.gz
               dest: /mnt/Web/Websites/{{ domain }}
+
+
+
+
+
+
+          - name: Set permissions on directory
+            ansible.builtin.file:
+              path: /mnt/Web/Websites/{{ domain }}
+              state: directory
+              owner: www-data
+              group: www-data
