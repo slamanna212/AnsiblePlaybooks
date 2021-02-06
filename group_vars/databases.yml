@@ -1,2 +1,2 @@
 ---
-    sys_packages: [ 'mariadb-server', 'mariadb-client', 'python-mysqldb']
+    sys_packages: [ 'mariadb-server', 'mariadb-client', 'python-mysqldb' ]
