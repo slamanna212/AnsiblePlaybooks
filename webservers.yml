@@ -57,3 +57,17 @@
           with_items:
               - { From: 'upload_max_filesize = 2M', To: 'upload_max_filesize = 15M' }
               - { From: 'post_max_size = 8M', To: 'post_max_size = 15M' }
+
+
+    # Cleanup        
+        - name: Restart Nginx and make sure it starts at boot
+          ansible.builtin.systemd: 
+            name: nginx
+            enabled: yes
+            state: restarted
+
+        - name: Restart PHP FPM and make sure it starts at boot
+          ansible.builtin.service:
+            name: php7.4-fpm
+            enabled: yes
+            state: restarted
