@@ -19,7 +19,7 @@
           apt: update_cache=yes upgrade=yes
     
         - name: Install required system packages
-          apt: name={{ sys_packages }} state=latest force_apt_get=yes
+          apt: name={{ sys_packages }} state=latest
 
 
     # Mount the NFS Share for config files
