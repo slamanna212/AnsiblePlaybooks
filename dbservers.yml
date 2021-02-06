@@ -19,6 +19,9 @@
         - name: Install required system packages
           apt: name={{ sys_packages }} state=latest
 
+        - name: Configure SELinux to start mysql on any port
+          seboolean: name=mysql_connect_any state=true persistent=yes  
+
 
     - hosts: BeneNYCDB01v          
       tasks:
@@ -47,7 +50,7 @@
         - name: Restart MariaDB to load changes
           ansible.builtin.systemd: 
             state: restarted
-            name: mariadb
+            name: mariadb 
                       
 
 
@@ -76,5 +79,5 @@
 
         - name: Restart MariaDB to load changes
           ansible.builtin.systemd: 
-            name: mysql
+            name: mariadb 
             state: restarted                               
