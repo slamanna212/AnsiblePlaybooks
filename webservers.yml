@@ -9,13 +9,18 @@
       vars_files:
         - group_vars/webservers.yml
 
-
     # This shouldnt be needed but if its not here the playbook doesnt run, i have no idea
       tasks:
         - name: Install Prerequisites
           apt: name=aptitude update_cache=yes state=latest force_apt_get=yes
 
     # Install Packages
+
+        - name: Enable universe repository
+          ansible.builtin.apt_repository:
+            repo: universe
+
+
         - name: Update package mirrors and existing packages
           apt: update_cache=yes upgrade=yes
     
