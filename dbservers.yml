@@ -4,7 +4,6 @@
 ---
     - hosts: databases
       become: true
-      become_user: root
       vars_files:
         - group_vars/databases.yml
 
@@ -33,6 +32,8 @@
            state: present  
 
         - name: Update master node config
+          become: yes
+          become_user: root
           blockinfile:
             path: /etc/mysql/mariadb.conf.d/50-server.cnf
             block: |
@@ -61,6 +62,8 @@
            state: present  
 
         - name: Update slave node config
+          become: yes
+          become_user: root        
           blockinfile:
             path: /etc/mysql/mariadb.conf.d/50-server.cnf
             block: |
