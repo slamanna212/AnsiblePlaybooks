@@ -55,7 +55,7 @@
             become_user: root          
             ansible.builtin.unarchive:
               src: https://wordpress.org/latest.tar.gz
-              dest: /mnt/Web/Websites/{{ domain }}/wordpress
+              dest: /mnt/Web/Websites/{{ domain }}/
               remote_src: yes    
 
 
