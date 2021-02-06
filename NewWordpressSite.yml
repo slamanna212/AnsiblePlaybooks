@@ -49,12 +49,14 @@
               state: directory
 
 
-          - name: Download latest version of wordpress
+
+          - name: Unarchive a file that needs to be downloaded (added in 2.0)
             become: yes
-            become_user: root            
-            get_url:
-              url: https://wordpress.org/latest.tar.gz
-              dest: /mnt/Web/Websites/{{ domain }}
+            become_user: root          
+            ansible.builtin.unarchive:
+              src: https://wordpress.org/latest.tar.gz
+              dest: /mnt/Web/Websites/{{ domain }}/wordpress
+              remote_src: yes    
 
 
 
