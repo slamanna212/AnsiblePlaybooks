@@ -32,6 +32,12 @@
            line: 'bind-address            = 0.0.0.0'
            state: present  
 
+        - name: Add files for other playbooks
+          copy:
+           src: files/dbservers/.my.cnf
+           dest: /home/ansible/.my.cnf
+           remote_src: no
+
         - name: Update master node config
           become: yes
           become_user: root
