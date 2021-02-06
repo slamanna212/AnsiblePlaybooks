@@ -30,8 +30,6 @@
       prompt: Please provide an SQL database name
       private: no        
   become: true
-  vars_files:
-    - vars/default.yml
 
 - hosts: BeneNYCDB01v
   tasks: 
