@@ -22,6 +22,14 @@
           apt: name={{ sys_packages }} state=latest
 
 
+        - name: Adds ansible user to www-data group
+          user:
+            name: ansible
+            state: present
+            groups: www-data
+            append: true     
+
+
     # Mount the NFS Share for config files
         - name: Create Web directory if its missing
           ansible.builtin.file:

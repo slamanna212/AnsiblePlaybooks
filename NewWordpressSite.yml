@@ -41,9 +41,7 @@
       prompt: Is there a second domain for the website, like www.domain.com | Leave blank if no
       private: no   
   tasks: 
-          - name: Create site directory if missing
-            become: yes
-            become_user: root          
+          - name: Create site directory if missing  
             ansible.builtin.file:
               path: /mnt/Web/{{ domain }}
               state: directory
