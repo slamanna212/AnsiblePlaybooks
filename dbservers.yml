@@ -1,5 +1,6 @@
 #################################################
 # Database config
+# Can not figure out how to get mariadb to restart after config changes
 #################################################
 ---
     - hosts: databases
@@ -66,12 +67,3 @@
               log_bin_index =/var/log/mysql/mysql-bin.log.index
               relay_log = /var/log/mysql/mysql-relay-bin' 
               relay_log_index = /var/log/mysql/mysql-relay-bin.index
-          
-
-    - hosts: databases
-      tasks:          
-        - name: Restart MariaDB
-          ansible.builtin.systemd: 
-            name: mysql
-            enabled: yes
-            state: reloaded      

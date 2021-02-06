@@ -3,8 +3,53 @@
 #########################################################
 ---
 - hosts: all
+  vars_prompt:
+
+    - name: domain
+      prompt: What is the domain of the website
+      private: no
+
+    - name: domain2
+      prompt: Is there a second domain for the website, like www.domain.com | Leave blank if no
+      private: no  
+
+    - name: sqluser
+      prompt: Please provide an SQL username
+      private: no
+
+    - name: sqlpass
+      prompt: Please Provide an SQL Password   
+
+    - name: sqlname
+      prompt: Please provide an SQL database name
+      private: no        
   become: true
   vars_files:
     - vars/default.yml
 
-  tasks:
+- hosts: BeneNYCDB01v
+  tasks: 
+        - name: Create a new database with name 'bobdata'
+          community.mysql.mysql_db:
+            name: {{ sqlname }}
+            state: present 
+
+        - name: Create database user and great access to database
+          community.mysql.mysql_user:
+            name: {{ sqluser }}
+            password: {{ sqlpass }}
+            priv: '{{ dbname }}.*:ALL'
+            state: present       
+
+- hosts: BeneNYCWeb01v
+  tasks: 
+          - name: Create site directory if missing
+            ansible.builtin.file:
+              path: /mnt/Web/{{ domain }}
+              state: directory
+              mode: '0755'  
+
+          - name: Download latest version of wordpress
+            get_url:
+              url: https://wordpress.org/latest.tar.gz
+              dest: /mnt/Web/{{ domain }}
