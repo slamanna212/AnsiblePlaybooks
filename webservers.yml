@@ -69,7 +69,7 @@
           ansible.builtin.systemd: 
             name: nginx
             enabled: yes
-            state: reload
+            state: reloaded
 
         - name: Restart PHP FPM and make sure it starts at boot
           ansible.builtin.service:
