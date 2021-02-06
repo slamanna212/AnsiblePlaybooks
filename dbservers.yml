@@ -46,8 +46,10 @@
 
         - name: Restart MariaDB to load changes
           ansible.builtin.systemd: 
-            name: mysql
-            state: restarted          
+            state: restarted
+            daemon_reload: yes
+            name: mariadb
+                      
 
 
     - hosts: BeneNYCDB02v          
