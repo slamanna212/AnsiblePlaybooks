@@ -27,7 +27,7 @@
           community.mysql.mysql_user:
             name: "{{ sqluser }}"
             password: "{{ sqlpass }}"
-            priv: '{{ dbname }}.*:ALL'
+            priv: '{{ sqlname }}.*:ALL'
             state: present       
 
 - hosts: BeneNYCWeb01v
