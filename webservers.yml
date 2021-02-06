@@ -65,11 +65,11 @@
 
 
     # Cleanup        
-        - name: Restart Nginx and make sure it starts at boot
+        - name: Reload Nginx and make sure it starts at boot
           ansible.builtin.systemd: 
             name: nginx
             enabled: yes
-            state: restarted
+            state: reload
 
         - name: Restart PHP FPM and make sure it starts at boot
           ansible.builtin.service:
