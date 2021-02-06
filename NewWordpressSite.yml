@@ -42,6 +42,8 @@
       private: no   
   tasks: 
           - name: Create site directory if missing
+            become: yes
+            become_user: root          
             ansible.builtin.file:
               path: /mnt/Web/{{ domain }}
               state: directory
