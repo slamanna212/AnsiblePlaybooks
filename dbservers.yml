@@ -2,7 +2,7 @@
 # Database config
 #################################################
 ---
-    - hosts: db1:db2
+    - hosts: databases
       become: true
       vars_files:
         - group_vars/databases.yml

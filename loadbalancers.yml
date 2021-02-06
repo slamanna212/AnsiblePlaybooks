@@ -2,7 +2,7 @@
 # Loadbalancers config
 #################################################
 ---
-    - hosts: all
+    - hosts: loadbalancers
       become: true
       vars_files:
         - group_vars/loadbalancers.yml

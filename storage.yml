@@ -4,7 +4,7 @@
 # ansible-galaxy collection install ansible.posix
 #################################################
 ---
-    - hosts: all
+    - hosts: storage
       become: true
       vars_files:
         - group_vars/storage.yml
