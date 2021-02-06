@@ -35,6 +35,8 @@
           lineinfile:
             path: /etc/hosts
             state: present
+            become: yes
+            become_user: root
             line: "{{ item }}"
           with_items:
           - 'server-id = 1'
@@ -64,6 +66,8 @@
           lineinfile:
             path: /etc/hosts
             state: present
+            become: yes
+            become_user: root
             line: "{{ item }}"
           with_items:
           - 'server-id = 2'
