@@ -89,10 +89,21 @@
                         backup=no                
 
           - name: Add HyperDB DB file to wp-content
+            become: yes
+            become_user: root    
             copy:
              src: files/wordpress/db.php
              dest: /mnt/Web/Websites/{{ domain }}/public_html/wp-content/db.php
              remote_src: no
+
+
+          - name: Update HAProxy config
+            become: yes
+            become_user: root    
+            template: src=templates/db-config.php 
+                        dest=/mnt/Web/Websites/{{ domain }}/public_html/ db-config.php
+                        backup=no                
+
 
     # Cleanup
           - name: Set permissions on directory
