@@ -4,8 +4,6 @@
 ---
 - hosts: BeneNYCDB01v:BeneNYCWeb01v
   become: true
-
-- hosts: BeneNYCDB01v
   vars_prompt:
     - name: sqluser
       prompt: Please provide an SQL username
@@ -17,6 +15,16 @@
     - name: sqlname
       prompt: Please provide an SQL database name
       private: no
+
+    - name: domain
+      prompt: What is the domain of the website
+      private: no
+
+    - name: domain2
+      prompt: Is there a second domain for the website, like www.domain.com | Leave blank if no
+      private: no   
+
+- hosts: BeneNYCDB01v
   tasks: 
         - name: Create a new database for website'
           community.mysql.mysql_db:
@@ -31,15 +39,6 @@
             state: present       
 
 - hosts: BeneNYCWeb01v
-  vars_prompt:
-
-    - name: domain
-      prompt: What is the domain of the website
-      private: no
-
-    - name: domain2
-      prompt: Is there a second domain for the website, like www.domain.com | Leave blank if no
-      private: no   
   tasks: 
           - name: Create site directory if missing
             become: yes
@@ -47,8 +46,6 @@
             ansible.builtin.file:
               path: /mnt/Web/Websites/{{ domain }}
               state: directory
-
-
 
           - name: Download and extract wordpress files
             become: yes
