@@ -5,30 +5,30 @@
 - hosts: BeneNYCDB01v:BeneNYCWeb01v
   become: true
 
-#- hosts: BeneNYCDB01v
-#  vars_prompt:
-#    - name: sqluser
-#      prompt: Please provide an SQL username
-#      private: no
+- hosts: BeneNYCDB01v
+  vars_prompt:
+    - name: sqluser
+      prompt: Please provide an SQL username
+      private: no
 
-#    - name: sqlpass
-#      prompt: Please Provide an SQL Password   
+    - name: sqlpass
+      prompt: Please Provide an SQL Password   
 
-#    - name: sqlname
-#      prompt: Please provide an SQL database name
-#      private: no
-#  tasks: 
-#        - name: Create a new database for website'
-#          community.mysql.mysql_db:
-#            name: "{{ sqlname }}"
-#            state: present 
+    - name: sqlname
+      prompt: Please provide an SQL database name
+      private: no
+  tasks: 
+        - name: Create a new database for website'
+         community.mysql.mysql_db:
+            name: "{{ sqlname }}"
+            state: present 
 
-#        - name: Create database user and great access to database
-#          community.mysql.mysql_user:
-#            name: "{{ sqluser }}"
-#            password: "{{ sqlpass }}"
-#            priv: '{{ sqlname }}.*:ALL'
-#            state: present       
+        - name: Create database user and great access to database
+          community.mysql.mysql_user:
+            name: "{{ sqluser }}"
+            password: "{{ sqlpass }}"
+            priv: '{{ sqlname }}.*:ALL'
+            state: present       
 
 - hosts: BeneNYCWeb01v
   vars_prompt:
@@ -55,7 +55,7 @@
             become_user: root          
             ansible.builtin.unarchive:
               src: https://wordpress.org/latest.tar.gz
-              dest: /mnt/Web/Websites/{{ domain }}/
+              dest: /mnt/Web/Websites/{{ domain }}/public_html
               remote_src: yes    
 
 
