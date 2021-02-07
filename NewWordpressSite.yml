@@ -50,7 +50,7 @@
 
 
 
-          - name: Unarchive a file that needs to be downloaded (added in 2.0)
+          - name: Download and extract wordpress files
             become: yes
             become_user: root          
             ansible.builtin.unarchive:
