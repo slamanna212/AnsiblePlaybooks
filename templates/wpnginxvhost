@@ -2,6 +2,7 @@ server {
         listen 80;
         listen [::]:80;
         server_name {{domain}} {{domain2}};
+        root /mnt/Web/Websites/{{domain}}/public_html;
         index index.php index.html index.htm;
 
         access_log /var/log/nginx/{{domain}}.access.log;
