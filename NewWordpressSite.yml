@@ -97,6 +97,9 @@
               owner: www-data
               group: www-data
 
+- hosts: webservers
+  become: true
+  tasks: 
           - name: Reload Nginx to pick up the new website
             ansible.builtin.systemd: 
               name: nginx
