@@ -19,7 +19,7 @@
       private: no
   tasks: 
         - name: Create a new database for website'
-         community.mysql.mysql_db:
+          community.mysql.mysql_db:
             name: "{{ sqlname }}"
             state: present 
 
