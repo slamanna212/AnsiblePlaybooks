@@ -55,9 +55,11 @@
             become_user: root          
             ansible.builtin.unarchive:
               src: https://wordpress.org/latest.tar.gz
-              dest: /mnt/Web/Websites/{{ domain }}/public_html
+              dest: /mnt/Web/Websites/{{ domain }}/
               remote_src: yes    
 
+          - name: Move foo to bar
+            command: mv /mnt/Web/Websites/{{ domain }}/wordpress /mnt/Web/Websites/{{ domain }}/public_html
 
           - name: Add custom WP-Config
             template: src=templates/wp-config.php 
