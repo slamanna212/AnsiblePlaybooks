@@ -30,12 +30,12 @@
             priv: '{{ sqlname }}.*:ALL'
             state: present       
 
-          - name: "Add SQL info to dummy host for use later in this playbook"
-            add_host:
-              name:   "SQLINFOHOLDER"
-              sqluser:  "{{ sqluser.stdout }}"
-              sqlpass:   "{{ sqlpass.stdout }}"
-              sqlname:   "{{ sqlname.stdout }}"            
+        - name: "Add SQL info to dummy host for use later in this playbook"
+           add_host:
+             name:   "SQLINFOHOLDER"
+             sqluser:  "{{ sqluser.stdout }}"
+             sqlpass:   "{{ sqlpass.stdout }}"
+             sqlname:   "{{ sqlname.stdout }}"            
 
 - hosts: BeneNYCWeb01v
   vars_prompt:
