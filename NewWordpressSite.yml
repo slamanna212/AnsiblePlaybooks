@@ -30,7 +30,7 @@
             name: "{{ sqluser }}"
             password: "{{ sqlpass }}"
             priv: '{{ sqlname }}.*:ALL'
-            host: 10.123.0.0/24 
+            host: 10.123.0.% 
             state: present       
 
         - name: "Add SQL info to dummy host for use later in this playbook"
