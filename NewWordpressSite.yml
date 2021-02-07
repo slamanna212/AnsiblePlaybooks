@@ -5,6 +5,8 @@
 - hosts: BeneNYCDB01v:BeneNYCWeb01v
   become: true
 
+
+    # DB Config
 - hosts: BeneNYCDB01v
   vars_prompt:
     - name: sqluser
@@ -37,6 +39,8 @@
             sqlpass:   "{{ sqlpass }}"
             sqlname:   "{{ sqlname }}"            
 
+
+    # Nginx Config
 - hosts: BeneNYCWeb01v
   vars_prompt:
 
@@ -75,10 +79,15 @@
                         dest=/mnt/Web/Websites/{{ domain }}/public_html/wp-config.php 
                         backup=no                
 
+          - name: Add Nginx vhost for website
+            become: yes
+            become_user: root             
+            template: src=templates/wpnginxvhost 
+                        dest=/mnt/Web/VHosts/{{ domain }} 
+                        backup=no
 
 
-
-
+    # Cleanup
           - name: Set permissions on directory
             become: yes
             become_user: root            
@@ -87,3 +96,8 @@
               state: directory
               owner: www-data
               group: www-data
+
+          - name: Reload Nginx to pick up the new website
+            ansible.builtin.systemd: 
+              name: nginx
+              state: reloaded
