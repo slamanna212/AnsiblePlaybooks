@@ -60,6 +60,14 @@
               path: /mnt/Web/Websites/{{ domain }}
               state: directory
 
+          - name: Add Nginx vhost for website
+            become: yes
+            become_user: root             
+            template: src=templates/wpnginxvhost 
+                        dest=/mnt/Web/VHosts/{{ domain }} 
+                        backup=no
+
+    # Wordpress Config
           - name: Download and extract wordpress files
             become: yes
             become_user: root          
@@ -80,13 +88,11 @@
                         dest=/mnt/Web/Websites/{{ domain }}/public_html/wp-config.php 
                         backup=no                
 
-          - name: Add Nginx vhost for website
-            become: yes
-            become_user: root             
-            template: src=templates/wpnginxvhost 
-                        dest=/mnt/Web/VHosts/{{ domain }} 
-                        backup=no
-
+          - name: Add HyperDB DB file to wp-content
+            copy:
+             src: files/wordpress/db.php
+             dest: /mnt/Web/Websites/{{ domain }}/public_html/wp-content/db.php
+             remote_src: no
 
     # Cleanup
           - name: Set permissions on directory
