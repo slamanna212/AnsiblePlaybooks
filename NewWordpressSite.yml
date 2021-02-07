@@ -59,6 +59,11 @@
               remote_src: yes    
 
 
+        - name: Add custom WP-Config
+          template: src=templates/wp-config.php 
+                      dest=/mnt/Web/Websites/{{ domain }}/public_html/wp-config.php 
+                      backup=no                
+
 
 
 
