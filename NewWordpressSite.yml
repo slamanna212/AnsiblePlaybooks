@@ -97,9 +97,7 @@
              remote_src: no
 
 
-          - name: Update HAProxy config
-            become: yes
-            become_user: root    
+          - name: Add HyperDB config to public directory
             template: src=templates/db-config.php 
                         dest=/mnt/Web/Websites/{{ domain }}/public_html/ db-config.php
                         backup=no                
