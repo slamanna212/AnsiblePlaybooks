@@ -58,10 +58,14 @@
               dest: /mnt/Web/Websites/{{ domain }}/
               remote_src: yes    
 
-          - name: Move foo to bar
+          - name: Move wordpress files to public directory
+            become: yes
+            become_user: root   
             command: mv /mnt/Web/Websites/{{ domain }}/wordpress /mnt/Web/Websites/{{ domain }}/public_html
 
           - name: Add custom WP-Config
+            become: yes
+            become_user: root             
             template: src=templates/wp-config.php 
                         dest=/mnt/Web/Websites/{{ domain }}/public_html/wp-config.php 
                         backup=no                
