@@ -29,7 +29,7 @@ define( 'DB_USER', '{{hostvars['BeneNYCDB01v']['sqluser']}}' );
 define( 'DB_PASSWORD', '{{hostvars['BeneNYCDB01v']['sqlpass']}}' );
 
 /** MySQL hostname */
-define( 'DB_HOST', '{{hostvars[groups['dbservers'][0]].ansible_host}}' );
+define( 'DB_HOST', '{{hostvars[groups['databases'][0]].ansible_host}}' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
