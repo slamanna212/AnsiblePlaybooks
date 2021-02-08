@@ -82,6 +82,12 @@ $table_prefix = 'wp_';
  */
 define( 'WP_DEBUG', false );
 
+/** Make sure WordPress understands it's behind an SSL terminator */
+define('FORCE_SSL_ADMIN', true);
+define('FORCE_SSL_LOGIN', true);
+if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+$_SERVER['HTTPS']='on';
+
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */
