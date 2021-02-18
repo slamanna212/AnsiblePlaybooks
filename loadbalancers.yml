@@ -20,6 +20,17 @@
     
         - name: Install required system packages
           apt: name={{ sys_packages }} state=latest
+
+
+
+    # Netdata
+        - name: Grant Netdata user access to haproxy
+          user:
+            name: netdata
+            state: present
+            groups: netdata,haproxy
+            append: true
+      
           
     # Add cloudflare origin cert
         - name: Add Cloudflare origin certificate to server(s)
