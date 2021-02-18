@@ -24,7 +24,7 @@
 
 
     # Netdata
-        - name: Grant Netdata user access to haproxy
+        - name: Grant Netdata user access to haproxy group
           user:
             name: netdata
             state: present
