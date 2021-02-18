@@ -24,12 +24,12 @@
 
 
     # Netdata
-        - name: Grant Netdata user access to haproxy group
-          user:
-            name: netdata
-            state: present
-            groups: netdata,haproxy
-            append: true
+    #    - name: Grant Netdata user access to haproxy group
+     #     user:
+      #      name: netdata
+       #     state: present
+        #    groups: netdata,haproxy
+         #   append: true
       
           
     # Add cloudflare origin cert
