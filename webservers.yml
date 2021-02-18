@@ -72,6 +72,17 @@
               - { From: 'post_max_size = 8M', To: 'post_max_size = 15M' }
 
 
+
+        - name: Enable PHP-FPM status page
+          become: yes
+          become_user: root
+          lineinfile:
+           path: /etc/php/7.4/fpm/pool.d/www.conf
+           regexp: ';pm.status_path = /status'
+           line: 'pm.status_path = /status'
+           state: present     
+
+
     # Cleanup        
         - name: Reload Nginx and make sure it starts at boot
           ansible.builtin.systemd: 
