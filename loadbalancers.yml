@@ -45,12 +45,25 @@
             owner: haproxy
             group: haproxy
 
+
     # Upload templated haproxy config
 
         - name: Update HAProxy config
           template: src=templates/haproxy.cfg 
                       dest=/etc/haproxy/haproxy.cfg 
                       backup=no                
+
+
+        - name: Add netdata config for haproxy
+          become: yes
+          become_user: root        
+          copy:
+            src: files/Loadbalancers/haproxy.conf
+            dest: /etc/netdata/python.d/haproxy.conf
+            owner: root
+            group: root
+            mode: u=rx,g=rx,o=r
+            backup: no
 
     # Cleanup        
         - name: Restart HAProxy and make sure it starts at boot
