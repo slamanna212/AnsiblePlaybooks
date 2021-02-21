@@ -82,6 +82,17 @@
            line: 'pm.status_path = /status'
            state: present     
 
+        - name: Add netdata config for Nginx
+          become: yes
+          become_user: root        
+          copy:
+            src: files/webservers/nginx.conf
+            dest: /etc/netdata/go.d/nginx.conf
+            owner: root
+            group: root
+            mode: u=rx,g=rx,o=r
+            backup: no
+
 
     # Cleanup        
         - name: Reload Nginx and make sure it starts at boot
