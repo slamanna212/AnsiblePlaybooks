@@ -96,6 +96,17 @@
             path: ~/kickstart.sh
             state: absent
 
+        - name: Place Netdata config file
+          template:
+            src: templates/netdata.conf.j2
+            dest: /etc/netdata/netdata.conf
+            owner: root
+            group: root
+            mode: u=rx,g=rx,o=r
+            backup: no
+            become: true
+
+
         - name: Connect to Netdata parent
           template:
             src: templates/netdata-stream.conf.j2
@@ -119,4 +130,8 @@
             name: sshd
             state: restarted
 
+        - name: Restart Netdata service to ensure changes are loaded
+          ansible.builtin.service:
+            name: netdata
+            state: restarted
 
