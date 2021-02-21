@@ -97,6 +97,8 @@
             state: absent
 
         - name: Place Netdata config file
+          become: yes
+          become_user: root        
           template:
             src: templates/netdata.conf.j2
             dest: /etc/netdata/netdata.conf
@@ -104,10 +106,12 @@
             group: root
             mode: u=rx,g=rx,o=r
             backup: no
-            become: true
+
 
 
         - name: Connect to Netdata parent
+          become: yes
+          become_user: root        
           template:
             src: templates/netdata-stream.conf.j2
             dest: /etc/netdata/stream.conf
@@ -115,7 +119,6 @@
             group: root
             mode: u=rx,g=rx,o=r
             backup: no
-            become: true
 
         
     # Cleanup        
