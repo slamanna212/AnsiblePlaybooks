@@ -80,8 +80,33 @@
            src: files/SetupUbuntu2004/jail.local
            dest: /etc/fail2ban/jail.local
            remote_src: no        
-        
 
+    # Netdata install
+        - name: Download the installation script for netdata
+          get_url:
+            url: https://my-netdata.io/kickstart.sh
+            dest: ~/kickstart.sh
+            mode: +x
+
+        - name: Install Netdata
+          command: ~/kickstart.sh --dont-wait
+
+        - name: Cleanup installation script
+          file:
+            path: ~/kickstart.sh
+            state: absent
+
+        - name: Connect to Netdata parent
+          template:
+            src: templates/netdata-stream.conf.j2
+            dest: /etc/netdata/stream.conf
+            owner: root
+            group: root
+            mode: u=rx,g=rx,o=r
+            backup: no
+            become: true
+
+        
     # Cleanup        
         - name: Restart Fail2Ban and make sure it starts at boot
           ansible.builtin.systemd: 
