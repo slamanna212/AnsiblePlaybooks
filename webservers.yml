@@ -70,7 +70,7 @@
           with_items:
               - { From: 'upload_max_filesize = 2M', To: 'upload_max_filesize = 15M' }
               - { From: 'post_max_size = 8M', To: 'post_max_size = 15M' }
-              - { From: ';opcache.enable=1', To: ';opcache.enable=1' }
+              - { From: ';opcache.enable=1', To: 'opcache.enable=1' }
               - { From: ';opcache.memory_consumption=128', To: 'opcache.memory_consumption=128' }              
               - { From: ';opcache.max_accelerated_files=10000', To: 'opcache.max_accelerated_files=3000' }
               - { From: ';opcache.revalidate_freq=2', To: 'opcache.revalidate_freq=200' }
