@@ -132,11 +132,11 @@
 
 
     # Cleanup     
-        - name: Reload Cachefilesd and make sure it starts at boot
+        - name: Restart Cachefilesd and make sure it starts at boot
           ansible.builtin.systemd: 
             name: cachefilesd
             enabled: yes
-            state: reloaded    
+            state: restarted    
 
         - name: Reload Nginx and make sure it starts at boot
           ansible.builtin.systemd: 
