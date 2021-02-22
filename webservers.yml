@@ -98,6 +98,14 @@
             dest: /etc/cachefilesd.conf 
             backup: no
 
+        - name: Create Cached Web directory if its missing
+          become: yes
+          become_user: root                    
+          ansible.builtin.file:
+            path: /mnt/CWeb
+            state: directory
+            mode: '0755'
+
 
     # Configure Netdata
         - name: Add netdata config for Nginx
