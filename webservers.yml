@@ -71,8 +71,6 @@
               - { From: 'upload_max_filesize = 2M', To: 'upload_max_filesize = 15M' }
               - { From: 'post_max_size = 8M', To: 'post_max_size = 15M' }
 
-
-
         - name: Enable PHP-FPM status page
           become: yes
           become_user: root
@@ -82,6 +80,26 @@
            line: 'pm.status_path = /status'
            state: present     
 
+
+    # Configure Disk Cache
+        - name: Update Cachefilesd defaults file
+          become: yes
+          become_user: root            
+          copy: 
+            src: files/webservers/cachefilesd 
+            dest: /etc/default/cachefilesd 
+            backup: no
+
+        - name: Update Cachefilesd config file
+          become: yes
+          become_user: root            
+          copy: 
+            src: files/webservers/cachefilesd.conf 
+            dest: /etc/cachefilesd.conf 
+            backup: no
+
+
+    # Configure Netdata
         - name: Add netdata config for Nginx
           become: yes
           become_user: root        
