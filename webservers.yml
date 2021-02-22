@@ -71,14 +71,13 @@
               - { From: 'upload_max_filesize = 2M', To: 'upload_max_filesize = 15M' }
               - { From: 'post_max_size = 8M', To: 'post_max_size = 15M' }
 
-        - name: Enable PHP-FPM status page
+        - name: Update php-fpm pool config
           become: yes
-          become_user: root
-          lineinfile:
-           path: /etc/php/7.4/fpm/pool.d/www.conf
-           regexp: ';pm.status_path = /status'
-           line: 'pm.status_path = /status'
-           state: present     
+          become_user: root            
+          copy: 
+            src: files/webservers/www.conf 
+            dest: /etc/php/7.4/fpm/pool.d/www.conf 
+            backup: no
 
 
     # Configure Disk Cache
