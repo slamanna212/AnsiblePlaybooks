@@ -59,7 +59,7 @@
 
 
     # Configure PHP
-        - name: Set max upload size for PHP
+        - name: Set PHP settings
           become: yes
           become_user: root
           lineinfile:
