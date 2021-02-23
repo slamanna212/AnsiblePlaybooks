@@ -18,14 +18,11 @@
         - name: Install required system packages
           apt: name={{ sys_packages }} state=latest  
 
-    # Mount the DO Volume
-        - name: Mount the Web NFS Share
-          ansible.posix.mount:
-              src: /dev/disk/by-id/scsi-0DO_Volume_volume-nyc3-01
-              path: /mnt/volume_nyc3_01
-              opts: discard,defaults,noatime
-              state: mounted
-              fstype: ext4
+        - name: Create Web directory if its missing
+          ansible.builtin.file:
+            path: /mnt/Web
+            state: directory
+            mode: '0755'
 
 
     # Add Export for Nginx content
@@ -34,7 +31,7 @@
           become_user: root
           ansible.builtin.lineinfile:
             path: /etc/exports
-            line: /mnt/volume_nyc3_01/Web/		10.123.0.0/24(rw,sync,no_root_squash,no_subtree_check)
+            line: /mnt/Web/		10.123.0.0/24(rw,sync,no_root_squash,no_subtree_check)
             create: yes
 
     # Cleanup        
