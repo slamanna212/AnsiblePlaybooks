@@ -38,7 +38,7 @@
           ansible.posix.mount:
             src: "{{ hostvars[groups['storage'][0]].ansible_host }}:/mnt/volume_nyc3_01/Web"
             path: /mnt/Web
-            opts: rw,sync,hard,intr,fsc,rsize=32768,wsize=32768
+            opts: rw,sync,hard,intr,fsc
             state: mounted
             fstype: nfs
 
