@@ -9,11 +9,7 @@
       vars_files:
         - group_vars/storage.yml
 
-
-    # This shouldnt be needed but if its not here the playbook doesnt run, i have no idea
       tasks:
-        - name: Install Prerequisites
-          apt: name=aptitude update_cache=yes state=latest force_apt_get=yes
 
     # Install Packages
         - name: Update package mirrors and existing packages
