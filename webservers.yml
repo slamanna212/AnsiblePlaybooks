@@ -72,7 +72,8 @@
               - { From: ';opcache.max_accelerated_files=10000', To: 'opcache.max_accelerated_files=3000' }
               - { From: ';opcache.revalidate_freq=2', To: 'opcache.revalidate_freq=200' }
               - { From: 'max_execution_time = 30', To: 'max_execution_time = 300' }
-              - { From: 'max_input_time = 60', To: 'max_input_time = 400' }              
+              - { From: 'max_input_time = 60', To: 'max_input_time = 400' }     
+              - { From: default_socket_timeout = 60', To: 'default_socket_timeout = 300' }                          
 
         - name: Update php-fpm pool config
           become: yes
