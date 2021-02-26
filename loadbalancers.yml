@@ -62,6 +62,12 @@
             mode: u=rx,g=rx,o=r
             backup: no
 
+
+        - name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+          ansible.builtin.user:
+            name: netdata
+            group: haproxy
+
     # Cleanup        
         - name: Restart HAProxy and make sure it starts at boot
           ansible.builtin.systemd: 
