@@ -2,7 +2,7 @@
 # Create New Wordpress Site
 #########################################################
 ---
-- hosts: BeneNYCDB01v:BeneNYCWeb01v
+- hosts: BeneNYCDB01v:BeneNYCWeb03v
   become: true
 
 
@@ -42,7 +42,7 @@
 
 
     # Nginx Config
-- hosts: BeneNYCWeb01v
+- hosts: BeneNYCWeb03v
   vars_prompt:
 
     - name: domain
