@@ -17,11 +17,9 @@ server {
 
         location = /favicon.ico { log_not_found off; access_log off; }
         location = /robots.txt { log_not_found off; access_log off; allow all; }
-        location ~* \.(css|gif|ico|jpeg|jpg|js|png)$ {
-                expires max;
-                log_not_found off;
-                access_log off;}
+
 
         include /mnt/Web/Snippets/php.conf;
         include /mnt/Web/Snippets/wp-supercache.conf;
+        include /mnt/Web/Snippets/cache-control.conf;
 }
