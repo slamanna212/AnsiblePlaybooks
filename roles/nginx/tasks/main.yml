@@ -42,24 +42,13 @@
   notify: restart nginx        
 
 # Configure PHP
-- name: Set PHP settings
+- name: Copy PHP config
   become: yes
-  become_user: root
-  lineinfile:
-    path: /etc/php/7.4/fpm/php.ini
-    regexp: '{{item.From}}'
-    line: '{{item.To}}'
-    state: present  
-  with_items:
-        - { From: 'upload_max_filesize = 2M', To: 'upload_max_filesize = 15M' }
-        - { From: 'post_max_size = 8M', To: 'post_max_size = 15M' }
-        - { From: ';opcache.enable=1', To: 'opcache.enable=1' }
-        - { From: ';opcache.memory_consumption=128', To: 'opcache.memory_consumption=128' }              
-        - { From: ';opcache.max_accelerated_files=10000', To: 'opcache.max_accelerated_files=3000' }
-        - { From: ';opcache.revalidate_freq=2', To: 'opcache.revalidate_freq=200' }
-        - { From: 'max_execution_time = 30', To: 'max_execution_time = 300' }
-        - { From: 'max_input_time = 60', To: 'max_input_time = 400' }     
-        - { From: 'default_socket_timeout = 60', To: 'default_socket_timeout = 300' }                          
+  become_user: root            
+  copy: 
+    src: php.ini 
+    dest: /etc/php/7.4/fpm/php.ini
+    backup: no                      
   notify: restart php-fpm    
 
 - name: Update php-fpm pool config
