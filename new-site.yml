@@ -1,6 +1,13 @@
 ---
 # This playbook deploys the entire web hosting stack
 
+- name: Configure and deploy the balance tier
+  hosts: loadbalancers
+  become: true
+  vars:
+    backends: "{{ groups['webservers'] }}"
+  roles:
+    - haproxy
 
 - name: Configure and deploy the master database tier
   hosts: database_master
