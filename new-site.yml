@@ -3,16 +3,16 @@
 
 
 - name: Configure and deploy the master database tier
-  hosts: database-master
+  hosts: database_master
   become: true
   roles:
-    - mariadb-master
+    - mariadb_master
 
 - name: Configure and deploy the slave database tier
-  hosts: database-slave
+  hosts: database_slave
   become: true
   roles:
-    - mariadb-slave
+    - mariadb_slave
 
 - name: Configure and deploy the web tier
   hosts: webservers
