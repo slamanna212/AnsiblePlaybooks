@@ -1,0 +1,22 @@
+---
+# This playbook deploys the entire web hosting stack
+
+
+
+- name: Configure and deploy the master database servers
+  hosts: database-master
+  become: true
+  roles:
+    - mariadb-master
+
+- name: Configure and deploy the master database servers
+  hosts: database-slave
+  become: true
+  roles:
+    - mariadb-slave
+
+- name: Configure and deploy the web tier
+  hosts: webservers
+  become: true
+  roles:
+    - nginx
