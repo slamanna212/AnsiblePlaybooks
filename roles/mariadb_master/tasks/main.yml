@@ -16,7 +16,7 @@
 
 - name: Add files for other playbooks
   copy:
-    src: files/dbservers/.my.cnf
+    src: .my.cnf
     dest: /home/ansible/.my.cnf
     remote_src: no
 
