@@ -25,19 +25,21 @@
     path: /mnt/Web
     opts: rw,sync,hard,intr,fsc
     state: mounted
-    fstype: nfs
+    fstype: nfs    
 
 # Configure Nginx
 - name: Remove default Nginx config
   ansible.builtin.file:
     path: /etc/nginx/sites-enabled/default
-    state: absent  
+    state: absent
+  notify: restart nginx    
 
 - name: Update Nginx config
   template: 
-    src=templates/nginx.conf 
+    src=nginx.conf 
     dest=/etc/nginx/nginx.conf 
     backup=no
+  notify: restart nginx        
 
 # Configure PHP
 - name: Set PHP settings
@@ -58,31 +60,35 @@
         - { From: 'max_execution_time = 30', To: 'max_execution_time = 300' }
         - { From: 'max_input_time = 60', To: 'max_input_time = 400' }     
         - { From: 'default_socket_timeout = 60', To: 'default_socket_timeout = 300' }                          
+  notify: restart php-fpm    
 
 - name: Update php-fpm pool config
   become: yes
   become_user: root            
   copy: 
-    src: files/webservers/www.conf 
+    src: www.conf 
     dest: /etc/php/7.4/fpm/pool.d/www.conf 
     backup: no
+  notify: restart php-fpm        
 
 # Configure Disk Cache
 - name: Update Cachefilesd defaults file
   become: yes
   become_user: root            
   copy: 
-    src: files/webservers/cachefilesd 
+    src: cachefilesd 
     dest: /etc/default/cachefilesd 
     backup: no
+  notify: restart cachefilesd        
 
 - name: Update Cachefilesd config file
   become: yes
   become_user: root            
   copy: 
-    src: files/webservers/cachefilesd.conf 
+    src: cachefilesd.conf 
     dest: /etc/cachefilesd.conf 
     backup: no
+  notify: restart cachefilesd        
 
 - name: Create Cached Web directory if its missing
   become: yes
@@ -91,51 +97,29 @@
     path: /mnt/CWeb
     state: directory
     mode: '0755'
-
+  notify: restart cachefilesd        
 
 # Configure Netdata
 - name: Add netdata config for Nginx
   become: yes
   become_user: root        
   copy:
-    src: files/webservers/nginx.conf
+    src: netdatanginx.conf
     dest: /etc/netdata/go.d/nginx.conf
     owner: root
     group: root
     mode: u=rx,g=rx,o=r
     backup: no
+  notify: restart netdata    
 
 - name: Add netdata config for PHP-FPM
   become: yes
   become_user: root        
   copy:
-    src: files/webservers/phpfpm.conf
+    src: netdataphpfpm.conf
     dest: /etc/netdata/go.d/phpfpm.conf
     owner: root
     group: root
     mode: u=rx,g=rx,o=r
     backup: no
-
-# Cleanup     
-- name: Restart Cachefilesd and make sure it starts at boot
-  ansible.builtin.systemd: 
-    name: cachefilesd
-    enabled: yes
-    state: restarted    
-
-- name: Reload Nginx and make sure it starts at boot
-  ansible.builtin.systemd: 
-    name: nginx
-    enabled: yes
-    state: reloaded
-
-- name: Restart PHP FPM and make sure it starts at boot
-  ansible.builtin.service:
-  name: php7.4-fpm
-  enabled: yes
-  state: restarted
-
-- name: Restart Netdata and make sure it starts at boot
-  ansible.builtin.service:
-  name: netdata
-  state: restarted  
+  notify: restart netdata
