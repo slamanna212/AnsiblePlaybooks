@@ -8,13 +8,13 @@
 # Add cloudflare origin cert
 - name: Add Cloudflare origin certificate to server(s)
   copy:
-    src: beneorigin.pem
+    src: /beneorigin.pem
     dest: /etc/ssl/private/beneorigin.pem
     remote_src: no
 
 - name: Set ownership for certificate
   ansible.builtin.file:
-    path: beneorigin.pem
+    path: /etc/ssl/private/beneorigin.pem
     owner: haproxy
     group: haproxy
 
