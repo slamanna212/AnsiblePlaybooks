@@ -1,0 +1,141 @@
+---
+- name: Update package mirrors and existing packages
+  apt: update_cache=yes upgrade=yes  
+
+- name: Install required system packages
+  apt: name={{ sys_packages }} state=latest
+
+- name: Adds ansible user to www-data group
+  user:
+    name: ansible
+    state: present
+    groups: www-data
+    append: true     
+
+# Mount the NFS Share for config files
+- name: Create Web directory if its missing
+  ansible.builtin.file:
+    path: /mnt/Web
+    state: directory
+    mode: '0755'
+
+- name: Mount the Web NFS Share
+  ansible.posix.mount:
+    src: "{{ hostvars[groups['storage'][0]].ansible_host }}:/mnt/Web"
+    path: /mnt/Web
+    opts: rw,sync,hard,intr,fsc
+    state: mounted
+    fstype: nfs
+
+# Configure Nginx
+- name: Remove default Nginx config
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent  
+
+- name: Update Nginx config
+  template: 
+    src=templates/nginx.conf 
+    dest=/etc/nginx/nginx.conf 
+    backup=no
+
+# Configure PHP
+- name: Set PHP settings
+  become: yes
+  become_user: root
+  lineinfile:
+    path: /etc/php/7.4/fpm/php.ini
+    regexp: '{{item.From}}'
+    line: '{{item.To}}'
+    state: present  
+  with_items:
+        - { From: 'upload_max_filesize = 2M', To: 'upload_max_filesize = 15M' }
+        - { From: 'post_max_size = 8M', To: 'post_max_size = 15M' }
+        - { From: ';opcache.enable=1', To: 'opcache.enable=1' }
+        - { From: ';opcache.memory_consumption=128', To: 'opcache.memory_consumption=128' }              
+        - { From: ';opcache.max_accelerated_files=10000', To: 'opcache.max_accelerated_files=3000' }
+        - { From: ';opcache.revalidate_freq=2', To: 'opcache.revalidate_freq=200' }
+        - { From: 'max_execution_time = 30', To: 'max_execution_time = 300' }
+        - { From: 'max_input_time = 60', To: 'max_input_time = 400' }     
+        - { From: 'default_socket_timeout = 60', To: 'default_socket_timeout = 300' }                          
+
+- name: Update php-fpm pool config
+  become: yes
+  become_user: root            
+  copy: 
+    src: files/webservers/www.conf 
+    dest: /etc/php/7.4/fpm/pool.d/www.conf 
+    backup: no
+
+# Configure Disk Cache
+- name: Update Cachefilesd defaults file
+  become: yes
+  become_user: root            
+  copy: 
+    src: files/webservers/cachefilesd 
+    dest: /etc/default/cachefilesd 
+    backup: no
+
+- name: Update Cachefilesd config file
+  become: yes
+  become_user: root            
+  copy: 
+    src: files/webservers/cachefilesd.conf 
+    dest: /etc/cachefilesd.conf 
+    backup: no
+
+- name: Create Cached Web directory if its missing
+  become: yes
+  become_user: root                    
+  ansible.builtin.file:
+    path: /mnt/CWeb
+    state: directory
+    mode: '0755'
+
+
+# Configure Netdata
+- name: Add netdata config for Nginx
+  become: yes
+  become_user: root        
+  copy:
+    src: files/webservers/nginx.conf
+    dest: /etc/netdata/go.d/nginx.conf
+    owner: root
+    group: root
+    mode: u=rx,g=rx,o=r
+    backup: no
+
+- name: Add netdata config for PHP-FPM
+  become: yes
+  become_user: root        
+  copy:
+    src: files/webservers/phpfpm.conf
+    dest: /etc/netdata/go.d/phpfpm.conf
+    owner: root
+    group: root
+    mode: u=rx,g=rx,o=r
+    backup: no
+
+# Cleanup     
+- name: Restart Cachefilesd and make sure it starts at boot
+  ansible.builtin.systemd: 
+    name: cachefilesd
+    enabled: yes
+    state: restarted    
+
+- name: Reload Nginx and make sure it starts at boot
+  ansible.builtin.systemd: 
+    name: nginx
+    enabled: yes
+    state: reloaded
+
+- name: Restart PHP FPM and make sure it starts at boot
+  ansible.builtin.service:
+  name: php7.4-fpm
+  enabled: yes
+  state: restarted
+
+- name: Restart Netdata and make sure it starts at boot
+  ansible.builtin.service:
+  name: netdata
+  state: restarted  
