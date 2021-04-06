@@ -4,3 +4,40 @@
     
 - name: Install required system packages
   apt: name={{ sys_packages }} state=latest
+
+# Add cloudflare origin cert
+- name: Add Cloudflare origin certificate to server(s)
+  copy:
+    src: files/Loadbalancers/beneorigin.pem
+    dest: /etc/ssl/private/beneorigin.pem
+    remote_src: no
+
+- name: Set ownership for certificate
+  ansible.builtin.file:
+    path: beneorigin.pem
+    owner: haproxy
+    group: haproxy
+
+# Upload templated haproxy config
+- name: Update HAProxy config
+  template: 
+    src=haproxy.cfg 
+    dest=/etc/haproxy/haproxy.cfg 
+    backup=no                
+  notify: restart haproxy
+
+- name: Add netdata config for haproxy
+  become: yes
+  become_user: root        
+  copy:
+    src: netdatahaproxy.conf
+    dest: /etc/netdata/python.d/haproxy.conf
+    owner: root
+    group: root
+    mode: u=rx,g=rx,o=r
+    backup: no
+
+- name: Add netdata to the haproxy group
+  ansible.builtin.user:
+    name: netdata
+    group: haproxy
