@@ -1,7 +1,0 @@
-#################################################
-# Site Config
-#################################################
- - import_playbook: loadbalancers.yml  
- - import_playbook: storage.yml 
- - import_playbook: dbservers.yml
- - import_playbook: webservers.yml    
