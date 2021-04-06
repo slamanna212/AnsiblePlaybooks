@@ -1,0 +1,6 @@
+---
+- name: Testing webserver
+  hosts: BeneNYCWeb03v
+
+  roles:
+    - nginx
