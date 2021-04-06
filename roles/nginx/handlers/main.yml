@@ -5,7 +5,7 @@
   service: name=nginx state=reloaded enabled=yes
 - name: Restart php-fpm
   service: name=php7.4-fpm state=restarted enabled=yes
-  - name: Restart cachefilesd
+- name: Restart cachefilesd
   service: name=cachefilesd state=restarted enabled=yes    
-  - name: Restart netdata
+- name: Restart netdata
   service: name=netdata state=restarted enabled=yes      
