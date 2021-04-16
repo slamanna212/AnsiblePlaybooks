@@ -31,4 +31,5 @@
   hosts: webservers
   become: true
   roles:
+    - nfs_client
     - nginx
