@@ -72,28 +72,3 @@
     state: directory
     mode: '0755'
   notify: restart cachefilesd        
-
-# Configure Netdata
-- name: Add netdata config for Nginx
-  become: yes
-  become_user: root        
-  copy:
-    src: netdatanginx.conf
-    dest: /etc/netdata/go.d/nginx.conf
-    owner: root
-    group: root
-    mode: u=rx,g=rx,o=r
-    backup: no
-  notify: restart netdata    
-
-- name: Add netdata config for PHP-FPM
-  become: yes
-  become_user: root        
-  copy:
-    src: netdataphpfpm.conf
-    dest: /etc/netdata/go.d/phpfpm.conf
-    owner: root
-    group: root
-    mode: u=rx,g=rx,o=r
-    backup: no
-  notify: restart netdata

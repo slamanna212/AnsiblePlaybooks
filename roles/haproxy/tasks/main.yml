@@ -25,19 +25,3 @@
     dest=/etc/haproxy/haproxy.cfg 
     backup=no                
   notify: restart haproxy
-
-- name: Add netdata config for haproxy
-  become: yes
-  become_user: root        
-  copy:
-    src: netdatahaproxy.conf
-    dest: /etc/netdata/python.d/haproxy.conf
-    owner: root
-    group: root
-    mode: u=rx,g=rx,o=r
-    backup: no
-
-- name: Add netdata to the haproxy group
-  ansible.builtin.user:
-    name: netdata
-    group: haproxy
