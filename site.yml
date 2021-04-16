@@ -1,6 +1,13 @@
 ---
 # This playbook deploys the entire web hosting stack
 
+
+- name: Run updates and apply baseline configuration to all servers
+  hosts: all
+  become: true
+  roles:
+  - ubuntu20
+
 - name: Configure and deploy the master database tier
   hosts: database_master
   become: true
