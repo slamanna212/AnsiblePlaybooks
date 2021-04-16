@@ -6,10 +6,6 @@
 ---
     - hosts: webservers
       become: true
-      vars_files:
-        - group_vars/webservers.yml
-
-
       tasks:
         - name: Reload Nginx and make sure it starts at boot
           ansible.builtin.systemd: 
