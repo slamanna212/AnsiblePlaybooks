@@ -12,21 +12,6 @@
     groups: www-data
     append: true     
 
-# Mount the NFS Share for config files
-- name: Create Web directory if its missing
-  ansible.builtin.file:
-    path: /mnt/Web
-    state: directory
-    mode: '0755'
-
-- name: Mount the Web NFS Share
-  ansible.posix.mount:
-    src: "{{ hostvars[groups['storage'][0]].ansible_host }}:/mnt/Web"
-    path: /mnt/Web
-    opts: rw,sync,hard,intr,fsc
-    state: mounted
-    fstype: nfs    
-
 # Configure Nginx
 - name: Remove default Nginx config
   ansible.builtin.file:
