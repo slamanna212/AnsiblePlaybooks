@@ -44,7 +44,7 @@
 # Upload SSH Config
 - name: Upload custom ssh config
   copy:
-    src: files/SetupUbuntu2004/ubuntu20ssh.conf
+    src: ubuntu20ssh.conf
     dest: /etc/ssh/sshd_config.d/benessh.conf
     remote_src: no
   notify: restart ssh server        
@@ -52,7 +52,7 @@
 # MOTD Access Message
 - name: Upload custom MOTD access warning
   copy:
-    src: files/SetupUbuntu2004/issue.net
+    src: issue.net
     dest: /etc/issue.net
     remote_src: no
   notify: restart ssh server      
@@ -73,7 +73,7 @@
 # Fail2Ban Config
 - name: Upload Fail2Ban config
   copy:
-    src: files/SetupUbuntu2004/jail.local
+    src: jail.local
     dest: /etc/fail2ban/jail.local
     remote_src: no        
   notify: restart fail2ban       
