@@ -3,3 +3,5 @@
   service: name=fail2ban state=restarted enabled=yes
 - name: restart ssh server
   service: name=sshd state=restarted enabled=yes
+- name: restart zabbix_agent
+  service: name=zabbix-agent state=restarted enabled=yes

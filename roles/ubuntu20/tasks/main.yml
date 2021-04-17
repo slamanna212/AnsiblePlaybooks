@@ -77,3 +77,54 @@
     dest: /etc/fail2ban/jail.local
     remote_src: no        
   notify: restart fail2ban       
+
+
+# Zabbix Agent
+- name: Download Zabbix deb file if missing
+  get_url:
+    url: "https://repo.zabbix.com/zabbix/5.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.2-1%2Bubuntu20.04_all.deb"
+    dest: "/tmp/zabbix.deb"
+
+- name: Install Zabbix deb file
+  become: true
+  apt: deb="/tmp/zabbix.deb"
+
+- name: install zabbix-agent 5.2 
+  become: true
+  apt:
+    name: zabbix-agent
+    state: latest
+    update_cache: yes
+  notify: restart zabbix_agent       
+
+- name: Ensure correct hostname is set
+  become: yes
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    state: present
+    regexp: 'Hostname=Zabbix server'
+    line: "Hostname={{ ansible_hostname }}"
+  notify: restart zabbix_agent       
+
+- name: Point the zabbix agent to the server
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    state: present
+    regexp: 'ServerActive=127.0.0.1'
+    line: "ServerActive={{ hostvars[groups['control'][0]].ansible_host }}"
+  become: yes
+
+- name: Enable the server to send commands to the agent
+  become: yes  
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    state: present
+    regexp: '# EnableRemoteCommands=0'
+    line: 'EnableRemoteCommands=1'
+
+- name: Enable logging of remote commands
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    state: present
+    regexp: '# LogRemoteCommands=0'
+    line: 'LogRemoteCommands=1'    
