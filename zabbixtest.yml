@@ -1,0 +1,8 @@
+---
+# This playbook deploys the entire web hosting stack
+- name: Run updates and apply baseline configuration to all servers
+  hosts: BeneNYCTest01v
+  become: true
+  become_user: root
+  roles:
+  - ubuntu20
