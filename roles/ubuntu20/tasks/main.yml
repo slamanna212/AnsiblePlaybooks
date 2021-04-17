@@ -97,11 +97,10 @@
     update_cache: yes
   notify: restart zabbix_agent       
 
-
 - name: Place zabbix-agent config
   become: yes
   template:
-    src=zabbix_agentd.conf 
-    dest=/etc/zabbix/zabbix_agentd.conf 
+    src=zabbix_agent2.conf 
+    dest=/etc/zabbix/zabbix_agent2.conf 
     backup=no
   notify: restart zabbix_agent           
