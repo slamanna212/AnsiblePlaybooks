@@ -101,7 +101,7 @@
 - name: Place zabbix-agent config
   become: yes
   template:
-    src=wpnginxvhost 
+    src=zabbix_agentd.conf 
     dest=/etc/zabbix/zabbix_agentd.conf 
     backup=no
   notify: restart zabbix_agent           
