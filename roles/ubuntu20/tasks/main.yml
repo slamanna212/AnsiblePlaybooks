@@ -97,34 +97,11 @@
     update_cache: yes
   notify: restart zabbix_agent       
 
-- name: Ensure correct hostname is set
+
+- name: Place zabbix-agent config
   become: yes
-  lineinfile:
-    path: /etc/zabbix/zabbix_agentd.conf
-    state: present
-    regexp: 'Hostname=Zabbix server'
-    line: "Hostname={{ ansible_hostname }}"
-  notify: restart zabbix_agent       
-
-- name: Point the zabbix agent to the server
-  lineinfile:
-    path: /etc/zabbix/zabbix_agentd.conf
-    state: present
-    regexp: 'ServerActive=127.0.0.1'
-    line: "ServerActive={{ hostvars[groups['control'][0]].ansible_host }}"
-  become: yes
-
-- name: Enable the server to send commands to the agent
-  become: yes  
-  lineinfile:
-    path: /etc/zabbix/zabbix_agentd.conf
-    state: present
-    regexp: '# EnableRemoteCommands=0'
-    line: 'EnableRemoteCommands=1'
-
-- name: Enable logging of remote commands
-  lineinfile:
-    path: /etc/zabbix/zabbix_agentd.conf
-    state: present
-    regexp: '# LogRemoteCommands=0'
-    line: 'LogRemoteCommands=1'    
+  template:
+    src=wpnginxvhost 
+    dest=/etc/zabbix/zabbix_agentd.conf 
+    backup=no
+  notify: restart zabbix_agent           
