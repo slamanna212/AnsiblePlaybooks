@@ -89,10 +89,10 @@
   become: true
   apt: deb="/tmp/zabbix.deb"
 
-- name: install zabbix-agent 5.2 
+- name: install zabbix-agent2 v5.2 
   become: true
   apt:
-    name: zabbix-agent
+    name: zabbix-agent2
     state: latest
     update_cache: yes
   notify: restart zabbix_agent       
