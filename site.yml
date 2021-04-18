@@ -1,28 +1,26 @@
 ---
 # This playbook deploys the entire web hosting stack
-- name: Run updates and apply baseline configuration to all servers
-  hosts: all
-  become: true
-  roles:
-  - ubuntu20
 
 - name: Configure and deploy the master database tier
   hosts: database_master
   become: true
   roles:
     - mariadb_master
+    - ubuntu20    
 
 - name: Configure and deploy the slave database tier
   hosts: database_slave
   become: true
   roles:
     - mariadb_slave
+    - ubuntu20        
 
 - name: Configure and deploy the storage tier
   hosts: storage
   become: true
   roles:
     - filestore
+    - ubuntu20    
 
 - name: Configure and deploy the web tier
   hosts: webservers
@@ -30,6 +28,7 @@
   roles:
     - nfs_client
     - nginx
+    - ubuntu20    
 
 - name: Configure and deploy the balance tier
   hosts: loadbalancers
@@ -38,3 +37,4 @@
     backends: "{{ groups['webservers'] }}"
   roles:
     - haproxy
+    - ubuntu20        
