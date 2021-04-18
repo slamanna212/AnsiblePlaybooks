@@ -37,4 +37,4 @@
     backends: "{{ groups['webservers'] }}"
   roles:
     - haproxy
-    - ubuntu20        
+    - ubuntu20       
