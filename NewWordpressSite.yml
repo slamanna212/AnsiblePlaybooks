@@ -104,6 +104,12 @@
                         dest=/mnt/Web/Websites/{{ domain }}/public_html/db-config.php
                         backup=no                
 
+          - name: Create robots.txt file
+            become: yes
+            become_user: root
+            template: src=templates/robots.txt
+                          dest=/mnt/Web/Websites/{{ domain }}/public_html/robots.txt
+                          backup=no
 
     # Cleanup
           - name: Set permissions on directory
