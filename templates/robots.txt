@@ -3,7 +3,6 @@ Disallow: /wp-admin/
 Allow: /wp-admin/admin-ajax.php
 Disallow: /?s=
 Disallow: /search/
-Disallow: /people/*
 
 Sitemap: http://{{domain}}/page-sitemap.xml
 Sitemap: http://{{domain}}/post-sitemap.xml
