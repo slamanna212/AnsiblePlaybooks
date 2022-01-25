@@ -33,7 +33,7 @@
           ansible.builtin.debug:
             msg:
             - "Name is {{ droplet_temp.data[0].name }}"
-            - "Private IP is {{  (droplet_temp.data[0].droplet.networks.v4 | selectattr('type', 'equalto', 'private')).0.ip_address | default('<none>', true) }}"
+            - "Private IP is {{  (droplet_temp.data[0].droplet.networks.v4 | selectattr('type', 'equalto', 'private')).0.ip_address ) }}"
 
 #- name: Run Baseline 
 #  hosts: testing
