@@ -5,9 +5,12 @@
       prompt: "What type of Droplet would you like to create? Choices: web | loadbalancer (Type exactly as seen here)"
       private: no
   tasks: 
+  #Have to generate a random number to be used in server name
         - name: Genrate Random Number for Droplet name
           set_fact:
             num: "{{99 | random(start=11) }}"
+
+##### CREATION #####
 
 # WEB SERVER
         - name: Create a new Web Droplet
@@ -42,12 +45,9 @@
           when: droplet_type == "loadbalancer"   
           register: lb_droplet_create_temp
 
-
-
 # Droplet Creation commnad does not pass IP addresses, using seperate task to grab IP address
 
 # WEB SERVER
-
         - name: Get Private IP address of new Web Droplet
           community.digitalocean.digital_ocean_droplet_info:
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
@@ -76,7 +76,6 @@
 
 
 # LOADBALANCER
-
         - name: Get Private IP address of new Loadbalancer Droplet
           community.digitalocean.digital_ocean_droplet_info:
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
@@ -102,8 +101,8 @@
             line="{{ lb_droplet_temp.data[0].name }} ansible_host={{ (lb_droplet_temp.data[0].networks.v4[1].ip_address) }} beingprovisioned=true"
           when: droplet_type == "loadbalancer"           
 
- 
 
+##### PROVISIONING #####
 
 #Refresh Inventory File to pick up new host
 
@@ -112,6 +111,7 @@
 
 
 - name: Run Baseline 
+  retries: 5
   hosts: provisioning
   vars:
     ansible_ssh_private_key_file: ~/.ssh/doinit
@@ -123,7 +123,7 @@
 
 #Figure out task to delete provisioning entries in inv file
 
-
+##### INTEGRATION #####
 
 # Integrate it into the existing infrastructure
 - name: Configure and deploy the web tier
