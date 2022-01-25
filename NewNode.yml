@@ -71,7 +71,7 @@
             path=/etc/ansible/hosts
             state=present
             insertafter="\[provisioning\]"
-            line="{{ web_droplet_temp.data[0].name }} ansible_host={{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }}"
+            line="{{ web_droplet_temp.data[0].name }} ansible_host={{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }} beingprovisioned=true"
           when: droplet_type == "web" 
 
 
@@ -99,7 +99,7 @@
             path=/etc/ansible/hosts
             state=present
             insertafter="\[provisioning\]"
-            line="{{ lb_droplet_temp.data[0].name }} ansible_host={{ (lb_droplet_temp.data[0].networks.v4[1].ip_address) }}"
+            line="{{ lb_droplet_temp.data[0].name }} ansible_host={{ (lb_droplet_temp.data[0].networks.v4[1].ip_address) }} beingprovisioned=true"
           when: droplet_type == "loadbalancer"           
 
  
