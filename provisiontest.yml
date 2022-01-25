@@ -2,14 +2,14 @@
 - hosts: localhost
   tasks: 
 # Test Initial Provision using specific key
-        - name: Generate random number
-          debug:
-            var: query('community.general.random_string', upper=false, lower=false, special=false, numbers=true, length=2)
-          register: random_string
+        - name: Genrate Random Number
+          set_fact:
+            num: "{{ 99 | random }}"
+
 
         - name: Print the gateway for each host when defined
           ansible.builtin.debug:
-            msg: "{{ var }}"
+            msg: "{{ num }}"
 
       #  - name: Create a new Droplet
        #   community.digitalocean.digital_ocean_droplet:
