@@ -43,11 +43,11 @@
             insertafter='^[provisioning] '
             line="{{ droplet_temp.data[0].name }} ansible_host={{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
 
-        - name: Add the new droplet to the inventory file in memory for this playbook
-          add_host:
-            hostname="{{ droplet_temp.data[0].name }}"
-            state=present
-            ansible_host: "{{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
+#        - name: Add the new droplet to the inventory file in memory for this playbook
+#          add_host:
+#            hostname="{{ droplet_temp.data[0].name }}"
+#            groups: provisioning
+#            ansible_host: "{{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
 
 
 
