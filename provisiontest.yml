@@ -18,14 +18,23 @@
             project: Bene IT Websites
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
-          register: droplet_temp
+          register: droplet_create_temp
 
-        - name: Gather information about a specific droplet by id
+# Droplet Creation commnad does not pass IP addresses, using seperate task to grab IP address
+
+        - name: Get Private IP address of new Droplet
           community.digitalocean.digital_ocean_droplet_info:
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
-            id: "{{ droplet_temp.data.droplet.id }}"
+            id: "{{ droplet_create_temp.data.droplet.id }}"
+          register: droplet_temp
 
-
+        - name: Show Droplet info
+          ansible.builtin.debug:
+            msg: |
+              Droplet ID is {{ droplet_temp.data.droplet.id }}
+              First Public IPv4 is {{ (droplet_temp.data.droplet.networks.v4 | selectattr('type', 'equalto', 'public')).0.ip_address | default('<none>', true) }}
+              First Private IPv4 is {{ (droplet_temp.data.droplet.networks.v4 | selectattr('type', 'equalto', 'private')).0.ip_address | default('<none>', true) }}
+              Name is {{ droplet_temp.data.name }}              
 
 #- name: Run Baseline 
 #  hosts: testing
