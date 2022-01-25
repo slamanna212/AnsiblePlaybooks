@@ -86,7 +86,7 @@
           when: droplet_type == "loadbalancer"      
  
 
-         - name: Run baseline config on Droplet
+        - name: Run baseline config on Droplet
           include_role:
             name: ubuntu20
           vars:
