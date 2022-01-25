@@ -113,8 +113,8 @@
           meta: refresh_inventory
 
 
+#Below commands happen on the servers we are provisioning
 
-# Prevent gathering of facts to stop ansible from opening a ssh connection without waiting
 - name: Bring Droplet up to baseline
   hosts: provisioning
   gather_facts: no
