@@ -105,10 +105,16 @@
 ##### PROVISIONING #####
 
 #Refresh Inventory File to pick up new host
-
         - meta: refresh_inventory
 
 
+# Sometimes, the playbook will try to connect to new host befire SSH is available. Add pause here so below task does not error out
+        - name: Pause for 10 seconds for Droplet to create
+          pause:
+            seconds: 10
+            prompt: "Pausing to wait for Droplet to come up
+
+# Everything above this line is localhost, below this line is other servers
 
 - name: Run Baseline 
   retries: 5
