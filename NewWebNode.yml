@@ -59,5 +59,20 @@
   roles:
     - ubuntu20
 
+# Integrate it into the existing infrastructure
+- name: Configure and deploy the web tier
+  hosts: webservers
+  become: true
+  roles:
+    - nfs_client
+    - nginx
+when: droplet_type == "web" 
     
-        
+- name: Configure and deploy the balance tier
+  hosts: loadbalancers
+  become: true
+  vars:
+    backends: "{{ groups['webservers'] }}"
+  roles:
+    - haproxy
+ when: droplet_type == "web" or droplet_type == "loadbalancer"        
