@@ -9,10 +9,10 @@
     update_cache: yes 
     state: latest 
     force_apt_get: yes
-    register: apt_status
-    until: apt_status is success
-    delay: 6
-    retries: 10
+  register: apt_status
+  until: apt_status is success
+  delay: 6
+  retries: 10
 
 
 - name: Update package mirrors and existing packages
