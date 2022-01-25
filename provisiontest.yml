@@ -31,7 +31,7 @@
         - name: Show Droplet info
           ansible.builtin.debug:
             msg:
-            - "{{ droplet_temp }}"
+            - "{{ droplet_temp.msg.data.name }}"
 
 #- name: Run Baseline 
 #  hosts: testing
