@@ -1,4 +1,3 @@
-# Make this nicer, with option for other node types in future
 ---
 - hosts: localhost
     vars_prompt:
