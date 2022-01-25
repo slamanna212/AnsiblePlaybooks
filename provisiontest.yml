@@ -4,7 +4,7 @@
 # Test Initial Provision using specific key
         - name: Genrate Random Number
           set_fact:
-            num: "{{ 99 | random }}"
+            num: "{{start=11, 99 | random }}"
 
 #        - name: Create a new Droplet
 #          community.digitalocean.digital_ocean_droplet:
@@ -35,12 +35,12 @@
             - "Name is {{ droplet_temp.data[0].name }}"
             - "Private IP is {{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
 
-#- name: Run Baseline 
-#  hosts: testing
-#  become: true
-#  become_user: root
-#  vars:
-#    ansible_ssh_private_key_file: ~/.ssh/doinit
-#    ansible_ssh_user: root
-#  roles:
-#    - ubuntu20    
+- name: Run Baseline 
+  hosts: testing
+  become: true
+  become_user: root
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/doinit
+    ansible_ssh_user: root
+  roles:
+    - ubuntu20    
