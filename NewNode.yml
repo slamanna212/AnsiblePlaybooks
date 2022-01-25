@@ -94,15 +94,6 @@
             lbprivateip: "{{ (lb_droplet_temp.data[0].networks.v4[1].ip_address) }}"  
           when: droplet_type == "loadbalancer"             
  
-#Web Server Baseline Configuration
-        - name: Run baseline config on Web Droplet
-          include_role:
-            name: ubuntu20
-          vars:
-            ansible_ssh_private_key_file: ~/.ssh/doinit
-            ansible_ssh_user: root  
-
-
 - hosts: "{{ webprivateip}}"
   ignore_unreachable: yes
   tasks:
