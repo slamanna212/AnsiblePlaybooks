@@ -49,6 +49,9 @@
 #            groups: provisioning
 #            ansible_host: "{{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
 
+#Refresh Inventory File
+
+- meta: refresh_inventory
 
 
 # Bring new host up to baseline state
