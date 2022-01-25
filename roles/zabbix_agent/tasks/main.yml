@@ -31,4 +31,5 @@
 - name: Make Handler wait for zabbix_agent to start before running handlers
   wait_for:
     port: 10050
+  notify: restart zabbix_agent      
   when: zabbix_install_status == "changed"
