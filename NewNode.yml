@@ -22,8 +22,9 @@
             project: Bene IT Websites
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
+          when: droplet_type == "web"             
           register: droplet_create_temp
-          when: droplet_type == "web" 
+
 
 # LOADBALANCER
         - name: Create a new Loadbalancer Droplet
@@ -38,8 +39,9 @@
             project: Bene IT Websites
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
+          when: droplet_type == "loadbalancer"   
           register: droplet_create_temp
-          when: droplet_type == "loadbalancer" 
+
 
 
 # Droplet Creation commnad does not pass IP addresses, using seperate task to grab IP address
