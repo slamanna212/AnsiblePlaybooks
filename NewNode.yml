@@ -114,7 +114,6 @@
             seconds: 10
             prompt: "Pausing to wait for Droplet to come up
 
-# Everything above this line is localhost, below this line is other servers
 
 - name: Run Baseline 
   hosts: provisioning
