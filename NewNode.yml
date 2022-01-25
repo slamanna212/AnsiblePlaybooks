@@ -20,7 +20,9 @@
             name: Bene-NYC-Web{{ num }}v
             size: s-1vcpu-1gb-amd
             region: nyc3
-            tags: bene, web
+            tags: 
+              - "web"
+              - "bene"
             image: ubuntu-20-04-x64
             project: Bene IT Websites
             wait_timeout: 500
@@ -37,7 +39,9 @@
             name: Bene-NYC-LB{{ num }}v
             size: s-1vcpu-1gb-amd
             region: nyc3
-            tags: bene, loadbalancers
+            tags: 
+              - "loadbalancers"
+              - "bene"
             image: ubuntu-20-04-x64
             project: Bene IT Websites
             wait_timeout: 500
