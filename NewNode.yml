@@ -62,10 +62,14 @@
             path=/etc/ansible/hosts
             state=present
             insertafter="\[webservers\]"
-            line="{{ web_droplet_temp.data[0].name }} ansible_host={{  (web_droplet_temp.data[0].networks.v4[1].ip_address) }}"
+            line="{{ web_droplet_temp.data[0].name }} ansible_host={{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }}"
           when: droplet_type == "web" 
 
 
+        - name: Save private IP to var for later use
+          set_fact:
+            webprivateip: "{{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }}"  
+          when: droplet_type == "web"
 
 # LOADBALANCER
 
@@ -83,16 +87,41 @@
             state=present
             insertafter="\[loadbalancers\]"
             line="{{ lb_droplet_temp.data[0].name }} ansible_host={{  (lb_droplet_temp.data[0].networks.v4[1].ip_address) }}"
-          when: droplet_type == "loadbalancer"      
+          when: droplet_type == "loadbalancer"  
+
+        - name: Save private IP to var for later use
+          set_fact:
+            lbprivateip: "{{ (lb_droplet_temp.data[0].networks.v4[1].ip_address) }}"  
+          when: droplet_type == "loadbalancer"             
  
-#Baseline Configuration
-        - name: Run baseline config on Droplet
+#Web Server Baseline Configuration
+        - name: Run baseline config on Web Droplet
           include_role:
             name: ubuntu20
           vars:
             ansible_ssh_private_key_file: ~/.ssh/doinit
             ansible_ssh_user: root  
 
+
+- hosts: {{ webprivateip}}
+  ignore_unreachable: yes
+  tasks:
+        - name: Run baseline config on Web Droplet
+          include_role:
+            name: ubuntu20
+          vars:
+            ansible_ssh_private_key_file: ~/.ssh/doinit
+            ansible_ssh_user: root 
+
+- hosts: {{ lbprivateip }}
+  ignore_unreachable: yes
+  tasks:
+        - name: Run baseline config on Loadbalancer Droplet
+          include_role:
+            name: ubuntu20
+          vars:
+            ansible_ssh_private_key_file: ~/.ssh/doinit
+            ansible_ssh_user: root 
 
 #Refresh Inventory File to pick up new host
 
