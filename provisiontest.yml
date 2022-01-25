@@ -12,7 +12,6 @@
     project: Bene IT Websites
     wait_timeout: 500
     ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
-  register: my_droplet
 
 - name: Show Droplet info
   ansible.builtin.debug:
