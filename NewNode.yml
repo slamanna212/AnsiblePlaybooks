@@ -117,7 +117,6 @@
 # Everything above this line is localhost, below this line is other servers
 
 - name: Run Baseline 
-  retries: 5
   hosts: provisioning
   vars:
     ansible_ssh_private_key_file: ~/.ssh/doinit
