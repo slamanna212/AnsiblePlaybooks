@@ -28,6 +28,7 @@
     backup=no
   notify: restart zabbix_agent     
 
+#Make ansible wait for zabbix to start for first time before running handler, sometimes handler will run before zabbix service file is there. 
 - name: Make Handler wait for zabbix_agent to start before running handlers
   wait_for:
     port: 10050
