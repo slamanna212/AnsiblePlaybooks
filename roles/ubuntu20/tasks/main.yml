@@ -2,8 +2,15 @@
 # Basseline for ubuntu20 hosts
 #################################################
 ---
+#Newly created droplets might take a minute or two to respond to ssh
+  - name: Wait for droplet to become reachable
+    wait_for_connection:
+      delay: 5
+      sleep: 1
+      timeout: 600
+
 #Digital Ocean Monitoring causes APT locks during install when you create a droplet. the UNTIL option prevents that breaking the playbook
-- name: Install Prerequisites
+- name: Install Package Manager Prerequisites
   apt: 
     name: aptitude 
     update_cache: yes 
