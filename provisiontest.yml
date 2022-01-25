@@ -35,8 +35,20 @@
             - "Name is {{ droplet_temp.data[0].name }}"
             - "Private IP is {{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
 
+        - name: Add the new droplet to the inventory
+          ansible.builtin.lineinfile:
+            path=/etc/ansible/hosts
+            insertafter="[provisioning]"
+            line="{{ droplet_temp.data[0].name }} ansible_host={{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
+#Refresh inventory to pickup new host
+
+- name: Refresh inventoryto pickup new host
+  meta: refresh_inventory
+
+# Bring new host up to baseline state
+
 - name: Run Baseline 
-  hosts: testing
+  hosts: provisioning
   become: true
   become_user: root
   vars:
