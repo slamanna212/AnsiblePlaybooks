@@ -2,9 +2,18 @@
 # Basseline for ubuntu20 hosts
 #################################################
 ---
+#Digital Ocean Monitoring causes APT locks during install when you create a droplet. the UNTIL option prevents that breaking the playbook
 - name: Install Prerequisites
-  apt: name=aptitude update_cache=yes state=latest force_apt_get=yes
-    
+  apt: 
+    name=aptitude 
+    update_cache=yes 
+    state=latest 
+    force_apt_get=yes
+    until: apt_status is success
+    delay: 6
+    retries: 10
+
+
 - name: Update package mirrors and existing packages
   apt: update_cache=yes upgrade=yes
     
