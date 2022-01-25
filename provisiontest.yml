@@ -23,7 +23,7 @@
         - name: Gather information about a specific droplet by id
           community.digitalocean.digital_ocean_droplet_info:
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
-            id: {{ droplet_temp.data.droplet.id }}
+            id: "{{ droplet_temp.data.droplet.id }}"
 
 
 
