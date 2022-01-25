@@ -1,11 +1,6 @@
 ---
 - hosts: localhost
-  gather_facts: yes
   tasks: 
-        - name: Print all available facts
-          ansible.builtin.debug:
-          msg: "{{ ansible_facts }}"
-
 # Test Initial Provision using specific key
         - name: Genrate Random Number
           set_fact:
