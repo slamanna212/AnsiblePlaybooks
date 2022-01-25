@@ -47,12 +47,12 @@
 
 # Bring new host up to baseline state
 
-        - name: Run Baseline 
-          hosts: provisioning
-          become: true
-          become_user: root
-          vars:
-            ansible_ssh_private_key_file: ~/.ssh/doinit
-            ansible_ssh_user: root
-          roles:
-            - ubuntu20    
+- name: Run Baseline 
+  hosts: provisioning
+  become: true
+  become_user: root
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/doinit
+    ansible_ssh_user: root
+  roles:
+    - ubuntu20    
