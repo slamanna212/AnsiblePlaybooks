@@ -33,8 +33,7 @@
             msg: |
               Droplet ID is {{ droplet_temp.data.droplet.id }}
               First Public IPv4 is {{ (droplet_temp.data.droplet.networks.v4 | selectattr('type', 'equalto', 'public')).0.ip_address | default('<none>', true) }}
-              First Private IPv4 is {{ (droplet_temp.data.droplet.networks.v4 | selectattr('type', 'equalto', 'private')).0.ip_address | default('<none>', true) }}
-              Name is {{ droplet_temp.data.name }}              
+              First Private IPv4 is {{ (droplet_temp.data.droplet.networks.v4 | selectattr('type', 'equalto', 'private')).0.ip_address | default('<none>', true) }} 
 
 #- name: Run Baseline 
 #  hosts: testing
