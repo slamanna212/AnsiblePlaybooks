@@ -51,7 +51,7 @@
 
 #Refresh Inventory File
 
-- meta: refresh_inventory
+        - meta: refresh_inventory
 
 
 # Bring new host up to baseline state
