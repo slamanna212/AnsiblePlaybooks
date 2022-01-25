@@ -2,7 +2,7 @@
 - hosts: localhost
   tasks: 
 # Test Initial Provision using specific key
-        - name: Genrate Random Number
+        - name: Genrate Random Number for Droplet name
           set_fact:
             num: "{{99 | random(start=11) }}"
 
