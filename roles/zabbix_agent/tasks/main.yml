@@ -31,7 +31,6 @@
 - name: Wait for Zabbix Agent to start
   service:
     name: zabbix-agent2 
-    state: started
   register: zabbixstatus
   until: zabbixstatus.status.ActiveState == "active"
   retries: 10
