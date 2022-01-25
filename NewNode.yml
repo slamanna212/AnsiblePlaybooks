@@ -114,10 +114,10 @@
 
 
 # Sometimes, the playbook will try to connect to new host befire SSH is available. Add pause here so below task does not error out
-        - name: Pause for 10 seconds for Droplet to create
-          pause:
-            seconds: 10
-            prompt: "Pausing to wait for Droplet to come up"
+#        - name: Pause for 10 seconds for Droplet to create
+#          pause:
+#            seconds: 10
+#            prompt: "Pausing to wait for Droplet to come up"
 
 
 - name: Run Baseline 
