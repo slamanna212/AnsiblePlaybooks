@@ -1,9 +1,8 @@
 ---
 - name: Install required system packages
-  apt: 
-    name: "{{ sys_packages }}" 
-    state: latest
-    lock_timeout: 120
+  become: yes
+  apt: name={{ sys_packages }} state=latest
+  
 
 # Mount the NFS Share for config files
 - name: Create Web directory if its missing
