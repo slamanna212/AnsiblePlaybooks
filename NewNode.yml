@@ -85,7 +85,7 @@
             line="{{ lb_droplet_temp.data[0].name }} ansible_host={{  (lb_droplet_temp.data[0].networks.v4[1].ip_address) }}"
           when: droplet_type == "loadbalancer"      
  
-
+#Baseline Configuration
         - name: Run baseline config on Droplet
           include_role:
             name: ubuntu20
