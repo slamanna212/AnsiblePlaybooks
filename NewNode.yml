@@ -119,6 +119,7 @@
 
 #Below commands happen on the servers we are provisioning
 
+# Gather facts must be set to no to prevent ansible from trying to connect to new droplet over ssh before its ready
 - name: Bring Droplet up to baseline
   hosts: provisioning
   gather_facts: no
