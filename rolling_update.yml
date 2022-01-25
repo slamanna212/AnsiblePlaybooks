@@ -6,6 +6,7 @@
   become: true
   roles:
   - ubuntu20
+  - zabbix_agent   
 
 - name: Configure and deploy the master database tier
   hosts: database_master

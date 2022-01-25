@@ -6,7 +6,8 @@
   become: true
   roles:
     - mariadb_master
-    - ubuntu20    
+    - ubuntu20
+    - zabbix_agent        
 
 - name: Configure and deploy the slave database tier
   hosts: database_slave
@@ -14,6 +15,7 @@
   roles:
     - mariadb_slave
     - ubuntu20        
+    - zabbix_agent   
 
 - name: Configure and deploy the storage tier
   hosts: storage
@@ -21,6 +23,7 @@
   roles:
     - filestore
     - ubuntu20    
+    - zabbix_agent   
 
 - name: Configure and deploy the web tier
   hosts: webservers
@@ -29,6 +32,7 @@
     - nfs_client
     - nginx
     - ubuntu20    
+    - zabbix_agent   
 
 - name: Configure and deploy the balance tier
   hosts: loadbalancers
@@ -37,4 +41,5 @@
     backends: "{{ groups['webservers'] }}"
   roles:
     - haproxy
-    - ubuntu20       
+    - ubuntu20
+    - zabbix_agent       
