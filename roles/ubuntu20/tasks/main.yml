@@ -10,7 +10,7 @@
       timeout: 600
 
 #Digital Ocean Monitoring causes APT locks during install when you create a droplet. the UNTIL option prevents that breaking the playbook
-- name: Install Package Manager Prerequisites
+  - name: Install Package Manager Prerequisites
   apt: 
     name: aptitude 
     update_cache: yes 
