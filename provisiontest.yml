@@ -4,7 +4,7 @@
 # Test Initial Provision using specific key
         - name: Generate random number
           debug:
-            var: query('community.general.random_string', upper=false, lower=false, special=false numbers=true length=2)
+            var: query('community.general.random_string', upper=false, lower=false, special=false, numbers=true, length=2)
           register: v
 
         - name: Create a new Droplet
