@@ -34,5 +34,5 @@
     state: started
   register: zabbixstatus
   until: zabbixstatus.status.ActiveState == "active"
-  retries: 15
-  delay: 20
+  retries: 10
+  delay: 10
