@@ -113,7 +113,7 @@
         - name: Pause for 10 seconds for Droplet to create
           pause:
             seconds: 10
-            prompt: "Pausing to wait for Droplet to come up
+            prompt: "Pausing to wait for Droplet to come up"
 
 
 - name: Run Baseline 
