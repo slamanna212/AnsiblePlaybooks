@@ -7,5 +7,6 @@
   become_user: root
   vars:
     ansible_ssh_private_key_file: ~/.ssh/doinit
+    ansible_ssh_user: root
   roles:
     - ubuntu20    
