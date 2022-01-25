@@ -40,7 +40,7 @@
           ansible.builtin.lineinfile:
             path=/etc/ansible/hosts
             state=present
-            insertafter='^[provisioning] '
+            insertafter="\[provisioning\]"
             line="{{ droplet_temp.data[0].name }} ansible_host={{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
 
 #        - name: Add the new droplet to the inventory file in memory for this playbook
