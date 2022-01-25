@@ -105,7 +105,8 @@
 ##### PROVISIONING #####
 
 #Refresh Inventory File to pick up new host
-        - meta: refresh_inventory
+        - name: Refresh Inventory File
+          meta: refresh_inventory
 
 
 # Sometimes, the playbook will try to connect to new host befire SSH is available. Add pause here so below task does not error out
