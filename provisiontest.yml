@@ -5,7 +5,7 @@
         - name: Generate random number
           debug:
             var: query('community.general.random_string', upper=false, lower=false, special=false, numbers=true, length=2)
-          register: r
+          register: r._raw
 
         - name: Create a new Droplet
           community.digitalocean.digital_ocean_droplet:
