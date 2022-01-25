@@ -129,13 +129,6 @@
   roles:
     - ubuntu20    
 
-# This is seperate from above because we need the gathered facts here. By now the droplet is up and running and we can safely grab them
-- name: Connect new Droplet to monitoring system 
-  hosts: provisioning
-  gather_facts: yes
-  roles:
-    - zabbix_agent    
-
 
 #Figure out task to delete provisioning entries in inv file
 
@@ -149,6 +142,7 @@
   roles:
     - nfs_client
     - nginx
+    - zabbix_agent        
 
 
 - name: Configure and deploy the balance tier
@@ -158,3 +152,4 @@
     backends: "{{ groups['webservers'] }}"
   roles:
     - haproxy
+    - zabbix_agent        
