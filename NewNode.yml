@@ -138,7 +138,7 @@
     - nfs_client
     - nginx
 
-    
+
 - name: Configure and deploy the balance tier
   hosts: loadbalancers
   become: true
