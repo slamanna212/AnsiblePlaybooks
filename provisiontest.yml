@@ -1,12 +1,32 @@
 ---
 # Test Initial Provision using specific key
+- name: Create a new Droplet
+  community.digitalocean.digital_ocean_droplet:
+    state: present
+    oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
+    name: mydroplet
+    size: s-1vcpu-1gb-amd
+    region: nyc3
+    tags: bene
+    image: ubuntu-20-04-x64
+    project: Bene IT Websites
+    wait_timeout: 500
+    ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
+  register: my_droplet
 
-- name: Run Baseline 
-  hosts: testing
-  become: true
-  become_user: root
-  vars:
-    ansible_ssh_private_key_file: ~/.ssh/doinit
-    ansible_ssh_user: root
-  roles:
-    - ubuntu20    
+- name: Show Droplet info
+  ansible.builtin.debug:
+    msg: |
+      Droplet ID is {{ my_droplet.data.droplet.id }}
+      First Public IPv4 is {{ (my_droplet.data.droplet.networks.v4 | selectattr('type', 'equalto', 'public')).0.ip_address | default('<none>', true) }}
+      First Private IPv4 is {{ (my_droplet.data.droplet.networks.v4 | selectattr('type', 'equalto', 'private')).0.ip_address | default('<none>', true) }}
+
+#- name: Run Baseline 
+#  hosts: testing
+#  become: true
+#  become_user: root
+#  vars:
+#    ansible_ssh_private_key_file: ~/.ssh/doinit
+#    ansible_ssh_user: root
+#  roles:
+#    - ubuntu20    
