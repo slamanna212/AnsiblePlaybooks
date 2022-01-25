@@ -8,18 +8,18 @@
           register: random_string
 
       #  - name: Create a new Droplet
-          community.digitalocean.digital_ocean_droplet:
-            state: present
-            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
-            name: Bene-NYC-Web{{ r }}v
-            size: s-1vcpu-1gb-amd
-            region: nyc3
-            tags: bene
-            image: ubuntu-20-04-x64
-            project: Bene IT Websites
-            wait_timeout: 500
-            ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
-          register: my_droplet
+       #   community.digitalocean.digital_ocean_droplet:
+        #    state: present
+         #   oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
+          #  name: Bene-NYC-Web{{ r }}v
+           # size: s-1vcpu-1gb-amd
+            #region: nyc3
+            #tags: bene
+            #image: ubuntu-20-04-x64
+            #project: Bene IT Websites
+            #wait_timeout: 500
+            #ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
+          #register: my_droplet
 
 
         - name: Show Droplet info
