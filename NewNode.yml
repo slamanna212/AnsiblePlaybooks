@@ -2,7 +2,7 @@
 - hosts: localhost
   vars_prompt:
     - name: droplet_type
-      prompt: "What type of Droplet would you like to create? Choices: web (Type exactly as seen here)"
+      prompt: "What type of Droplet would you like to create? Choices: web | loadbalancer (Type exactly as seen here)"
       private: no
   tasks: 
         - name: Genrate Random Number for Droplet name
@@ -104,7 +104,7 @@
   roles:
     - nfs_client
     - nginx
-  when: droplet_type == "web" 
+    when: droplet_type == "web" 
     
 - name: Configure and deploy the balance tier
   hosts: loadbalancers
@@ -113,4 +113,4 @@
     backends: "{{ groups['webservers'] }}"
   roles:
     - haproxy
-  when: droplet_type == "web" or droplet_type == "loadbalancer"        
+    when: droplet_type == "web" or droplet_type == "loadbalancer"        
