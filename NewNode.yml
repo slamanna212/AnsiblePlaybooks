@@ -113,4 +113,4 @@
     backends: "{{ groups['webservers'] }}"
   roles:
     - haproxy
-   when: droplet_type == "web" or droplet_type == "loadbalancer"        
+  when: droplet_type == "web" or droplet_type == "loadbalancer"        
