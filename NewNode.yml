@@ -103,6 +103,7 @@
           vars:
             ansible_ssh_private_key_file: ~/.ssh/doinit
             ansible_ssh_user: root 
+          when: droplet_type == "loadbalancer"
 
 - hosts: "{{ hostvars['localhost']['lbprivateip'] }}"
   ignore_unreachable: yes
@@ -113,6 +114,7 @@
           vars:
             ansible_ssh_private_key_file: ~/.ssh/doinit
             ansible_ssh_user: root 
+          when: droplet_type == "loadbalancer"
 
 #Refresh Inventory File to pick up new host
 
