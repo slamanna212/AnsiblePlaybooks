@@ -4,7 +4,7 @@
 # Test Initial Provision using specific key
         - name: Genrate Random Number
           set_fact:
-            num: "{{11, 99 | random }}"
+            num: "{{11,99 | random }}"
 
         - name: Create a new Droplet
           community.digitalocean.digital_ocean_droplet:
