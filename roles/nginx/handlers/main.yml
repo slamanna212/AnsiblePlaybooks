@@ -6,6 +6,5 @@
 - name: restart php-fpm
   service: name=php7.4-fpm state=restarted enabled=yes
 - name: restart cachefilesd
+  become: yes
   service: name=cachefilesd state=restarted enabled=yes    
-- name: restart netdata
-  service: name=netdata state=restarted enabled=yes      
