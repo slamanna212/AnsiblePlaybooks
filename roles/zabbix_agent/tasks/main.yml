@@ -17,7 +17,6 @@
     name: zabbix-agent2
     state: latest
     update_cache: yes
-  register: zabbix_install_status  
   notify: restart zabbix_agent       
 
 - name: Place zabbix-agent config
@@ -29,8 +28,11 @@
   notify: restart zabbix_agent     
 
 #Make ansible wait for zabbix to start for first time before running handler, sometimes handler will run before zabbix service file is there. 
-- name: Make Handler wait for zabbix_agent to start before running handlers
-  wait_for:
-    port: 10050
-  notify: restart zabbix_agent      
-  when: zabbix_install_status == "changed"
+- name: Wait for Zabbix Agent to start
+  service:
+    name: zabbix-agent2 
+    state: started
+  register: zabbixstatus
+  until: zabbixstatus.status.ActiveState == "active"
+  retries: 15
+  delay: 20
