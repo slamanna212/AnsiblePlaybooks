@@ -30,10 +30,11 @@
 
         - name: Show Droplet info
           ansible.builtin.debug:
-            msg: |
-              Droplet ID is {{ droplet_temp.data.droplet.id }}
-              First Public IPv4 is {{ (droplet_temp.data.droplet.networks.v4 | selectattr('type', 'equalto', 'public')).0.ip_address | default('<none>', true) }}
-              First Private IPv4 is {{ (droplet_temp.data.droplet.networks.v4 | selectattr('type', 'equalto', 'private')).0.ip_address | default('<none>', true) }} 
+            msg:
+            - "Droplet ID is {{ droplet_temp.data.droplet.id }}"
+            - "First Public IPv4 is {{ (droplet_temp.data.droplet.networks.v4 | selectattr('type', 'equalto', 'public')).0.ip_address | default('<none>', true) }}"
+            - "First Private IPv4 is {{ (droplet_temp.data.droplet.networks.v4 | selectattr('type', 'equalto', 'private')).0.ip_address | default('<none>', true) }}"
+            - "Droplet Name is {{ droplet_temp.data.droplet.name }}"
 
 #- name: Run Baseline 
 #  hosts: testing
