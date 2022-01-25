@@ -36,3 +36,7 @@
   until: zabbixstatus.status.ActiveState == "active"
   retries: 10
   delay: 10
+
+- name: Print contents of var we are saving 
+  ansible.builtin.debug:
+    msg: System {{ zabbixstatus }} 
