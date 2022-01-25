@@ -46,31 +46,54 @@
 
 # Droplet Creation commnad does not pass IP addresses, using seperate task to grab IP address
 
+# WEB SERVER
+
         - name: Get Private IP address of new Web Droplet
           community.digitalocean.digital_ocean_droplet_info:
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
             id: "{{ droplet_create_temp.data.droplet.id }}"
           register: droplet_temp
+          when: droplet_type == "web"
 
+        - name: "Add Web Droplet info to dummy host for use later in this playbook"
+          add_host:
+            name:   "WEBINFOHOLDER"
+            name: "{{ droplet_temp.data[0].name }}"
+            pv4:   "{{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
+          when: droplet_type == "web"         
 
-# WEB SERVER
         - name: Add the new Web Droplet to the inventory file
           become: true
           ansible.builtin.lineinfile:
             path=/etc/ansible/hosts
             state=present
             insertafter="\[webservers\]"
-            line="{{ droplet_temp.data[0].name }} ansible_host={{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
+            line="{{ hostvars['WEBINFOHOLDER']['name'] }} ansible_host={{ hostvars['WEBINFOHOLDER']['pv4'] }}"
           when: droplet_type == "web" 
 
 # LOADBALANCER
+
+        - name: Get Private IP address of new Web Droplet
+          community.digitalocean.digital_ocean_droplet_info:
+            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
+            id: "{{ droplet_create_temp.data.droplet.id }}"
+          register: droplet_temp
+          when: droplet_type == "loadbalancer"
+
+        - name: "Add Web Droplet info to dummy host for use later in this playbook"
+          add_host:
+            name:   "LBINFOHOLDER"
+            name: "{{ droplet_temp.data[0].name }}"
+            pv4:   "{{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
+          when: droplet_type == "loadbalancer"         
+
         - name: Add the new Loadbalancer Droplet to the inventory file
           become: true
           ansible.builtin.lineinfile:
             path=/etc/ansible/hosts
             state=present
             insertafter="\[loadbalancers\]"
-            line="{{ droplet_temp.data[0].name }} ansible_host={{  (droplet_temp.data[0].networks.v4[1].ip_address) }} public_ip=161.35.250.226"
+            line="{{ hostvars['LBINFOHOLDER']['name'] }} ansible_host={{ hostvars['LBINFOHOLDER']['pv4'] }}"
           when: droplet_type == "loadbalancer"           
 
 #Refresh Inventory File to pick up new host
