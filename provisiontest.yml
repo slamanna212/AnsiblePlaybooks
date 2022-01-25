@@ -2,8 +2,10 @@
 - hosts: localhost
   tasks: 
 # Test Initial Provision using specific key
-        - name: Generate number to name server
-          set_fact: r: "{{ 100 | random }}"
+        - name: Generate random number
+          debug:
+            var: query('community.general.random_string', upper=false, lower=false, special=false numbers=true length=2)
+          register: v
 
         - name: Create a new Droplet
           community.digitalocean.digital_ocean_droplet:
