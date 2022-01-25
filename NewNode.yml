@@ -143,6 +143,6 @@
   hosts: loadbalancers
   become: true
   vars:
-    backends: " {{ groups['webservers'] }} "
+    backends: "{{ groups['webservers'] }}"
   roles:
     - haproxy
