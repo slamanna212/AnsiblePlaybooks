@@ -9,6 +9,10 @@
     sleep: 1
     timeout: 600
 
+- name: Wait for cloud-init / user-data to finish
+  command: cloud-init status --wait
+  changed_when: false    
+
 #Digital Ocean Monitoring causes APT locks during install when you create a droplet. the UNTIL option prevents that breaking the playbook
 - name: Install Package Manager Prerequisites
   apt: 
