@@ -103,7 +103,7 @@
             ansible_ssh_user: root  
 
 
-- hosts: {{ webprivateip}}
+- hosts: "{{ webprivateip}}"
   ignore_unreachable: yes
   tasks:
         - name: Run baseline config on Web Droplet
@@ -113,7 +113,7 @@
             ansible_ssh_private_key_file: ~/.ssh/doinit
             ansible_ssh_user: root 
 
-- hosts: {{ lbprivateip }}
+- hosts: "{{ lbprivateip }}"
   ignore_unreachable: yes
   tasks:
         - name: Run baseline config on Loadbalancer Droplet
