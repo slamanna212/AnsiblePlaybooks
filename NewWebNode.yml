@@ -1,25 +1,30 @@
 # Make this nicer, with option for other node types in future
 ---
 - hosts: localhost
+    vars_prompt:
+      - name: droplet_type
+        prompt: What type of Droplet would you like to create? Choices: Web (Type exactly as seen here)
+        private: no
   tasks: 
 # Test Initial Provision using specific key
         - name: Genrate Random Number for Droplet name
           set_fact:
             num: "{{99 | random(start=11) }}"
 
-        - name: Create a new Droplet
+        - name: Create a new Web Droplet
           community.digitalocean.digital_ocean_droplet:
             state: present
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
             name: Bene-NYC-Web{{ num }}v
             size: s-1vcpu-1gb-amd
             region: nyc3
-            tags: bene
+            tags: bene, web
             image: ubuntu-20-04-x64
             project: Bene IT Websites
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
           register: droplet_create_temp
+          when: {{ droplet_type }} = "web" 
 
 # Droplet Creation commnad does not pass IP addresses, using seperate task to grab IP address
 
@@ -29,20 +34,14 @@
             id: "{{ droplet_create_temp.data.droplet.id }}"
           register: droplet_temp
 
-
-        - name: Show Droplet info
-          ansible.builtin.debug:
-            msg:
-            - "Name is {{ droplet_temp.data[0].name }}"
-            - "Private IP is {{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
-
-        - name: Add the new droplet to the inventory file
+        - name: Add the new Web Droplet to the inventory file
           become: true
           ansible.builtin.lineinfile:
             path=/etc/ansible/hosts
             state=present
-            insertafter="\[provisioning\]"
+            insertafter="\[Web\]"
             line="{{ droplet_temp.data[0].name }} ansible_host={{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
+          when: {{ droplet_type }} = "web" 
 
 #Refresh Inventory File to pick up new host
 
