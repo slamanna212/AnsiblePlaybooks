@@ -3,10 +3,7 @@
   apt: 
     name: "{{ sys_packages }}" 
     state: latest
-    register: apt_status
-  until: apt_status is success
-  delay: 6
-  retries: 10
+    lock_timeout: 120
 
 # Mount the NFS Share for config files
 - name: Create Web directory if its missing
