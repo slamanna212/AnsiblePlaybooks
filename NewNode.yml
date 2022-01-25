@@ -106,6 +106,10 @@
           when: droplet_type == "loadbalancer"           
 
 
+#Only add host to role groups in inventory file when provisioning is complete, move these tasks around to ensure this happens
+
+
+
 ##### PROVISIONING #####
 
 #Refresh Inventory File to pick up new host

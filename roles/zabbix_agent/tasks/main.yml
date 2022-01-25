@@ -17,6 +17,7 @@
     name: zabbix-agent2
     state: latest
     update_cache: yes
+  register: zabbix_install_status  
   notify: restart zabbix_agent       
 
 - name: Place zabbix-agent config
@@ -25,4 +26,9 @@
     src=zabbix_agent2.conf 
     dest=/etc/zabbix/zabbix_agent2.conf 
     backup=no
-  notify: restart zabbix_agent           
+  notify: restart zabbix_agent     
+
+- name: Make Handler wait for zabbix_agent to start before running handlers
+  wait_for:
+    port: 10050
+  when: zabbix_install_status == "changed"
