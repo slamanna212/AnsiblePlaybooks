@@ -7,9 +7,9 @@
             var: query('community.general.random_string', upper=false, lower=false, special=false, numbers=true, length=2)
           register: random_string
 
-- name: Print the gateway for each host when defined
-  ansible.builtin.debug:
-    msg: {{ var }}
+        - name: Print the gateway for each host when defined
+          ansible.builtin.debug:
+            msg: {{ var }}
 
       #  - name: Create a new Droplet
        #   community.digitalocean.digital_ocean_droplet:
