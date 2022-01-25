@@ -88,7 +88,7 @@
 # Bring new host up to baseline state
 
 - name: Run Baseline 
-  hosts: {{  (droplet_temp.data[0].networks.v4[1].ip_address) }}
+  hosts: "{{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
   become: true
   become_user: root
   vars:
