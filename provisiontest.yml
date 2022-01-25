@@ -1,4 +1,16 @@
 ---
+
+
+- hosts: localhost
+  gather_facts: yes
+  tasks: 
+        - name: Print all available facts
+          ansible.builtin.debug:
+          var: ansible_facts
+
+
+
+
 - hosts: localhost
   tasks: 
 # Test Initial Provision using specific key
@@ -28,10 +40,11 @@
             id: "283639369"
           register: droplet_temp
 
+
         - name: Show Droplet info
           ansible.builtin.debug:
             msg:
-            - "{{ droplet_temp.msg.data.name }}"
+            - "{{ droplet_temp.data.name }}"
 
 #- name: Run Baseline 
 #  hosts: testing
