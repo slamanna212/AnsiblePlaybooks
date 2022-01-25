@@ -28,14 +28,14 @@
   notify: restart zabbix_agent     
 
 #Make ansible wait for zabbix to start for first time before running handler, sometimes handler will run before zabbix service file is there. 
-- name: Wait for Zabbix Agent to start
-  service:
-    name: zabbix-agent2 
-  register: zabbixstatus
-  until: zabbixstatus.status.ActiveState == "active"
-  retries: 10
-  delay: 10
+#- name: Wait for Zabbix Agent to start
+#  service:
+#    name: zabbix-agent2 
+#  register: zabbixstatus
+#  until: zabbixstatus.status.ActiveState == "active"
+#  retries: 10
+#  delay: 10
 
-- name: Print contents of var we are saving 
-  ansible.builtin.debug:
-    msg: System {{ zabbixstatus }} 
+#- name: Print contents of var we are saving 
+#  ansible.builtin.debug:
+#    msg: System {{ zabbixstatus }} 
