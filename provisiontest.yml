@@ -5,9 +5,9 @@
         - name: Generate random number
           debug:
             var: query('community.general.random_string', upper=false, lower=false, special=false, numbers=true, length=2)
-          register: r._raw
+          register: random_string
 
-        - name: Create a new Droplet
+      #  - name: Create a new Droplet
           community.digitalocean.digital_ocean_droplet:
             state: present
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
