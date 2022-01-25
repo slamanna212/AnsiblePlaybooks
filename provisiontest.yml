@@ -4,7 +4,7 @@
   tasks: 
         - name: Print all available facts
           ansible.builtin.debug:
-          var: ansible_facts
+          msg: "{{ ansible_facts }}"
 
 # Test Initial Provision using specific key
         - name: Genrate Random Number
