@@ -42,17 +42,17 @@
             line="{{ droplet_temp.data[0].name }} ansible_host={{  (droplet_temp.data[0].networks.v4[1].ip_address) }}"
 #Refresh inventory to pickup new host
 
-- name: Refresh inventoryto pickup new host
-  meta: refresh_inventory
+        - name: Refresh inventoryto pickup new host
+          meta: refresh_inventory
 
 # Bring new host up to baseline state
 
-- name: Run Baseline 
-  hosts: provisioning
-  become: true
-  become_user: root
-  vars:
-    ansible_ssh_private_key_file: ~/.ssh/doinit
-    ansible_ssh_user: root
-  roles:
-    - ubuntu20    
+        - name: Run Baseline 
+          hosts: provisioning
+          become: true
+          become_user: root
+          vars:
+            ansible_ssh_private_key_file: ~/.ssh/doinit
+            ansible_ssh_user: root
+          roles:
+            - ubuntu20    
