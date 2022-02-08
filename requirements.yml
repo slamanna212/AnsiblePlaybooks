@@ -4,3 +4,4 @@ collections:
   - ansible.posix
   - community.digitalocean
   - community.general
+  - gluster.gluster
