@@ -1,16 +1,8 @@
 ---
-- hosts: localhost
-  tasks: 
+# This playbook deploys the entire web hosting stack
 
-# Gather facts must be set to no to prevent ansible from trying to connect to new droplet over ssh before its ready
-- name: Bring Droplet up to baseline
+- name: zabbix agent
   hosts: provisioning
-  gather_facts: no
-  vars:
-    ansible_ssh_private_key_file: ~/.ssh/doinit
-    ansible_ssh_user: root
+  become: true
   roles:
-    - pro_ubuntu20    
-
-
-
+    - zabbix_agent        
