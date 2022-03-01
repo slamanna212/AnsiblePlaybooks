@@ -1,8 +1,0 @@
----
-# This playbook deploys the entire web hosting stack
-
-- name: zabbix agent
-  hosts: provisioning
-  become: true
-  roles:
-    - zabbix_agent        
