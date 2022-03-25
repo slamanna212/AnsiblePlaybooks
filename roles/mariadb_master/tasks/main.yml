@@ -3,7 +3,9 @@
   apt: name={{ sys_packages }} state=latest
 
 # Upload SSH Config
-- name: Upload custom sqlmode file 
+- name: Upload custom sqlmode file
+  become: yes
+  become_user: root
   copy:
     src: 00-servermode.cnf
     dest: /etc/mysql/mariadb.conf.d/00-servermode.cnf
