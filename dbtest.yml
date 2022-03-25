@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  tasks: 
+
+- name: TEST FOR DB FIX
+  hosts: database_master
+  gather_facts: yes
+  roles:
+    - mariadb_master    
