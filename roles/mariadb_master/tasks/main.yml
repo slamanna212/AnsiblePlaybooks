@@ -2,6 +2,15 @@
 - name: Install required system packages
   apt: name={{ sys_packages }} state=latest
 
+# Upload SSH Config
+- name: Upload custom sqlmode file 
+  copy:
+    src: 00-servermode.cnf
+    dest: /etc/mysql/mariadb.conf.d/00-servermode.cnf
+    remote_src: no
+  notify: restart mysql       
+
+
 - name: Allow incoming connections on the master node
   become: yes
   become_user: root
@@ -10,6 +19,7 @@
     regexp: 'bind-address            = 127.0.0.1'
     line: 'bind-address            = 0.0.0.0'
     state: present  
+  notify: restart mysql           
 
 - name: Add files for other playbooks
   copy:
