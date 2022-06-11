@@ -5,7 +5,13 @@
 ---
 - hosts: BeneNYCWeb03v
   tasks: 
-          - name: Recursively find /tmp files older than 2 days
+          - name: Find all current live websites
             find:
               paths: /mnt/Web/VHosts/
+            register: find_result
+
+          - name: Print return information from the previous task
+            ansible.builtin.debug:
+              var: find_result
+              verbosity: 2  
 
