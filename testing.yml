@@ -12,6 +12,6 @@
 
           - name: Print return information from the previous task
             ansible.builtin.debug:
-              var: find_result.files
+              msg: "{{ find_result['files'] | map(attribute='path') | map('regex_replace','^.*/(.*)$','\\1') | list }}"
 
 
