@@ -14,4 +14,13 @@
             ansible.builtin.debug:
               msg: "{{ find_result['files'] | map(attribute='path') | map('regex_replace','^.*/(.*)$','\\1') | list }}"
 
-
+# We have a list of domain names using the above code, now need to make a loop to make folders for each item
+          - name: Creating cache directories if missing
+            become: yes
+            become_user: root            
+            file:
+              state: present
+              path: "/opt/Testing/{{ item }}"
+              state: directory
+            loop: "{{ find_result['files'] | map(attribute='path') | map('regex_replace','^.*/(.*)$','\\1') | list }}"
+              
