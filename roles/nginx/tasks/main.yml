@@ -80,7 +80,6 @@
   become: yes
   become_user: root            
   file:
-    state: present
     path: "/opt/Cache/{{ item }}"
     state: directory
   loop: "{{ find_result['files'] | map(attribute='path') | map('regex_replace','^.*/(.*)$','\\1') | list }}"
