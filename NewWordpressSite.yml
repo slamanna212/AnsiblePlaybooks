@@ -118,7 +118,7 @@
                           backup=no
 
     # Cleanup
-          - name: Set permissions on Web Directory
+          - name: Set permissions on web directory
             become: yes
             become_user: root            
             ansible.builtin.file:
@@ -138,7 +138,16 @@
               path: /opt/Cache/{{ hostvars['WEBINFOHOLDER']['domain'] }}
               state: directory
 
-
+          - name: Set permissions on cache directory
+            become: yes
+            become_user: root            
+            ansible.builtin.file:
+              path: /opt/Cache/{{ domain }}
+              state: directory
+              owner: www-data
+              group: www-data
+              recurse: yes
+              
           - name: Reload Nginx to pick up the new website
             ansible.builtin.systemd: 
               name: nginx
