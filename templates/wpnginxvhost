@@ -1,3 +1,4 @@
+fastcgi_cache_path /opt/Cache/{{domain}}/ levels=1:2 keys_zone=bene.cards:100m inactive=60m;
 server {
         listen 80;
         listen [::]:80;
@@ -8,18 +9,13 @@ server {
         access_log /var/log/nginx/{{domain}}.access.log;
         error_log /var/log/nginx/{{domain}}.error.log;
 
-        #Prevent access to .user.ini
-        location ~ ^/\.user\.ini {
-                deny all;
-                access_log off;
-                log_not_found off;
-                }
+        set $cache {{domain}};
 
         location = /favicon.ico { log_not_found off; access_log off; }
         location = /robots.txt { log_not_found off; access_log off; allow all; }
 
-
         include /mnt/Web/Snippets/php.conf;
-        include /mnt/Web/Snippets/wp-supercache.conf;
+        include /mnt/Web/Snippets/fastcgicache.conf;
         include /mnt/Web/Snippets/cache-control.conf;
+        include /mnt/Web/Snippets/wp-block.conf;
 }
