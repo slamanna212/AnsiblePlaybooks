@@ -1,5 +1,6 @@
 #########################################################
 # test
+# Need to register all vhosts to a var and then make sure a folder exists for each
 #########################################################
 ---
 - hosts: BeneNYCWeb03v
@@ -8,7 +9,3 @@
             find:
               paths: /mnt/Web/VHosts/
 
-          - name: Print return information from the previous task
-            ansible.builtin.debug:
-              var: files
-              verbosity: 2
