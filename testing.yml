@@ -12,6 +12,6 @@
 
           - name: Print return information from the previous task
             ansible.builtin.debug:
-              var: find_result
+              var: find_result.files
 
 
