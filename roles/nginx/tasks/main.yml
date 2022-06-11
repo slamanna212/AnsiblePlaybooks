@@ -69,3 +69,29 @@
     state: directory
     mode: '0755'
   notify: restart cachefilesd        
+
+# Configure FastCGI Cache
+- name: Find all current live websites
+  find:
+    paths: /mnt/Web/VHosts/
+  register: find_result
+
+- name: Create cache directories if missing
+  become: yes
+  become_user: root            
+  file:
+    state: present
+    path: "/opt/Cache/{{ item }}"
+    state: directory
+  loop: "{{ find_result['files'] | map(attribute='path') | map('regex_replace','^.*/(.*)$','\\1') | list }}"
+
+- name: Set permissions on cache directorys
+  become: yes
+  become_user: root            
+  ansible.builtin.file:
+    path: /opt/Cache/
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes            
+              
