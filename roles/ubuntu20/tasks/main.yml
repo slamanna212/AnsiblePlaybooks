@@ -2,8 +2,13 @@
 # Basseline for ubuntu20 hosts
 #################################################
 ---
-- name: Update package mirrors and existing packages
-  apt: update_cache=yes upgrade=yes
+- name: Upgrade System
+  apt: 
+    update_cache: yes
+    upgrade: yes
+  async: 3600
+  poll: 30
+  register: apt_sleeper  
     
 # Sudo Group Setup
 - name: Make sure we have a 'bene' group
