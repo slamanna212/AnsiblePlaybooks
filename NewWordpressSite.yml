@@ -67,10 +67,10 @@
                         dest=/mnt/Web/VHosts/{{ domain }} 
                         backup=no
 
-        - name: "Add domain info to dummy host for use later in this playbook"
-          add_host:
-            name:   "WEBINFOHOLDER"
-            domain:  "{{ domain }}"
+          - name: "Add domain info to dummy host for use later in this playbook"
+            add_host:
+              name:   "WEBINFOHOLDER"
+              domain:  "{{ domain }}"
 
 
     # Wordpress Config
