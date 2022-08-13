@@ -142,7 +142,7 @@
             become: yes
             become_user: root            
             ansible.builtin.file:
-              path: /opt/Cache/{{ domain }}
+              path: /opt/Cache/{{ hostvars['WEBINFOHOLDER']['domain'] }}
               state: directory
               owner: www-data
               group: www-data
