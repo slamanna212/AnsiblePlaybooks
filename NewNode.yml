@@ -18,7 +18,7 @@
             state: present
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
             name: Bene-NYC-Web{{ num }}v
-            size: s-1vcpu-1gb-amd
+            size: s-1vcpu-2gb-amd
             region: nyc3
             tags: 
               - "web"
