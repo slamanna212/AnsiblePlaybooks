@@ -2,7 +2,7 @@
 # Create New Wordpress Site
 #########################################################
 ---
-- hosts: BeneNYCDB01v:Bene-NYC-Web43v
+- hosts: BeneNYCDB01v:Bene-NYC-Web46v
   become: true
 
 
