@@ -42,7 +42,7 @@
 
 
     # Nginx Config
-- hosts: Bene-NYC-Web43v
+- hosts: Bene-NYC-Web46v
   vars_prompt:
 
     - name: domain
