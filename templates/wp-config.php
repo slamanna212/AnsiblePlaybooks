@@ -85,8 +85,12 @@ define( 'WP_DEBUG', false );
 /** Make sure WordPress understands it's behind an SSL terminator */
 define('FORCE_SSL_ADMIN', true);
 define('FORCE_SSL_LOGIN', true);
-if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-$_SERVER['HTTPS']='on';
+if (strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+	$_SERVER['HTTPS']='on';
+   }
+
+/** Disable WP-Cron */
+define('WP_DISABLE_CRON', true);
 
 /* That's all, stop editing! Happy publishing. */
 
