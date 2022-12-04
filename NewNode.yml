@@ -123,7 +123,7 @@
           when: droplet_type == "loadbalancer"           
 
 # WP Admin
-        - name: Get Private IP address of new Web Droplet
+        - name: Get Private IP address of new WP Admin Droplet
           community.digitalocean.digital_ocean_droplet_info:
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
             id: "{{ wpadmin_droplet_create_temp.data.droplet.id }}"
@@ -137,7 +137,7 @@
             path=/etc/ansible/hosts
             state=present
             insertafter="\[wp_admin\]"
-            line="{{ web_droplet_temp.data[0].name }} ansible_host={{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ web_droplet_temp.data[0].id }}"
+            line="{{ wpadmin_droplet_temp.data[0].name }} ansible_host={{ (wpadmin_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ wpadmin_droplet_temp.data[0].id }}"
           when: droplet_type == "wpadmin" 
 
         - name: Add the new Web Droplet to the inventory file again for provisioning
@@ -146,7 +146,7 @@
             path=/etc/ansible/hosts
             state=present
             insertafter="\[provisioning\]"
-            line="{{ web_droplet_temp.data[0].name }} ansible_host={{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ web_droplet_temp.data[0].id }} beingprovisioned=true"
+            line="{{ wpadmin_droplet_temp.data[0].name }} ansible_host={{ (wpadmin_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ wpadmin_droplet_temp.data[0].id }} beingprovisioned=true"
           when: droplet_type == "wpadmin" 
 
 #Only add host to role groups in inventory file when provisioning is complete, move these tasks around to ensure this happens
