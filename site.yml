@@ -32,7 +32,16 @@
     - nfs_client
     - nginx
     - ubuntu20    
-    - zabbix_agent   
+    - zabbix_agent
+
+- name: Configure and deploy the web tier
+  hosts: webservers
+  become: true
+  roles:
+    - nfs_client
+    - nginx
+    - ubuntu20    
+    - zabbix_agent       
 
 - name: Configure and deploy the balance tier
   hosts: loadbalancers
