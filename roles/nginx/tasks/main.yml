@@ -42,34 +42,6 @@
     backup: no
   notify: restart php-fpm        
 
-# Configure Disk Cache
-- name: Update Cachefilesd defaults file
-  become: yes
-  become_user: root            
-  copy: 
-    src: cachefilesd 
-    dest: /etc/default/cachefilesd 
-    backup: no
-  notify: restart cachefilesd        
-
-- name: Update Cachefilesd config file
-  become: yes
-  become_user: root            
-  copy: 
-    src: cachefilesd.conf 
-    dest: /etc/cachefilesd.conf 
-    backup: no
-  notify: restart cachefilesd        
-
-- name: Create Cached Web directory if its missing
-  become: yes
-  become_user: root                    
-  ansible.builtin.file:
-    path: /mnt/CWeb
-    state: directory
-    mode: '0755'
-  notify: restart cachefilesd        
-
 # Configure FastCGI Cache
 - name: Find all current live websites
   find:
