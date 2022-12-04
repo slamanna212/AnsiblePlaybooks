@@ -198,7 +198,8 @@
   hosts: loadbalancers
   become: true
   vars:
-    backends: "{{ groups['webservers'] }}"
+    webnodes: "{{ groups['webservers'] }}"
+    wpanodes: "{{ groups['webservers'] }}"
   roles:
     - haproxy
     - zabbix_agent        
