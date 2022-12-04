@@ -2,7 +2,7 @@
 - hosts: localhost
   vars_prompt:
     - name: droplet_type
-      prompt: "What type of Droplet would you like to create? Choices: web | loadbalancer (Type exactly as seen here)"
+      prompt: "What type of Droplet would you like to create? Choices: web | loadbalancer | wpadmin (Type exactly as seen here)"
       private: no
   tasks: 
   #Have to generate a random number to be used in server name
@@ -49,6 +49,24 @@
           when: droplet_type == "loadbalancer"   
           register: lb_droplet_create_temp
 
+# WP Admin
+        - name: Create a new WP Admin Droplet
+          community.digitalocean.digital_ocean_droplet:
+            state: present
+            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
+            name: Bene-NYC-WPAdmin{{ num }}v
+            size: s-1vcpu-2gb-amd
+            region: nyc3
+            tags: 
+              - "web"
+              - "bene"
+            image: ubuntu-20-04-x64
+            project: Bene IT Websites
+            wait_timeout: 500
+            ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
+          when: droplet_type == "wpadmin"             
+          register: wpadmin_droplet_create_temp
+
 # Droplet Creation commnad does not pass IP addresses, using seperate task to grab IP address
 
 # WEB SERVER
@@ -78,7 +96,6 @@
             line="{{ web_droplet_temp.data[0].name }} ansible_host={{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ web_droplet_temp.data[0].id }} beingprovisioned=true"
           when: droplet_type == "web" 
 
-
 # LOADBALANCER
         - name: Get Private IP address of new Loadbalancer Droplet
           community.digitalocean.digital_ocean_droplet_info:
@@ -105,10 +122,34 @@
             line="{{ lb_droplet_temp.data[0].name }} ansible_host={{ (lb_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ lb_droplet_temp.data[0].id }} beingprovisioned=true"
           when: droplet_type == "loadbalancer"           
 
+# WP Admin
+        - name: Get Private IP address of new Web Droplet
+          community.digitalocean.digital_ocean_droplet_info:
+            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
+            id: "{{ wpadmin_droplet_create_temp.data.droplet.id }}"
+          register: wpadmin_droplet_temp
+          when: droplet_type == "wpadmin"
+
+
+        - name: Add the new Web Droplet to the inventory file
+          become: true
+          ansible.builtin.lineinfile:
+            path=/etc/ansible/hosts
+            state=present
+            insertafter="\[wp_admin\]"
+            line="{{ web_droplet_temp.data[0].name }} ansible_host={{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ web_droplet_temp.data[0].id }}"
+          when: droplet_type == "wpadmin" 
+
+        - name: Add the new Web Droplet to the inventory file again for provisioning
+          become: true
+          ansible.builtin.lineinfile:
+            path=/etc/ansible/hosts
+            state=present
+            insertafter="\[provisioning\]"
+            line="{{ web_droplet_temp.data[0].name }} ansible_host={{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ web_droplet_temp.data[0].id }} beingprovisioned=true"
+          when: droplet_type == "wpadmin" 
 
 #Only add host to role groups in inventory file when provisioning is complete, move these tasks around to ensure this happens
-
-
 
 ##### PROVISIONING #####
 
@@ -144,6 +185,14 @@
     - nginx
     - zabbix_agent        
 
+- name: Configure and deploy the wp_admin tier
+  hosts: wp_admin
+  become: true
+  become_user: root            
+  roles:
+    - nfs_client
+    - wp_admin
+    - zabbix_agent        
 
 - name: Configure and deploy the balance tier
   hosts: loadbalancers
