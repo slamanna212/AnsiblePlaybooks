@@ -1,0 +1,96 @@
+---
+- name: Install required system packages
+  apt: name={{ sys_packages }} state=latest
+
+- name: Adds ansible user to www-data group
+  user:
+    name: ansible
+    state: present
+    groups: www-data
+    append: true     
+
+# Configure Nginx
+- name: Remove default Nginx config
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: restart nginx    
+
+- name: Update Nginx config
+  template: 
+    src=nginx.conf 
+    dest=/etc/nginx/nginx.conf 
+    backup=no
+  notify: restart nginx        
+
+# Configure PHP
+- name: Copy PHP config
+  become: yes
+  become_user: root            
+  copy: 
+    src: php.ini 
+    dest: /etc/php/7.4/fpm/php.ini
+    backup: no                      
+  notify: restart php-fpm    
+
+- name: Update php-fpm pool config
+  become: yes
+  become_user: root            
+  copy: 
+    src: www.conf 
+    dest: /etc/php/7.4/fpm/pool.d/www.conf 
+    backup: no
+  notify: restart php-fpm        
+
+# Configure Disk Cache
+- name: Update Cachefilesd defaults file
+  become: yes
+  become_user: root            
+  copy: 
+    src: cachefilesd 
+    dest: /etc/default/cachefilesd 
+    backup: no
+  notify: restart cachefilesd        
+
+- name: Update Cachefilesd config file
+  become: yes
+  become_user: root            
+  copy: 
+    src: cachefilesd.conf 
+    dest: /etc/cachefilesd.conf 
+    backup: no
+  notify: restart cachefilesd        
+
+- name: Create Cached Web directory if its missing
+  become: yes
+  become_user: root                    
+  ansible.builtin.file:
+    path: /mnt/CWeb
+    state: directory
+    mode: '0755'
+  notify: restart cachefilesd        
+
+# Configure FastCGI Cache
+- name: Find all current live websites
+  find:
+    paths: /mnt/Web/VHosts/
+  register: find_result
+
+- name: Create cache directories if missing
+  become: yes
+  become_user: root            
+  file:
+    path: "/opt/Cache/{{ item }}"
+    state: directory
+  loop: "{{ find_result['files'] | map(attribute='path') | map('regex_replace','^.*/(.*)$','\\1') | list }}"
+
+- name: Set permissions on cache directorys
+  become: yes
+  become_user: root            
+  ansible.builtin.file:
+    path: /opt/Cache/
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes            
+              
