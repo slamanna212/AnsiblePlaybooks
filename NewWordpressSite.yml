@@ -2,7 +2,7 @@
 # Create New Wordpress Site
 #########################################################
 ---
-- hosts: BeneNYCDB01v:Bene-NYC-Web46v
+- hosts: BeneNYCDB01v:wp_admin[0]
   become: true
 
 
@@ -44,7 +44,6 @@
     # Nginx Config
 - hosts: wp_admin[0]  
   vars_prompt:
-
     - name: domain
       prompt: What is the domain of the website
       private: no
