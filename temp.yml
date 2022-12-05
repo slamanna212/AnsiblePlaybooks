@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  tasks: 
+
+- name: Configure and deploy the control tier
+  hosts: control
+  become: true
+  roles:
+    - nfs_client
