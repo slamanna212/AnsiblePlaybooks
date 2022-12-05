@@ -41,11 +41,11 @@
     - zabbix_agent
 
 - name: Configure and deploy the web tier
-  hosts: webservers
+  hosts: wp_admin
   become: true
   roles:
     - nfs_client
-    - nginx
+    - wp_admin
     - ubuntu20    
     - zabbix_agent       
 
