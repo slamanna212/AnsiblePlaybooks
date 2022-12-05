@@ -142,7 +142,7 @@
               path=/mnt/Web/Ansible/wpcron
               state=present
               insertafter="\# * \#"
-              line="{{num1}},{{num2}} * * * * wget https://{{ domain }}/wp-cron.php?doing_cron &> /dev/null"
+              line="{{num1}},{{num2}} * * * * www-data wget https://{{ domain }}/wp-cron.php?doing_cron &> /dev/null"
 
 - hosts: webservers
   become: true
