@@ -42,7 +42,7 @@
 
 
     # Nginx Config
-- hosts: Bene-NYC-Web46v
+- hosts: wp_admin[0]  
   vars_prompt:
 
     - name: domain
