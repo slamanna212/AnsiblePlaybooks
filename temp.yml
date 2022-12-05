@@ -2,8 +2,9 @@
 - hosts: localhost
   tasks: 
 
-- name: Configure and deploy the control tier
-  hosts: control
+- name: Configure and deploy the wp_admin tier
+  hosts: wp_admin
   become: true
   roles:
-    - nfs_client
+    - wp_admin
+ 
