@@ -127,6 +127,23 @@
               group: www-data
               recurse: yes
 
+  #Have to generate a random number to be used in server name
+          - name: Genrate Random Cron Time 1
+            set_fact:
+              num1: "{{30 | random(start=1) }}"
+
+          - name: Genrate Random Cron Time 1
+            set_fact:
+              num2: "{{59 | random(start=31) }}"
+
+          - name: Add cron entry for new Website
+            become: true
+            ansible.builtin.lineinfile:
+              path=/mnt/Ansible/wpcron
+              state=present
+              insertafter="\# * \#"
+              line="{{num1}},{{num2}} * * * * wget https://{{ domain }}/wp-cron.php?doing_cron &> /dev/null"
+
 - hosts: webservers
   become: true
   tasks: 
@@ -151,3 +168,16 @@
             ansible.builtin.systemd: 
               name: nginx
               state: reloaded
+
+- hosts: wp_admin[0]
+  become: true
+  tasks: 
+          - name: Update cron file for new website
+            become: yes
+            become_user: root            
+            copy: 
+              src: /mnt/Ansible/wpcron
+              dest: /etc/cron.d/wpcron
+              mode: '0644'
+              backup: no
+
