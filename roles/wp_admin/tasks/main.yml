@@ -65,4 +65,13 @@
     owner: www-data
     group: www-data
     recurse: yes            
-              
+
+# Configure WP Cron
+- name: Place WP Cron file
+  become: yes
+  become_user: root            
+  copy: 
+    src: /mnt/Ansible/wpcron
+    dest: /etc/cron.d/wpcron
+    mode: '0644'
+    backup: no
