@@ -7,7 +7,7 @@ Runs and manages all of the servers for the Bene IT web hosting infrastructure. 
  - Shared Storage provided by an NFS server
  - H/A database provided by an Read/Write and Read only pair
  - A dedicated node for WP-Admin tasks & WP-Cron. HAProxy handles sending traffic to the correct place. Scalable via `NewNode.yml`
- - Everything is done via private networks, the only servers with internet is the loadbalancer and control servers. 
+ - Everything is done via private networks, the only servers with internet are the loadbalancer and control servers. 
 
 ## Requirements
  - All Websites need to use Cloudflare. SSL is terminated at the loadbalancer and uses a Cloudflare origin certificate. 
