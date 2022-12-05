@@ -19,10 +19,6 @@ It requires some Galaxy Modules, install them with:
 
     ansible-galaxy install -r requirements.yml
 
-For persistant file storage for the control server, a DigitalOcean Spaces access keys. You will need a access key and secret key. You can get one from the DigitalOcean control panel, in the API section. Once you have the key, run this command on the control node
-
-    echo ACCESS_KEY_ID:SECRET_ACCESS_KEY > ${HOME}/.passwd-s3fs && chmod 600 ${HOME}/.passwd-s3fs
-
 For Droplet creation , a Digital Ocean API token is also required. Export it as an env variable on the server running the playbook to use it. 
 
     export DO_API_TOKEN="API_TOKEN_HERE" 
