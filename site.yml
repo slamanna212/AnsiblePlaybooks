@@ -40,7 +40,7 @@
     - ubuntu20    
     - zabbix_agent
 
-- name: Configure and deploy the web tier
+- name: Configure and deploy the wp_admin tier
   hosts: wp_admin
   become: true
   roles:
