@@ -139,7 +139,7 @@
           - name: Add cron entry for new Website
             become: true
             ansible.builtin.lineinfile:
-              path=/mnt/Ansible/wpcron
+              path=/mnt/Web/Ansible/wpcron
               state=present
               insertafter="\# * \#"
               line="{{num1}},{{num2}} * * * * wget https://{{ domain }}/wp-cron.php?doing_cron &> /dev/null"
@@ -176,7 +176,7 @@
             become: yes
             become_user: root            
             copy: 
-              src: /mnt/Ansible/wpcron
+              src: /mnt/Web/Ansible/wpcron
               dest: /etc/cron.d/wpcron
               mode: '0644'
               backup: no
