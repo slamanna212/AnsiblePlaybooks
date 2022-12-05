@@ -1,5 +1,0 @@
----
-- name: Install required system packages
-  become: yes
-  apt: name={{ sys_packages }} state=latest
-  
