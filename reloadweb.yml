@@ -12,3 +12,12 @@
             name: nginx
             enabled: yes
             state: reloaded
+
+    - hosts: wp_admin
+      become: true
+      tasks:
+        - name: Reload Nginx and make sure it starts at boot
+          ansible.builtin.systemd: 
+            name: nginx
+            enabled: yes
+            state: reloaded            
