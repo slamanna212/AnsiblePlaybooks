@@ -192,8 +192,7 @@
   roles:
     - nfs_client
     - wp_admin
-    - zabbix_agent        
-  when: droplet_type == "wpadmin" 
+    - zabbix_agent
   
 - name: Configure and deploy the balance tier
   hosts: loadbalancers
