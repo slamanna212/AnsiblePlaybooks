@@ -18,6 +18,14 @@
     create: yes
   notify: restart nfs    
 
+
+# rclone file backup
+
+- name: Install rclone if not installed
+  ansible.builtin.shell:
+    cmd: files/install.sh
+    creates: /usr/bin/rclone
+
 - name: Create rclone config directory if its missing
   become: yes
   become_user: root  
