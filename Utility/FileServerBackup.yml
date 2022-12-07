@@ -15,5 +15,5 @@
         - name: Sync files from cluster to DO Spaces
           become: true
           become_user: root
-          shell: sudo rclone sync /mnt/Web/ Spaces:beneit/FileServerBackups --check-first --retries 1
+          shell: sudo rclone sync /mnt/Web/ Spaces:beneit/FileServerBackups --retries 1
           when: nfs_share_data.stat.exists == true
