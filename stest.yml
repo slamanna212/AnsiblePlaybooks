@@ -20,8 +20,8 @@
       prompt: Please provide an SQL database name
       private: no
 
-
+  tasks: 
 - name: Print the vars
-  ansible.builtin.debug:
+  debug:
     msg: 1 {{ sqluser }} 2 {{ sqlpass }} 3 {{ sqlname }}
     
