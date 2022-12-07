@@ -20,9 +20,11 @@
     path: /usr/bin/rclone
   register: rclone_exists
 
-
 - name: Install rclone if not installed
-  ansible.builtin.script: install.sh
+  ansible.builtin.script:
+    cmd: install.sh
+
+
 
 - name: Create rclone config directory if its missing
   become: yes
