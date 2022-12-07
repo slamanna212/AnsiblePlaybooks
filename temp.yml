@@ -3,4 +3,4 @@
   hosts: storage
   become: true
   roles:
-    - rclone
+    - stefangweichinger.ansible_rclone
