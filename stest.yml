@@ -1,0 +1,27 @@
+#########################################################
+# Create New Wordpress Site
+#########################################################
+---
+- hosts: localhost
+  become: true
+
+
+    # DB Config
+- hosts: BeneNYCDB01v
+  vars_prompt:
+    - name: sqluser
+      prompt: Please provide an SQL username
+      private: no
+
+    - name: sqlpass
+      prompt: Please Provide an SQL Password   
+
+    - name: sqlname
+      prompt: Please provide an SQL database name
+      private: no
+
+
+- name: Print the vars
+  ansible.builtin.debug:
+    msg: 1 {{ sqluser }} 2 {{ sqlpass }} 3 {{ sqlname }}
+    
