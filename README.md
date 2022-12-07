@@ -4,7 +4,7 @@ Runs and manages all of the servers for the Bene IT web hosting infrastructure. 
 ## Features
  - HAProxy Loadbalancer. Can replace it via `NewNode.yml`
  - Nginx and PHP-FPM web server nodes, horizonal scaling is possible via `NewNode.yml`
- - Shared Storage provided by an NFS server
+ - Shared Storage provided by an NFS server. Backs up to DigitalOcean Spaces via rclone. Can restore those files if missing.
  - H/A database provided by an Read/Write and Read only pair
  - A dedicated node for WP-Admin tasks & WP-Cron. HAProxy handles sending traffic to the correct place. Scalable via `NewNode.yml`
  - Everything is done via private networks, the only servers with internet are the loadbalancer and control servers. 
