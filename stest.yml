@@ -4,10 +4,6 @@
 ---
 - hosts: localhost
   become: true
-
-
-    # DB Config
-- hosts: BeneNYCDB01v
   vars_prompt:
     - name: sqluser
       prompt: Please provide an SQL username
@@ -20,8 +16,11 @@
       prompt: Please provide an SQL database name
       private: no
 
+
   tasks: 
-- name: Print the vars
-  debug:
-    msg: 1 {{ sqluser }} 2 {{ sqlpass }} 3 {{ sqlname }}
+        - name: Print the vars
+          debug:
+            msg: 1 {{ sqluser }} 2 {{ sqlpass }} 3 {{ sqlname }}
+
+
     
