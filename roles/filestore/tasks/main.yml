@@ -29,6 +29,13 @@
     dest: /home/ansible/.config/rclone/rclone.conf
     remote_src: no
 
+#Pull files from DO spaces if needed
+- name: Pull files from DO spaces
+  become: yes
+  become_user: root
+  shell: rclone copy Spaces:beneit/FileServerBackups /mnt/Web/
+  when: nfs_share_data.stat.exists == false
+
 # Add NFS Export for Nginx content
 - name: Add NFS export for nginx content
   become: yes
