@@ -6,9 +6,8 @@
   apt: 
     update_cache: yes
     upgrade: yes
-  async: 3600
-  poll: 30
-  register: apt_sleeper  
+    force_apt_get: yes
+    cache_valid_time: 3600
     
 # Sudo Group Setup
 - name: Make sure we have a 'bene' group
