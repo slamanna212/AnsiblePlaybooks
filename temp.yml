@@ -2,9 +2,8 @@
 - hosts: localhost
   tasks: 
 
-- name: Configure and deploy the wp_admin tier
-  hosts: wp_admin
+- name: Configure and deploy the storage tier
+  hosts: storage
   become: true
   roles:
-    - wp_admin
- 
+    - filestore
