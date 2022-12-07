@@ -17,3 +17,17 @@
     line: /mnt/Web/		10.123.0.0/24(rw,async,no_root_squash,no_subtree_check)
     create: yes
   notify: restart nfs    
+
+- name: Create rclone config directory if its missing
+  become: yes
+  become_user: root  
+  ansible.builtin.file:
+    path: /home/ansible/.config/rclone/
+    state: directory
+    mode: '0755'
+
+- name: Place rclone config
+  ansible.builtin.copy:
+    src: files/rclone.conf
+    dest: /home/ansible/.config/rclone/rclone.conf
+    remote_src: no
