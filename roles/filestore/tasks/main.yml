@@ -15,11 +15,6 @@
   when: nfs_share_data.stat.exists == false
 
 # rclone file backup
-- name: Install rclone if not installed
-  ansible.builtin.script:
-    cmd: install.sh
-    creates: /usr/bin/rclone
-
 - name: Create rclone config directory if its missing
   become: yes
   become_user: root  
@@ -33,8 +28,6 @@
     src: files/rclone.conf
     dest: /home/ansible/.config/rclone/rclone.conf
     remote_src: no
-
-
 
 # Add NFS Export for Nginx content
 - name: Add NFS export for nginx content
