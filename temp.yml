@@ -1,7 +1,4 @@
 ---
-- hosts: localhost
-  tasks: 
-
 - name: Configure and deploy the storage tier
   hosts: storage
   become: true
