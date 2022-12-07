@@ -16,7 +16,7 @@
 
 # rclone file backup
 - name: Install rclone if not installed
-  ansible.builtin.shell: files/install.sh
+  ansible.builtin.script: files/install.sh
   args:
     creates: /usr/bin/rclone
 
