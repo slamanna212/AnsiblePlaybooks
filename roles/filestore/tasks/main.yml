@@ -15,16 +15,10 @@
   when: nfs_share_data.stat.exists == false
 
 # rclone file backup
-- name: Check if rclone is installed
-  stat: 
-    path: /usr/bin/rclone
-  register: rclone_exists
-
 - name: Install rclone if not installed
   ansible.builtin.script:
     cmd: install.sh
-
-
+    creates: /usr/bin/rclone
 
 - name: Create rclone config directory if its missing
   become: yes
