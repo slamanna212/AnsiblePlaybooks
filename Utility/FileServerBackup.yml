@@ -11,9 +11,9 @@
             path: /mnt/Web/data.txt
           register: nfs_share_data
 
-#Run backup using rclone sync
+#Run backup using rclone sync. Ignore errors cause some files will fail, its all good, just speeds recovery
         - name: Sync files from cluster to DO Spaces
           become: true
           become_user: root
-          shell: sudo rclone sync /mnt/Web/ Spaces:beneit/FileServerBackups --retries 1
+          shell: sudo rclone sync /mnt/Web/ Spaces:beneit/FileServerBackups --retries 1 --ignore-errors
           when: nfs_share_data.stat.exists == true
