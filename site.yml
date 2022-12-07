@@ -28,7 +28,7 @@
   become: true
   roles:
     - ubuntu20  
-    - rclone
+    - stefangweichinger.ansible_rclone
     - filestore    
     - zabbix_agent   
 
