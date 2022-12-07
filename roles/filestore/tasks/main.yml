@@ -8,17 +8,6 @@
     state: directory
     mode: '0755'
 
-# Add Export for Nginx content
-- name: Add NFS export for nginx content
-  become: yes
-  become_user: root
-  ansible.builtin.lineinfile:
-    path: /etc/exports
-    line: /mnt/Web/		10.123.0.0/24(rw,async,no_root_squash,no_subtree_check)
-    create: yes
-  notify: restart nfs    
-
-
 # rclone file backup
 
 - name: Install rclone if not installed
@@ -39,3 +28,17 @@
     src: files/rclone.conf
     dest: /home/ansible/.config/rclone/rclone.conf
     remote_src: no
+
+
+
+# Add NFS Export for Nginx content
+- name: Add NFS export for nginx content
+  become: yes
+  become_user: root
+  ansible.builtin.lineinfile:
+    path: /etc/exports
+    line: /mnt/Web/		10.123.0.0/24(rw,async,no_root_squash,no_subtree_check)
+    create: yes
+  notify: restart nfs    
+
+
