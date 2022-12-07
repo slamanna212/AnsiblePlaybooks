@@ -11,43 +11,43 @@
   hosts: database_master
   become: true
   roles:
+    - ubuntu20  
     - mariadb_master
-    - ubuntu20
     - zabbix_agent        
 
 - name: Configure and deploy the slave database tier
   hosts: database_slave
   become: true
   roles:
-    - mariadb_slave
-    - ubuntu20        
+    - ubuntu20  
+    - mariadb_slave      
     - zabbix_agent   
 
 - name: Configure and deploy the storage tier
   hosts: storage
   become: true
   roles:
+    - ubuntu20  
     - rclone
-    - filestore
-    - ubuntu20    
+    - filestore    
     - zabbix_agent   
 
 - name: Configure and deploy the web tier
   hosts: webservers
   become: true
   roles:
+    - ubuntu20  
     - nfs_client
-    - nginx
-    - ubuntu20    
+    - nginx 
     - zabbix_agent
 
 - name: Configure and deploy the wp_admin tier
   hosts: wp_admin
   become: true
   roles:
+    - ubuntu20      
     - nfs_client
     - wp_admin
-    - ubuntu20    
     - zabbix_agent       
 
 - name: Configure and deploy the balance tier
@@ -57,6 +57,6 @@
     webnodes: "{{ groups['webservers'] }}"
     wpanodes: "{{ groups['wp_admin'] }}"
   roles:
+    - ubuntu20  
     - haproxy
-    - ubuntu20
     - zabbix_agent       
