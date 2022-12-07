@@ -22,7 +22,7 @@
 
 
 - name: Install rclone if not installed
-  ansible.builtin.script: files/install.sh
+  ansible.builtin.script: install.sh
   when: rclone_exists.stat.exists == false
 
 - name: Create rclone config directory if its missing
