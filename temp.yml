@@ -6,4 +6,4 @@
   hosts: storage
   become: true
   roles:
-    - filestore
+    - rclone
