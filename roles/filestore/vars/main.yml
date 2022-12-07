@@ -1,2 +1,2 @@
 ---
-    sys_packages: [ 'nfs-kernel-server']
+    sys_packages: [ 'nfs-kernel-server', 'unzip' ]
