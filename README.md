@@ -17,7 +17,8 @@ Runs and manages all of the servers for the Bene IT web hosting infrastructure. 
 ## Setup
 It requires some Galaxy Modules, install them with:
 
-    ansible-galaxy install -r requirements.yml
+    ansible-galaxy install -r collections/requirements.yml
+    ansible-galaxy install -r roles/requirements.yml
 
 For Droplet creation , a Digital Ocean API token is also required. Export it as an env variable on the server running the playbook to use it. 
 
