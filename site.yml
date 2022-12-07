@@ -27,6 +27,7 @@
   hosts: storage
   become: true
   roles:
+    - rclone
     - filestore
     - ubuntu20    
     - zabbix_agent   
