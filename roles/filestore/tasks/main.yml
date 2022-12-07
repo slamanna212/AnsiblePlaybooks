@@ -8,8 +8,12 @@
     state: directory
     mode: '0755'
 
-# rclone file backup
+- name: Check if web directory has files
+  stat: 
+    path: /mnt/Web/data.txt
+  register: nfs_share_data
 
+# rclone file backup
 - name: Install rclone if not installed
   ansible.builtin.shell:
     cmd: files/install.sh
