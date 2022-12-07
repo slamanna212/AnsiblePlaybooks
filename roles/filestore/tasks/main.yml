@@ -2,16 +2,17 @@
 - name: Install required system packages
   apt: name={{ sys_packages }} state=latest  
 
-- name: Create Web directory if its missing
-  ansible.builtin.file:
-    path: /mnt/Web
-    state: directory
-    mode: '0755'
-
 - name: Check if web directory has files
   stat: 
     path: /mnt/Web/data.txt
   register: nfs_share_data
+
+- name: Create Web directory
+  ansible.builtin.file:
+    path: /mnt/Web
+    state: directory
+    mode: '0755'
+  when: nfs_share_data.stat.exists == false
 
 # rclone file backup
 - name: Install rclone if not installed
