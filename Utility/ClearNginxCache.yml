@@ -14,6 +14,9 @@
           ignore_errors: true
 
 
-        - name: Print the gateway for each host when defined
-          ansible.builtin.debug:
-            msg: cahce is {{ cleanup }}
+        - name: Removing all files previously found in files dir
+          ansible.builtin.file:
+            path: "/opt/Cache/{{ domain }}/"
+            state: absent
+          with_items: "{{ cleanup.files }}"
+          ignore_errors: tru
