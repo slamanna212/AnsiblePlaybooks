@@ -2,7 +2,7 @@
 - hosts: localhost
   vars_prompt:
     - name: droplet_type
-      prompt: "What type of Droplet would you like to create? Choices: web | loadbalancer | wpadmin (Type exactly as seen here)"
+      prompt: "What type of Droplet would you like to create? Choices: web | loadbalancer | wpadmin | base (Type exactly as seen here)"
       private: no
   tasks: 
   #Have to generate a random number to be used in server name
@@ -30,6 +30,23 @@
           when: droplet_type == "web"             
           register: web_droplet_create_temp
 
+
+        - name: Create a new Control
+          community.digitalocean.digital_ocean_droplet:
+            state: present
+            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
+            name: Bene-NYC-CC02v
+            size: s-1vcpu-2gb-amd
+            region: nyc3
+            tags: 
+              - "command"
+              - "bene"
+            image: ubuntu-20-04-x64
+            project: Bene IT Websites
+            wait_timeout: 500
+            ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
+          when: droplet_type == "base"             
+          register: base_droplet_create_temp
 
  #LOADBALANCER
         - name: Create a new Loadbalancer Droplet
@@ -95,6 +112,23 @@
             insertafter="\[provisioning\]"
             line="{{ web_droplet_temp.data[0].name }} ansible_host={{ (web_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ web_droplet_temp.data[0].id }} beingprovisioned=true"
           when: droplet_type == "web" 
+
+# Base
+        - name: Get Private IP address of new Web Droplet
+          community.digitalocean.digital_ocean_droplet_info:
+            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
+            id: "{{ web_droplet_create_temp.data.droplet.id }}"
+          register: base_droplet_temp
+          when: droplet_type == "base"
+
+        - name: Add the new Web Droplet to the inventory file again for provisioning
+          become: true
+          ansible.builtin.lineinfile:
+            path=/etc/ansible/hosts
+            state=present
+            insertafter="\[provisioning\]"
+            line="{{ base_droplet_temp.data[0].name }} ansible_host={{ (base_droplet_temp.data[0].networks.v4[1].ip_address) }} id={{ base_droplet_temp.data[0].id }} beingprovisioned=true"
+          when: droplet_type == "base" 
 
 # LOADBALANCER
         - name: Get Private IP address of new Loadbalancer Droplet
