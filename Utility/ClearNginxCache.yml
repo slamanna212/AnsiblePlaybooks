@@ -1,0 +1,23 @@
+---
+- hosts: webservers
+  become: true
+
+
+    # DB Config
+- hosts: BeneNYCDB01v
+  vars_prompt:
+    - name: domain
+      prompt: Please provide domain name of website cache to clear
+      private: no
+
+  tasks: 
+        - name: Indexing Cache Files
+          ansible.builtin.find:
+            path: "/opt/Cache/{{ domain }}/"
+          register: cleanup
+          ignore_errors: true
+
+
+        - name: Print the gateway for each host when defined
+          ansible.builtin.debug:
+            msg: cahce is {{ cleanup }}
