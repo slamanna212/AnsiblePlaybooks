@@ -19,14 +19,14 @@
   become: yes
   become_user: root  
   ansible.builtin.file:
-    path: /home/ansible/.config/rclone/
+    path: /root/.config/rclone/
     state: directory
     mode: '0755'
 
 - name: Place rclone config
   ansible.builtin.copy:
     src: files/rclone.conf
-    dest: /home/root/.config/rclone/rclone.conf
+    dest: /root/.config/rclone/rclone.conf
     remote_src: no
 
 #Pull files from DO spaces if needed
