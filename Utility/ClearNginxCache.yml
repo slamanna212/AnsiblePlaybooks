@@ -7,16 +7,26 @@
       private: no
 
   tasks: 
-        - name: Indexing Cache Files
-          ansible.builtin.find:
-            path: "/opt/Cache/{{ domain }}/"
-          register: cleanup
-          ignore_errors: true
-
-
-        - name: Removing all files previously found in files dir
+        - name: Deleting Cache Directory
+          become: yes
+          become_user: root          
           ansible.builtin.file:
             path: "/opt/Cache/{{ domain }}/"
             state: absent
-          with_items: "{{ cleanup.files }}"
-          ignore_errors: true
+
+        - name: Recreating Cache Directory
+          become: yes
+          become_user: root          
+          ansible.builtin.file:
+            path: "/opt/Cache/{{ domain }}/"
+            state: present
+
+        - name: Set permissions on cache directory
+          become: yes
+          become_user: root            
+          ansible.builtin.file:
+            path: "/opt/Cache/{{ domain }}/"
+            state: directory
+            owner: www-data
+            group: www-data
+            recurse: yes
