@@ -117,7 +117,7 @@
         - name: Get Private IP address of new Web Droplet
           community.digitalocean.digital_ocean_droplet_info:
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
-            id: "{{ web_droplet_create_temp.data.droplet.id }}"
+            id: "{{ base_droplet_create_temp.data.droplet.id }}"
           register: base_droplet_temp
           when: droplet_type == "base"
 
