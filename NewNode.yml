@@ -230,6 +230,12 @@
     - wp_admin
     - zabbix_agent
   
+- name: Deploy Wordpress Cron File to first WPAdmin host
+  hosts: wp_admin[0]           
+  become: true
+  roles:
+    - cron_wordpress
+
 - name: Configure and deploy the balance tier
   hosts: loadbalancers
   become: true
