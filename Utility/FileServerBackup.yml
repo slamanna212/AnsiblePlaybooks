@@ -17,3 +17,5 @@
           become_user: root
           shell: sudo rclone sync /mnt/Web/ Spaces:beneit/FileServerBackups --retries 1 --ignore-errors
           when: nfs_share_data.stat.exists == true
+          ignore_errors: true
+ 
