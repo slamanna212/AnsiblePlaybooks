@@ -22,7 +22,8 @@
             region: nyc3
             tags: 
               - "web"
-              - "bene"
+              - "web-cluster"
+              - "wc-backend"              
             image: ubuntu-20-04-x64
             project: Bene IT Websites
             wait_timeout: 500
@@ -40,7 +41,7 @@
             region: nyc3
             tags: 
               - "command"
-              - "bene"
+              - "web-cluster"
             image: ubuntu-20-04-x64
             project: Bene IT Websites
             wait_timeout: 500
@@ -58,7 +59,7 @@
             region: nyc3
             tags: 
               - "loadbalancers"
-              - "bene"
+              - "web-cluster"
             image: ubuntu-20-04-x64
             project: Bene IT Websites
             wait_timeout: 500
@@ -75,8 +76,9 @@
             size: s-1vcpu-2gb-amd
             region: nyc3
             tags: 
-              - "web"
-              - "bene"
+              - "wpadmin"
+              - "web-cluster"
+              - "wc-backend"              
             image: ubuntu-20-04-x64
             project: Bene IT Websites
             wait_timeout: 500
