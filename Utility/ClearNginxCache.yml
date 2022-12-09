@@ -19,7 +19,7 @@
           become_user: root          
           ansible.builtin.file:
             path: "/opt/Cache/{{ domain }}/"
-            state: present
+            state: directory
 
         - name: Set permissions on cache directory
           become: yes
