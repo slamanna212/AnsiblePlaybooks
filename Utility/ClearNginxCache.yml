@@ -19,4 +19,4 @@
             path: "/opt/Cache/{{ domain }}/"
             state: absent
           with_items: "{{ cleanup.files }}"
-          ignore_errors: tru
+          ignore_errors: true
