@@ -2,12 +2,8 @@
 # Basseline for ubuntu20 hosts
 #################################################
 ---
-- name: Upgrade System
-  apt: 
-    update_cache: yes
-    upgrade: yes
-    force_apt_get: yes
-    cache_valid_time: 3600
+- name: Upgrade all packages
+  apt: upgrade=dist force_apt_get=yes
     
 # Sudo Group Setup
 - name: Make sure we have a 'bene' group
