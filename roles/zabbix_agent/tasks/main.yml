@@ -15,7 +15,7 @@
   become: true
   apt:
     name: zabbix-agent2
-    state: latest
+    state: present
     update_cache: yes
   notify: restart zabbix_agent       
 

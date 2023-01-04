@@ -1,6 +1,6 @@
 ---
 - name: Install required system packages
-  apt: name={{ sys_packages }} state=latest
+  apt: name={{ sys_packages }} state=present
 
 - name: Adds ansible user to www-data group
   user:

@@ -18,7 +18,7 @@
   apt: 
     name: aptitude 
     update_cache: yes 
-    state: latest 
+    state: present 
     force_apt_get: yes
   register: apt_status
   until: apt_status is success
@@ -30,7 +30,7 @@
   apt: update_cache=yes upgrade=yes
     
 - name: Install required system packages
-  apt: name={{ sys_packages }} state=latest
+  apt: name={{ sys_packages }} state=present
 
 # Sudo Group Setup
 - name: Make sure we have a 'bene' group

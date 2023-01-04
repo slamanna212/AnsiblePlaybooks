@@ -1,6 +1,6 @@
 ---
 - name: Install required system packages
-  apt: name={{ sys_packages }} state=latest
+  apt: name={{ sys_packages }} state=present
 
 # Upload SSH Config
 - name: Upload custom sqlmode file

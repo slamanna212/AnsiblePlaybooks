@@ -1,6 +1,6 @@
 ---
 - name: Install required system packages
-  apt: name={{ sys_packages }} state=latest
+  apt: name={{ sys_packages }} state=present
 
 - name: Allow incoming connections on the slave node
   become: yes
