@@ -2,7 +2,7 @@
 # faster restore and replacement of node
 # Using rlcone sync, it will empty DO space if files are missing
 ---
-- hosts: storage[0]  
+- hosts: file[0]  
   tasks: 
 
 #Check if files exist on NFS share, if they dont this playbook will wipe directory

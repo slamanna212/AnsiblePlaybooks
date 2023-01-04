@@ -2,7 +2,7 @@
 # reload web nodes
 #################################################
 ---
-    - hosts: webservers
+    - hosts: web
       become: true
       tasks:
         - name: Reload Nginx and make sure it starts at boot
@@ -11,7 +11,7 @@
             enabled: yes
             state: reloaded
 
-    - hosts: wp_admin
+    - hosts: wpadmin
       become: true
       tasks:
         - name: Reload Nginx and make sure it starts at boot

@@ -2,7 +2,7 @@
 # This playbook deploys the entire web hosting stack
 
 - name: Configure and deploy the control tier
-  hosts: control
+  hosts: command
   become: true
   roles:
     - nfs_client
@@ -24,7 +24,7 @@
     - zabbix_agent   
 
 - name: Configure and deploy the storage tier
-  hosts: storage
+  hosts: file
   become: true
   roles:
     - ubuntu20  
@@ -33,7 +33,7 @@
     - zabbix_agent   
 
 - name: Configure and deploy the web tier
-  hosts: webservers
+  hosts: web
   become: true
   roles:
     - ubuntu20  
@@ -42,7 +42,7 @@
     - zabbix_agent
 
 - name: Configure and deploy the wp_admin tier
-  hosts: wp_admin
+  hosts: wpadmin
   become: true
   roles:
     - ubuntu20      
@@ -51,7 +51,7 @@
     - zabbix_agent
 
 - name: Deploy Wordpress Cron File to first WPAdmin host
-  hosts: wp_admin[0]           
+  hosts: wpadmin[0]           
   become: true
   roles:
     - cron_wordpress
