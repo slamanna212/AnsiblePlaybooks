@@ -29,7 +29,7 @@
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
           when: droplet_type == "web"             
-          register: web_droplet_create_temp
+          register: droplet_create_temp
 
 
         - name: Create a new Control
@@ -47,7 +47,7 @@
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
           when: droplet_type == "base"             
-          register: base_droplet_create_temp
+          register: droplet_create_temp
 
  #LOADBALANCER
         - name: Create a new Loadbalancer Droplet
@@ -65,7 +65,7 @@
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
           when: droplet_type == "loadbalancer"   
-          register: lb_droplet_create_temp
+          register: droplet_create_temp
 
 # WP Admin
         - name: Create a new WP Admin Droplet
@@ -84,57 +84,21 @@
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
           when: droplet_type == "wpadmin"             
-          register: wpadmin_droplet_create_temp
-
-# Droplet Creation commnad does not pass IP addresses, using seperate task to grab IP address
-
-# WEB SERVER
-        - name: Get Private IP address of new Web Droplet
-          community.digitalocean.digital_ocean_droplet_info:
-            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
-            id: "{{ web_droplet_create_temp.data.droplet.id }}"
-          register: web_droplet_temp
-          when: droplet_type == "web"
+          register: droplet_create_temp
 
 
 
-# Base
-        - name: Get Private IP address of new base Droplet
-          community.digitalocean.digital_ocean_droplet_info:
-            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
-            id: "{{ web_droplet_create_temp.data.droplet.id }}"
-          register: base_droplet_temp
-          when: droplet_type == "base"
-
-
-
-# LOADBALANCER
-        - name: Get Private IP address of new Loadbalancer Droplet
-          community.digitalocean.digital_ocean_droplet_info:
-            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
-            id: "{{ lb_droplet_create_temp.data.droplet.id }}"
-          register: droplet_temp
-          when: droplet_type == "loadbalancer"
- 
-
-# WP Admin
-        - name: Get Private IP address of new WP Admin Droplet
-          community.digitalocean.digital_ocean_droplet_info:
-            oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
-            id: "{{ wpadmin_droplet_create_temp.data.droplet.id }}"
-          register: wpadmin_droplet_temp
-          when: droplet_type == "wpadmin"
-
-
+        - name: Add provisioning tag to new droplet
+          community.digitalocean.digital_ocean_tag:
+            name: "provisioning"
+            resource_id: "{{ droplet_create_temp.data.droplet.id }}"
+            state: present
 
 ##### PROVISIONING #####
 
 #Refresh Inventory File to pick up new host
         - name: Refresh Inventory File
           meta: refresh_inventory
-
-
-#Below commands happen on the servers we are provisioning
 
 # Gather facts must be set to no to prevent ansible from trying to connect to new droplet over ssh before its ready
 - name: Bring Droplet up to baseline
@@ -146,8 +110,11 @@
   roles:
     - pro_ubuntu20    
 
-
-#Figure out task to delete provisioning entries in inv file
+- name: Remove provisioning tag from provisioned droplet
+  community.digitalocean.digital_ocean_tag:
+    name: "provisioning"
+    resource_id: "{{ droplet_create_temp.data.droplet.id }}"
+    state: absent
 
 ##### INTEGRATION #####
 
