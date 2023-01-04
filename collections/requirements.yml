@@ -1,5 +1,6 @@
 ---
 collections:
 # With just the collection name
-  - community.digitalocean;==1.15.0
+  - community.digitalocean
+    version: 1.15.0
   - community.general
