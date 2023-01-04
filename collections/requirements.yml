@@ -1,5 +1,5 @@
 ---
 collections:
 # With just the collection name
-  - community.digitalocean
+  - community.digitalocean;==1.15.0
   - community.general
