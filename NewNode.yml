@@ -91,7 +91,7 @@
         - name: Add provisioning tag to new droplet
           community.digitalocean.digital_ocean_tag:
             name: "provisioning"
-            resource_id: "{{ droplet_create_temp.data.droplet.id }}"
+            resource_id: {{ droplet_create_temp.data.droplet.id }}
             state: present
 
 ##### PROVISIONING #####
