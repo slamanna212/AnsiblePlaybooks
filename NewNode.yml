@@ -2,5 +2,5 @@
 - name: Creation
   ansible.builtin.import_playbook: Creation/PickNew.yml
 
-#- name: Integration
-#  ansible.builtin.import_playbook: deploy.yml
+- name: Integration
+  ansible.builtin.import_playbook: deploy.yml
