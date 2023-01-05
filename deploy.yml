@@ -1,8 +1,4 @@
 ---
-# Had issues with hosts not matching, so refreshing inventory 
-- name: Refresh Inventory File
-  meta: refresh_inventory
-
 - name: Deploy the control tier
   hosts: command
   become: true
