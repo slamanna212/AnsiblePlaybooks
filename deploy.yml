@@ -1,0 +1,62 @@
+---
+# This playbook deploys the entire web hosting stack
+
+- name: Configure and deploy the control tier
+  hosts: command
+  become: true
+  roles:
+    - nfs_client
+
+- name: Configure and deploy the master database tier
+  hosts: database_master
+  become: true
+  roles:
+    - mariadb_master
+    - zabbix_agent        
+
+- name: Configure and deploy the slave database tier
+  hosts: database_slave
+  become: true
+  roles:
+    - mariadb_slave      
+    - zabbix_agent   
+
+- name: Configure and deploy the storage tier
+  hosts: file
+  become: true
+  roles:
+    - stefangweichinger.ansible_rclone
+    - filestore    
+    - zabbix_agent   
+
+- name: Configure and deploy the web tier
+  hosts: web
+  become: true
+  roles:
+    - nfs_client
+    - nginx 
+    - zabbix_agent
+
+- name: Configure and deploy the wp_admin tier
+  hosts: wpadmin
+  become: true
+  roles:  
+    - nfs_client
+    - wp_admin
+    - zabbix_agent
+
+- name: Deploy Wordpress Cron File to first WPAdmin host
+  hosts: wpadmin[0]           
+  become: true
+  roles:
+    - cron_wordpress
+
+- name: Configure and deploy the balance tier
+  hosts: loadbalancers
+  become: true
+  vars:
+    webnodes: "{{ groups['webservers'] }}"
+    wpanodes: "{{ groups['wp_admin'] }}"
+  roles:
+    - haproxy
+    - zabbix_agent       
