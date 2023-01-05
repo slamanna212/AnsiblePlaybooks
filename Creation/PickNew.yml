@@ -18,7 +18,6 @@
         - include_tasks: NewBase.yml 
           when: droplet_type == "base"  
 
-
 ####################
 ## PREPROVISIONING #
 ####################
