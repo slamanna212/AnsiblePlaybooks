@@ -7,20 +7,6 @@
   roles:
     - nfs_client
 
-- name: Deploy the master database tier
-  hosts: database_master
-  become: true
-  roles:
-    - mariadb_master
-    - zabbix_agent        
-
-- name: Deploy the slave database tier
-  hosts: database_slave
-  become: true
-  roles:
-    - mariadb_slave      
-    - zabbix_agent   
-
 - name: Deploy the storage tier
   hosts: file
   become: true
