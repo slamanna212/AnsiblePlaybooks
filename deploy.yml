@@ -39,8 +39,8 @@
   hosts: loadbalancers
   become: true
   vars:
-    webnodes: "{{ groups['webservers'] }}"
-    wpanodes: "{{ groups['wp_admin'] }}"
+    webnodes: "{{ groups['web'] }}"
+    wpanodes: "{{ groups['wpadmin'] }}"
   roles:
     - haproxy
     - zabbix_agent       
