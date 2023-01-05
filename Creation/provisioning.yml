@@ -1,24 +1,21 @@
 ---
-- hosts: localhost
-  tasks: 
-  
 ####################
 ## PREPROVISIONING #
 ####################
 
-        - name: Add provisioning tag to new Web droplet
-          community.digitalocean.digital_ocean_tag:
-            name: "provisioning"
-            resource_id: "{{ droplet_create_temp.data.droplet.id }}"
-            state: present
+- name: Add provisioning tag to new Web droplet
+  community.digitalocean.digital_ocean_tag:
+    name: "provisioning"
+    resource_id: "{{ droplet_create_temp.data.droplet.id }}"
+    state: present
 
 ####################
 ### PROVISIONING ###
 ####################
 
 #Refresh Inventory File to pick up new host
-        - name: Refresh Inventory File
-          meta: refresh_inventory
+- name: Refresh Inventory File
+  meta: refresh_inventory
 
 # Gather facts must be set to no to prevent ansible from trying to connect to new droplet over ssh before its ready
 - name: Bring Droplet up to baseline
