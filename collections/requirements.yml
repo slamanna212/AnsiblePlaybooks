@@ -2,6 +2,5 @@
 collections:
 # With just the collection name
 - name: community.digitalocean
-  version: 1.15.0
 
 - name: community.general
