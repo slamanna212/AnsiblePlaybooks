@@ -1,7 +1,4 @@
 ---
-- hosts: localhost
-  tasks: 
-  #Have to generate a random number to be used in server name
         - name: Genrate Random Number for Droplet name
           set_fact:
             num: "{{99 | random(start=11) }}"
@@ -21,42 +18,3 @@
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ] 
           register: droplet_create_temp            
-
-####################
-## PREPROVISIONING #
-####################
-
-        - name: Add provisioning tag to new Loadbalancer droplet
-          community.digitalocean.digital_ocean_tag:
-            name: "provisioning"
-            resource_id: "{{ droplet_create_temp.data.droplet.id }}"
-            state: present
-
-####################
-### PROVISIONING ###
-####################
-
-#Refresh Inventory File to pick up new host
-        - name: Refresh Inventory File
-          meta: refresh_inventory
-
-# Gather facts must be set to no to prevent ansible from trying to connect to new droplet over ssh before its ready
-- name: Bring Droplet up to baseline
-  hosts: provisioning
-  gather_facts: no
-  vars:
-    ansible_ssh_private_key_file: ~/.ssh/doinit
-    ansible_ssh_user: root
-  roles:
-    - pro_ubuntu20
-
-####################
-# POSTPROVISIONING #
-####################
-- hosts: localhost
-  tasks: 
-        - name: Remove provisioning from the Loadbalancer droplet
-          community.digitalocean.digital_ocean_tag:
-            name: "provisioning"
-            resource_id: "{{ droplet_create_temp.data.droplet.id }}"
-            state: present
