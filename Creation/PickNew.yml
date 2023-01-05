@@ -1,0 +1,62 @@
+---
+- hosts: localhost
+  vars_prompt:
+    - name: droplet_type
+      prompt: "What type of Droplet would you like to create? Choices: loadbalancer | web | wpadmin | control | file | base (Type exactly as seen here)"
+      private: no
+  tasks: 
+        - include_tasks: NewLoadbalancer.yml 
+          when: droplet_type == "loadbalancer"
+        - include_tasks: NewWeb.yml 
+          when: droplet_type == "web"          
+        - include_tasks: NewWPAdmin.yml 
+          when: droplet_type == "wpadmin"
+        - include_tasks: NewControl.yml 
+          when: droplet_type == "control"             
+        - include_tasks: NewFile.yml 
+          when: droplet_type == "file"
+        - include_tasks: NewBase.yml 
+          when: droplet_type == "base"  
+
+  
+####################
+## PREPROVISIONING #
+####################
+
+        - name: Add provisioning tag to new droplet
+          community.digitalocean.digital_ocean_tag:
+            name: "provisioning"
+            resource_id: "{{ droplet_create_temp.data.droplet.id }}"
+            state: present
+
+        - name: Refresh Inventory File to pick up changes
+          meta: refresh_inventory            
+
+####################
+### PROVISIONING ###
+####################
+
+
+# Gather facts must be set to no to prevent ansible from trying to connect to new droplet over ssh before its ready
+- name: Bring Droplet up to baseline
+  hosts: provisioning
+  gather_facts: no
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/doinit
+    ansible_ssh_user: root
+  roles:
+    - pro_ubuntu20
+
+####################
+# POSTPROVISIONING #
+####################
+- hosts: localhost
+  tasks: 
+        - name: Remove provisioning from the droplet
+          community.digitalocean.digital_ocean_tag:
+            name: "provisioning"
+            resource_id: "{{ droplet_create_temp.data.droplet.id }}"
+            state: absent
+
+        - name: Refresh Inventory File to pick up changes
+          meta: refresh_inventory            

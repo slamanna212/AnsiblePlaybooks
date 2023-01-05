@@ -1,0 +1,46 @@
+---
+- name: Deploy the control tier
+  hosts: command
+  become: true
+  roles:
+    - nfs_client
+
+- name: Deploy the storage tier
+  hosts: file
+  become: true
+  roles:
+    - stefangweichinger.ansible_rclone
+    - filestore    
+    - zabbix_agent   
+
+- name: Deploy the web tier
+  hosts: web
+  become: true
+  roles:
+    - nfs_client
+    - nginx 
+    - zabbix_agent
+
+- name: Deploy the wp_admin tier
+  hosts: wpadmin
+  become: true
+  roles:  
+    - nfs_client
+    - wp_admin
+    - zabbix_agent
+
+- name: Deploy Wordpress Cron File to first WPAdmin host
+  hosts: wpadmin[0]           
+  become: true
+  roles:
+    - cron_wordpress
+
+- name: Deploy the balance tier
+  hosts: loadbalancers
+  become: true
+  vars:
+    webnodes: "{{ groups['webservers'] }}"
+    wpanodes: "{{ groups['wp_admin'] }}"
+  roles:
+    - haproxy
+    - zabbix_agent       
