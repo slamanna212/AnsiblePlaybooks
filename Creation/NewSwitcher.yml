@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  vars_prompt:
+    - name: droplet_type
+      prompt: "What type of Droplet would you like to create? Choices: loadbalancer | web | wpadmin | control | file | base (Type exactly as seen here)"
+      private: no
+  tasks: 
+        - import_tasks: NewLoadbalancer.yml 
+          when: droplet_type == "loadbalancer"
+        - import_tasks: NewWeb.yml 
+          when: droplet_type == "web"          
+        - import_tasks: NewWPAdmin.yml 
+          when: droplet_type == "wpadmin"
+        - import_tasks: NewControl.yml 
+          when: droplet_type == "control"             
+        - import_tasks: NewFile.yml 
+          when: droplet_type == "file"
+        - import_tasks: NewBase.yml 
+          when: droplet_type == "base"  
