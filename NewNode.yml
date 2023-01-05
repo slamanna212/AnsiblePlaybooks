@@ -1,12 +1,6 @@
 ---
-- hosts: localhost
-  vars_prompt:
-    - name: droplet_type
-      prompt: "What type of Droplet would you like to create? Choices: loadbalancer | web | wpadmin | control | file | base (Type exactly as seen here)"
-      private: no
-
 - name: Creation
-  ansible.builtin.import_playbook: Creation/{{ droplet_type }}.yml
+  ansible.builtin.import_playbook: Creation/PickNew.yml
 
 ##### INTEGRATION #####
 
