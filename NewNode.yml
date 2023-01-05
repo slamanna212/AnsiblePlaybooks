@@ -2,7 +2,7 @@
 - hosts: localhost
   vars_prompt:
     - name: droplet_type
-      prompt: "What type of Droplet would you like to create? Choices: web | loadbalancer | wpadmin | base (Type exactly as seen here)"
+      prompt: "What type of Droplet would you like to create? Choices: loadbalancer | web | wpadmin | control | file | base (Type exactly as seen here)"
       private: no
   tasks: 
   #Have to generate a random number to be used in server name
@@ -79,7 +79,7 @@
             project: Bene IT Websites
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
-          when: droplet_type == "base"             
+          when: droplet_type == "control"             
           register: control_droplet_create_temp
 
         - name: Create a new Filestore Droplet
@@ -96,8 +96,8 @@
             project: Bene IT Websites
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ]
-          when: droplet_type == "base"             
-          register: base_droplet_create_temp
+          when: droplet_type == "file"             
+          register: file_droplet_create_temp
 
         - name: Create a new Base Droplet
           community.digitalocean.digital_ocean_droplet:
