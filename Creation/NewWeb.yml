@@ -21,7 +21,17 @@
             project: Bene IT Websites
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ] 
-          register: droplet_create_temp            
+          register: droplet_create_temp    
+                  
+####################
+## PREPROVISIONING #
+####################
+
+        - name: Add provisioning tag to new Web droplet
+          community.digitalocean.digital_ocean_tag:
+            name: "provisioning"
+            resource_id: "{{ droplet_create_temp.data.droplet.id }}"
+            state: present
 
 ####################
 ### PROVISIONING ###

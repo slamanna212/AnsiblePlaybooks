@@ -6,28 +6,26 @@
           set_fact:
             num: "{{99 | random(start=11) }}"
 
-        - name: Create a new WP Admin Droplet
+        - name: Create a new Base Droplet
           community.digitalocean.digital_ocean_droplet:
             state: present
             oauth_token: "{{ lookup('ansible.builtin.env', 'DO_API_TOKEN') }}"
-            name: Bene-NYC-WPAdmin{{ num }}v
-            size: s-1vcpu-2gb-amd
+            name: Bene-NYC-{{ num }}v
+            size: s-1vcpu-1gb-amd
             region: nyc3
             tags: 
-              - "wpadmin"
-              - "web_cluster"
-              - "wc_backend"   
+              - "web_cluster"           
             image: ubuntu-20-04-x64
             project: Bene IT Websites
             wait_timeout: 500
             ssh_keys: [ a6:84:ee:f8:05:03:7d:24:09:d2:68:84:8e:d3:72:49 ] 
-          register: droplet_create_temp     
-                 
+          register: droplet_create_temp    
+                  
 ####################
 ## PREPROVISIONING #
 ####################
 
-        - name: Add provisioning tag to new WP Admin droplet
+        - name: Add provisioning tag to new Base droplet
           community.digitalocean.digital_ocean_tag:
             name: "provisioning"
             resource_id: "{{ droplet_create_temp.data.droplet.id }}"
@@ -56,7 +54,7 @@
 ####################
 - hosts: localhost
   tasks: 
-        - name: Remove provisioning from the WP Admin droplet
+        - name: Remove provisioning from the Base droplet
           community.digitalocean.digital_ocean_tag:
             name: "provisioning"
             resource_id: "{{ droplet_create_temp.data.droplet.id }}"
