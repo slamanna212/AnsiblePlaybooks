@@ -2,10 +2,5 @@
 - name: Creation
   ansible.builtin.import_playbook: Creation/PickNew.yml
 
-- hosts: localhost
-  tasks: 
-    - name: Refresh Inventory File
-      meta: refresh_inventory
-      
 - name: Integration
   ansible.builtin.import_playbook: deploy.yml
