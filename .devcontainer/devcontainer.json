@@ -3,7 +3,7 @@
 {
 	"name": "Alpine",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:python",
+	"image": "mcr.microsoft.com/vscode/devcontainers/python:3",
 	"features": {
 		"ghcr.io/devcontainers/features/php:1": {},
 		"ghcr.io/devcontainers-contrib/features/ansible:2": {},
