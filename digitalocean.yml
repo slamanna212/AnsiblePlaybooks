@@ -17,7 +17,7 @@ keyed_groups:
 compose:
   ansible_host: do_networks.v4 | selectattr('type','eq','private') | map(attribute='ip_address') | first
   ansible_user: "'ansible'"
-  ansible_ssh_common_args: "'-o StrictHostKeyChecking=no' '-o UserKnownHostsFile=/dev/null'"
+  ansible_ssh_common_args: "'-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'"
 
 filters:
   - '"web_cluster" in do_tags'
