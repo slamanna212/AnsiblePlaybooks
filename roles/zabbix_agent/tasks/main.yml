@@ -6,6 +6,6 @@
   package_facts:
     manager: "auto"
 
-- name: show apache2 version
-  debug: "{{ ansible_facts.packages['zabbix-agent2']
-     | map(attribute='version')}}"
+- name: Check whether a package called foobar is installed
+  ansible.builtin.debug:
+    msg: "{{ ansible_facts.packages['zabbix-agent2'] | length }} versions of foobar are installed!"
