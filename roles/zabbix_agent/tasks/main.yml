@@ -20,6 +20,7 @@
 - name: Install Zabbix deb file
   become: true
   apt: deb="/tmp/zabbix.deb"
+  when: (ansible_facts.packages['zabbix-agent2'][0]['version'] != "1:6.0.14-1+ubuntu20.04")
 
 - name: install zabbix-agent2 v6 
   become: true
@@ -28,6 +29,7 @@
     state: latest
     update_cache: yes
   notify: restart zabbix_agent       
+  when: (ansible_facts.packages['zabbix-agent2'][0]['version'] != "1:6.0.14-1+ubuntu20.04")
 
 - name: Place zabbix-agent config
   become: yes
