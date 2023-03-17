@@ -7,5 +7,6 @@
     manager: "auto"
 
 - name: show apache2 version
-  debug: "{{ ansible_facts.packages['zabbix-agent2']
+  debug:
+    var: "{{ ansible_facts.packages['zabbix-agent2']
      | map(attribute='version') | first }}"
