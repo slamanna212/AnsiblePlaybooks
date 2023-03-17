@@ -3,7 +3,7 @@
 BeneEnv: prod
 
 ##### API KEYS
-# Digital Ocean API Key
+# Digital Ocean API Key. Currently only used for checklist.yml
 BeneDOKey: xxxxxxxxxx
 # PagerDuty API Key
 BenePagerDutyAPIKey: xxxxxxxxxx
