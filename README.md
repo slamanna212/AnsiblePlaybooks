@@ -12,18 +12,28 @@ Runs and manages all of the servers for the Bene IT web hosting infrastructure. 
 ## Requirements
  - All Websites need to use Cloudflare. SSL is terminated at the loadbalancer and uses a Cloudflare origin certificate. 
  - You need to have a private network setup for all of your droplets to communicate
- - Firewall is currently handled via DigitalOcean firewalls. Each droplet type has a firewall applied to it via DigitalOcean tags
+ - Firewall is currently handled via DigitalOcean firewalls. Each droplet type has a firewall applied to it via DigitalOcean tags. More info on this below.
+ - You need a SSH key setup with digitalocean. This ssh key will be added to new droplets and ansible will use this for initial provisioning. More info below.
 
 ## Setup
-It requires some Galaxy Modules, install them with:
+1. This repo requires some Galaxy Modules, install them with:
 
-    ansible-galaxy install -r collections/requirements.yml
-    ansible-galaxy install -r roles/requirements.yml
+`ansible-galaxy install -r collections/requirements.yml`
 
-For Droplet creation , a Digital Ocean API token is also required. Export it as an env variable on the server running the playbook to use it. 
+`ansible-galaxy install -r roles/requirements.yml`
 
-    export DO_API_TOKEN="API_TOKEN_HERE" 
+2. Copy extra_vars_TEMPLATE.yml , name it extra_vars.yml and fill it out. All values are required.
 
+3. Run checklist.yml. It will export API keys and make sure the system is ready for the other playbooks 
+`ansible-playbook --extra-vars "@extra_vars.yml" checklist.yml`
+
+
+
+
+
+
+
+## Need to Know
 Initial provisioning is not yet coded. 
 
 Inventory is handled by a dynamic DigitalOcean inventory source. Include -i digitalocean.yml in all commands
