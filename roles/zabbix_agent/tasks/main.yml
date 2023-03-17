@@ -2,16 +2,10 @@
 # zabbix agent
 #################################################
 ---
-tasks:
-  - name: Gather package facts
-    package_facts:
-      manager: auto
-    register: packages
+- name: Gather package facts
+  package_facts:
+    manager: "auto"
 
-  - set_fact:
-      final_list: >
-        {{ final_list | default([]) + [ item.name + "-" + item.version ] }}
-    loop: "{{ packages | json_query('ansible_facts.packages.[*]') | flatten }}"
-
-  - debug:
-      var: final_list
+- name: show apache2 version
+  debug: "{{ ansible_facts.packages['zabbix-agent2']
+     | map(attribute='version')}}"
