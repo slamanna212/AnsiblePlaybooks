@@ -5,10 +5,10 @@
 - name: Gather package facts
   package_facts:
     manager: "auto"
-    
+
 - name: show apache2 version
   debug: var=ansible_facts.packages.zabbix_agent2[0].version
 
-- name: Display all variables/facts known for a host
-  debug:
-    var: hostvars[inventory_hostname]
+- name: Print the package facts
+  ansible.builtin.debug:
+    var: ansible_facts.packages
