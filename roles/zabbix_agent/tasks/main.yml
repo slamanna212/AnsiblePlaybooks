@@ -2,22 +2,33 @@
 # zabbix agent
 #################################################
 ---
-- name: Download Zabbix deb file if missing
+- name: Gather package facts
+  package_facts:
+    manager: "auto"
+
+- name: show Zabbix agent version version
+  debug: var=ansible_facts.packages.zabbix_agent2[0].version
+
+
+- name: Download Zabbix deb file
   get_url:
-    url: "https://repo.zabbix.com/zabbix/5.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.2-1%2Bubuntu20.04_all.deb"
+    url: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4%2Bubuntu20.04_all.deb"
     dest: "/tmp/zabbix.deb"
+  when: '"ansible_facts.packages.zabbix_agent2[0].version" != "1:6.0.14-1+ubuntu20.04"'
 
 - name: Install Zabbix deb file
   become: true
   apt: deb="/tmp/zabbix.deb"
+  when: '"ansible_facts.packages.zabbix_agent2[0].version" != "1:6.0.14-1+ubuntu20.04"'
 
-- name: install zabbix-agent2 v5.2 
+- name: install zabbix-agent2 v6 
   become: true
   apt:
     name: zabbix-agent2
-    state: present
+    state: latest
     update_cache: yes
   notify: restart zabbix_agent       
+  when: '"ansible_facts.packages.zabbix_agent2[0].version" != "1:6.0.14-1+ubuntu20.04"'
 
 - name: Place zabbix-agent config
   become: yes
@@ -26,6 +37,7 @@
     dest=/etc/zabbix/zabbix_agent2.conf 
     backup=no
   notify: restart zabbix_agent     
+
 
 #Make ansible wait for zabbix to start for first time before running handler, sometimes handler will run before zabbix service file is there. 
 #- name: Wait for Zabbix Agent to start
