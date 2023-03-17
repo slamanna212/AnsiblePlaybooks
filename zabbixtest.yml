@@ -1,0 +1,6 @@
+---
+- name: Zabbix test
+  hosts: web[0]           
+  become: true
+  roles:
+    - zabbix_agent
