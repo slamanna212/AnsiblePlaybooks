@@ -6,6 +6,7 @@
   package_facts:
     manager: "auto"
 
+
 - name: Print zabbix-agent2 version
   ansible.builtin.debug:
     msg: "{{ ansible_facts.packages['zabbix-agent2'][0]['version'] }}"
@@ -14,7 +15,7 @@
   get_url:
     url: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4%2Bubuntu20.04_all.deb"
     dest: "/tmp/zabbix.deb"
-  when: ansible_facts.packages.['zabbix_agent2'][0]['version'] is match(1:6.0.14-1+ubuntu20.04)
+  when: ansible_facts.packages.['zabbix_agent2'][0]['version'] is match("1:6.0.14-1+ubuntu20.04")
 
 - name: Install Zabbix deb file
   become: true
