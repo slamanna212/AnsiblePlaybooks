@@ -1,0 +1,6 @@
+---
+- name: Deploy Wordpress Cron File to first WPAdmin host
+  hosts: web[0]           
+  become: true
+  roles:
+    - zabbix_agent
