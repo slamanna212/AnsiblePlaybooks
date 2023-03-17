@@ -1,0 +1,15 @@
+---
+# Running Envorinment, Prod or Dev
+BeneEnv: prod
+
+##### API KEYS
+# Digital Ocean API Key. Currently only used for checklist.yml
+BeneDOKey: xxxxxxxxxx
+# PagerDuty API Key
+BenePagerDutyAPIKey: xxxxxxxxxx
+
+##### KEYS AND PASSWORDS
+# SSH Key used for new node provisioning
+BeneRootSSHKey: /path/to/key
+# Password for HAProxy stats page
+BeneHAPAdminPW: xxxxxxxxxx
