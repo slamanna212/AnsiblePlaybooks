@@ -7,7 +7,7 @@
     manager: "auto"
 
 - name: show apache2 version
-  debug: var=ansible_facts.packages.zabbix_agent2[0].version
+  debug: var=ansible_facts.packages.zabbix_agent2.version
 
 - name: Print the package facts
   ansible.builtin.debug:
