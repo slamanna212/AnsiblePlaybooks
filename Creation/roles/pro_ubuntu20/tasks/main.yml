@@ -63,7 +63,7 @@
   authorized_key:
     user: "{{ create_user }}"
     state: present
-    key: "{{ BeneRootSSHKey }}"
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
     
 # Upload SSH Config
 - name: Upload custom ssh config
