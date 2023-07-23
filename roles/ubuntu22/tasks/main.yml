@@ -1,0 +1,30 @@
+#################################################
+# Basseline for Ubuntu 22 hosts
+#################################################
+---
+- name: Upgrade all packages
+  apt: upgrade=dist force_apt_get=yes
+
+# MOTD Access Message
+- name: Upload custom MOTD access warning
+  copy:
+    src: issue.net
+    dest: /etc/issue.net
+    remote_src: no
+  notify: restart ssh server
+
+# Upload SSH Config
+- name: Upload custom ssh config
+  copy:
+    src: ubuntu22ssh.conf
+    dest: /etc/ssh/sshd_config.d/benessh.conf
+    remote_src: no
+  notify: restart ssh server
+
+# Fail2Ban Config
+- name: Upload Fail2Ban config
+  copy:
+    src: jail.local
+    dest: /etc/fail2ban/jail.local
+    remote_src: no        
+  notify: restart fail2ban  

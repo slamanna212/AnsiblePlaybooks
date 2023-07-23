@@ -1,0 +1,102 @@
+#################################################
+# Basseline for Ubuntu 22 hosts
+#################################################
+---
+#Newly created droplets might take a minute or two to respond to ssh
+- name: Wait for new node to come online
+  ansible.builtin.wait_for:
+    port: 22
+    host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+    search_regex: OpenSSH
+    delay: 10
+  vars:
+    ansible_connection: local
+
+- name: Wait for cloud-init / user-data to finish
+  command: cloud-init status --wait
+  changed_when: false    
+
+#Digital Ocean Monitoring causes APT locks during install when you create a droplet. the UNTIL option prevents that breaking the playbook
+- name: Install Package Manager Prerequisites
+  apt: 
+    name: aptitude 
+    update_cache: yes 
+    state: present 
+    force_apt_get: yes
+  register: apt_status
+  until: apt_status is success
+  delay: 6
+  retries: 10
+
+- name: Update package mirrors and existing packages
+  apt: update_cache=yes upgrade=yes
+    
+- name: Install required system packages
+  apt: name={{ add_packages }} state=present
+
+# Sudo Group Setup
+- name: Make sure we have a 'bene' group
+  group:
+    name: bene
+    state: present
+
+- name: Allow 'bene' group to have passwordless sudo
+  copy:
+    src: Ubuntu22Sudo
+    dest: /etc/sudoers.d/BeneSudo
+    remote_src: no
+    validate: '/usr/sbin/visudo -cf %s'
+  notify: restart ssh server       
+
+# User + Key Setup
+- name: Create a new regular user with sudo privileges
+  user:
+    name: "{{ create_user }}"
+    state: present
+    groups: bene
+    append: true
+    create_home: true
+    shell: /bin/bash
+    
+- name: Set authorized key for remote user
+  authorized_key:
+    user: "{{ create_user }}"
+    state: present
+    key: "{{ lookup('file', '/home/ansible/.ssh/id_ed25519.pub') }}"
+
+# MOTD Access Message
+- name: Upload custom MOTD access warning
+  copy:
+    src: issue.net
+    dest: /etc/issue.net
+    remote_src: no
+  notify: restart ssh server      
+
+# Upload SSH Config
+- name: Upload custom ssh config
+  copy:
+    src: ubuntu22ssh.conf
+    dest: /etc/ssh/sshd_config.d/benessh.conf
+    remote_src: no
+  notify: restart ssh server        
+
+- name: Disable default banner message from MOTD
+  become: yes
+  become_user: root
+  lineinfile:
+    path: /etc/pam.d/sshd
+    regexp: '{{item.From}}'
+    line: '{{item.To}}'
+    state: present  
+  with_items:
+      - { From: 'session    optional     pam_motd.so  motd=/run/motd.dynamic', To: '# session    optional     pam_motd.so  motd=/run/motd.dynamic' }
+      - { From: 'session    optional     pam_motd.so noupdate', To: '# session    optional     pam_motd.so noupdate' }
+  notify: restart ssh server
+
+# Fail2Ban Config
+- name: Upload Fail2Ban config
+  copy:
+    src: jail.local
+    dest: /etc/fail2ban/jail.local
+    remote_src: no        
+  notify: restart fail2ban
