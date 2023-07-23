@@ -32,7 +32,7 @@
   apt: update_cache=yes upgrade=yes
     
 - name: Install required system packages
-  apt: name={{ sys_packages }} state=present
+  apt: name={{ add_packages }} state=present
 
 # Sudo Group Setup
 - name: Make sure we have a 'bene' group
