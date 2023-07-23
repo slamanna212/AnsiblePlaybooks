@@ -40,23 +40,27 @@
 # Gather facts must be set to no to prevent ansible from trying to connect to new droplet over ssh before its ready
 - name: Bring Ubuntu 20 Droplet up to baseline
   hosts: provisioning
-  gather_facts: no
+  gather_facts: yes
   vars:
     ansible_ssh_private_key_file: "{{ BeneRootSSHKey }}"
     ansible_ssh_user: root
   roles:
     - pro_ubuntu20
-  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "20")
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
+    - ansible_facts['distribution_major_version'] == "20"
 
 - name: Bring Ubuntu 22 Droplet up to baseline
   hosts: provisioning
-  gather_facts: no
+  gather_facts: yes
   vars:
     ansible_ssh_private_key_file: "{{ BeneRootSSHKey }}"
     ansible_ssh_user: root
   roles:
     - pro_ubuntu22
-  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")
+  when:
+    - ansible_facts['distribution'] == "Ubuntu"
+    - ansible_facts['distribution_major_version'] == "22"
 
 ####################
 # POSTPROVISIONING #
