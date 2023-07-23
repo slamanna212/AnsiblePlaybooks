@@ -1,0 +1,28 @@
+#################################################
+# Basseline for Ubuntu 22 hosts
+#################################################
+---
+- name: Upgrade all packages
+  apt: upgrade=dist force_apt_get=yes
+
+# Sudo Group Setup
+- name: Make sure we have a 'bene' group
+  group:
+    name: bene
+    state: present
+    
+- name: Allow 'bene' group to have passwordless sudo
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%bene'
+    line: '%bene ALL=(ALL) NOPASSWD: ALL'
+    validate: '/usr/sbin/visudo -cf %s'
+        
+# Upload SSH Config
+- name: Upload custom ssh config
+  copy:
+    src: ubuntu20ssh.conf
+    dest: /etc/ssh/sshd_config.d/benessh.conf
+    remote_src: no
+  notify: restart ssh server        
