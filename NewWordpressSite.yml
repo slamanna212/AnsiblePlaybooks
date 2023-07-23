@@ -180,4 +180,8 @@
               dest: /etc/cron.d/wpcron
               mode: '0644'
               backup: no
-
+              
+          - name: Reload Nginx to pick up the new website
+            ansible.builtin.systemd: 
+              name: nginx
+              state: reloaded
