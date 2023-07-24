@@ -6,4 +6,4 @@
     src: /mnt/Web/Ansible/wpcron
     dest: /etc/cron.d/wpcron
     mode: '0644'
-    backup: noß
+    backup: no
