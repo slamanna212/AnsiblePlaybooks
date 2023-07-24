@@ -1,0 +1,10 @@
+---
+- name: Deploy the balance tier
+  hosts: loadbalancers
+  become: true
+  vars:
+    webnodes: "{{ groups['web'] }}"
+    wpanodes: "{{ groups['wpadmin'] }}"
+  roles:
+    - haproxy
+    - zabbix_agent

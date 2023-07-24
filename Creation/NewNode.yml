@@ -3,4 +3,4 @@
   ansible.builtin.import_playbook: PickNew.yml
 
 - name: Integration
-  ansible.builtin.import_playbook: ../deploy.yml
+  ansible.builtin.import_playbook: ../fastdeploy.yml
