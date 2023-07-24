@@ -34,6 +34,7 @@
 - name: Install required system packages
   apt: name={{ add_packages }} state=present
 
+# A kernel upgrade causes us to need to do this
 - name: Reboot the server
   become: yes
   become_user: root
