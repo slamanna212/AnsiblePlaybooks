@@ -46,7 +46,7 @@
   become_user: root            
   copy: 
     src: php.ini 
-    dest: /etc/php/7.4/fpm/php.ini
+    dest: /etc/php/8.1/fpm/php.ini
     backup: no                      
   notify: restart php-fpm    
 
@@ -55,7 +55,7 @@
   become_user: root            
   copy: 
     src: www.conf 
-    dest: /etc/php/7.4/fpm/pool.d/www.conf 
+    dest: /etc/php/8.1/fpm/pool.d/www.conf 
     backup: no
   notify: restart php-fpm        
 
