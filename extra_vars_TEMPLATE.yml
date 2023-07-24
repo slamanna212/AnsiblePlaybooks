@@ -2,9 +2,16 @@
 # Running Envorinment, Prod or Dev
 BeneEnv: prod
 
-##### API KEYS
+
+
+##### Digital Ocean
 # Digital Ocean API Key. Currently only used for checklist.yml
 BeneDOKey: xxxxxxxxxx
+# Digital Ocean Floating IP
+BeneDOFloatIP: 1.1.1.1
+
+
+##### API KEYS
 # PagerDuty API Key
 BenePagerDutyAPIKey: xxxxxxxxxx
 
