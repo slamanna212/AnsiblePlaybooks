@@ -4,6 +4,7 @@
   ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
     id: ABF5BD827BD9BF62
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")
 
 - name: Add Nginx APT Repo
   become: yes
@@ -12,6 +13,7 @@
     src: nginx.list
     dest:  /etc/apt/sources.list.d/nginx.list
     backup: no                      
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")
 
 - name: Install required system packages
   apt: 
@@ -32,6 +34,7 @@
     path: /etc/nginx/conf.d/default.conf
     state: absent
   notify: restart nginx    
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")
 
 - name: Update Nginx config
   template: 
@@ -39,6 +42,7 @@
     dest=/etc/nginx/nginx.conf 
     backup=no
   notify: restart nginx        
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")
 
 # Configure PHP
 - name: Copy PHP config
@@ -49,6 +53,7 @@
     dest: /etc/php/8.1/fpm/php.ini
     backup: no                      
   notify: restart php-fpm    
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")
 
 - name: Update php-fpm pool config
   become: yes
@@ -58,7 +63,7 @@
     dest: /etc/php/8.1/fpm/pool.d/www.conf 
     backup: no
   notify: restart php-fpm        
-
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")  
 # Configure FastCGI Cache
 - name: Find all current live websites
   find:
