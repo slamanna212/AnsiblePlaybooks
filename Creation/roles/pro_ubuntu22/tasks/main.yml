@@ -34,6 +34,22 @@
 - name: Install required system packages
   apt: name={{ add_packages }} state=present
 
+- name: Reboot the server
+  become: yes
+  become_user: root
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+
+- name: Wait for ndoe to come back
+  ansible.builtin.wait_for:
+    port: 22
+    host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+    search_regex: OpenSSH
+    delay: 10
+  vars:
+    ansible_connection: local
+
 # Sudo Group Setup
 - name: Make sure we have a 'bene' group
   group:
