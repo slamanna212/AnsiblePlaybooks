@@ -36,7 +36,7 @@
   hosts: web
   become: true
   roles:
-    - ubuntu20  
+    - ubuntu22  
     - nfs_client
     - nginx 
     - zabbix_agent
@@ -63,6 +63,6 @@
     webnodes: "{{ groups['web'] }}"
     wpanodes: "{{ groups['wpadmin'] }}"
   roles:
-    - ubuntu20  
+    - ubuntu22  
     - haproxy
     - zabbix_agent       
