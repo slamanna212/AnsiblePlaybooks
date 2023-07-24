@@ -45,7 +45,7 @@
     ansible_ssh_private_key_file: "{{ BeneRootSSHKey }}"
     ansible_ssh_user: root
   roles:
-    - pro_ubuntu20
+    - pro_ubuntu22
 
 
 ####################
