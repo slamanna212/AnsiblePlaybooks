@@ -1,7 +1,7 @@
 ---
         - name: Genrate Random Number for Droplet name
           set_fact:
-            num: "{{99 | random(start=11) }}"
+            num: "{{ 99 | random(start=11) }}"
 
         - name: Create a new Loadbalancer Droplet
           community.digitalocean.digital_ocean_droplet:

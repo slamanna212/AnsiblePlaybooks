@@ -2,7 +2,7 @@
   #Have to generate a random number to be used in server name
         - name: Genrate Random Number for Droplet name
           set_fact:
-            num: "{{99 | random(start=11) }}"
+            num: "{{ 99 | random(start=11) }}"
 
         - name: Create a new Web Droplet
           community.digitalocean.digital_ocean_droplet:
