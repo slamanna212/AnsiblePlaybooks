@@ -35,7 +35,7 @@
   apt: name={{ add_packages }} state=present
 
 # A kernel upgrade causes us to need to do this
-- name: Check that the reboot-requied exists
+- name: Check if a reboot is needed
   become: yes
   become_user: root
   stat:
