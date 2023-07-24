@@ -1,6 +1,6 @@
 ---
 - name: Deploy the balance tier
-  hosts: loadbalancers
+  hosts: Bene-NYC-LB65v
   become: true
   vars:
     webnodes: "{{ groups['web'] }}"
