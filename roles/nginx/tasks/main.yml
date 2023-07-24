@@ -9,7 +9,7 @@
   become: yes
   become_user: root            
   copy: 
-    src: nginx.lost
+    src: nginx.list
     dest:  /etc/apt/sources.list.d/nginx.list
     backup: no                      
 
