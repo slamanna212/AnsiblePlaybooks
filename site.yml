@@ -45,7 +45,7 @@
   hosts: wpadmin
   become: true
   roles:
-    - ubuntu20      
+    - ubuntu22      
     - nfs_client
     - wp_admin
     - zabbix_agent
