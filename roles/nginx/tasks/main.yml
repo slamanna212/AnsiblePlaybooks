@@ -27,9 +27,9 @@
     append: true     
 
 # Configure Nginx
-- name: Remove default Nginx config
+- name: Remove default Nginx site config
   ansible.builtin.file:
-    path: /etc/nginx/sites-enabled/default
+    path: /etc/nginx/conf.d/default.conf
     state: absent
   notify: restart nginx    
 
