@@ -9,4 +9,4 @@
     ansible_ssh_private_key_file: ~/.ssh/doinit
     ansible_ssh_user: root
   roles:
-    - pro_ubuntu20    
+    - pro_ubuntu20

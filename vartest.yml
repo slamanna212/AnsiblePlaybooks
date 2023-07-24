@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  tasks: 
+
+    - name: Display Results
+      ansible.builtin.debug:
+        var: droplet_type
+
+

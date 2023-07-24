@@ -43,4 +43,9 @@
     wpanodes: "{{ groups['wpadmin'] }}"
   roles:
     - haproxy
-    - zabbix_agent       
+    - zabbix_agent
+
+- hosts: localhost
+  tasks: 
+        - include_tasks: Creation/FloatingIP_Mover.yml 
+          when: droplet_type == "loadbalancer"
