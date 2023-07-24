@@ -1,0 +1,6 @@
+- name: Deploy the web tier
+  hosts: Bene-NYC-Web11v
+  become: true
+  roles:
+    - nginx 
+
