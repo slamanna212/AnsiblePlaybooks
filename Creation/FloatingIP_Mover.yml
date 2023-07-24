@@ -1,8 +1,6 @@
 ---
-- hosts: localhost
-  tasks:
-    - name: "Attach our Floating IP to new Loadbalancer"
-      community.digitalocean.digital_ocean_floating_ip:
-        state: attached
-        ip: "{{ BeneDOFloatIP }}"
-        droplet_id: "{{ droplet_create_temp.data.droplet.id }}"
+- name: "Attach our Floating IP to new Loadbalancer"
+  community.digitalocean.digital_ocean_floating_ip:
+    state: attached
+    ip: "{{ BeneDOFloatIP }}"
+    droplet_id: "{{ droplet_create_temp.data.droplet.id }}"
