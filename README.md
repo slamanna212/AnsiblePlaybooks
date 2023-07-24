@@ -53,7 +53,7 @@ You will need to specify the dynamic inventory and extra variables for all comma
 
 - `checklist.yml` Makes sure localhost is ready to run these playbooks
 - `site.yml` Deploys the entire cluster. 
-- `prov.yml` A smaller and faster version of `site.yml`, meant to be run after a new node is created
+- `deploy.yml` A smaller and faster version of `site.yml`, meant to be run after a new node is created
 - `NewWordpressSite` Creates a database user and database, creates nginx configs, downloads wordpress, gives it info, and all other new website creation tasks
 - `NewNode.yml` Creates new nodes on DigitalOcean. uses playbooks in **Creation** folder
 
