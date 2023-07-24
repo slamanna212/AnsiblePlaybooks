@@ -19,7 +19,7 @@
   roles:
     - nfs_client
     - nginx 
-#    - zabbix_agent
+    - zabbix_agent
 
 - name: Deploy the wp_admin tier
   hosts: wpadmin
