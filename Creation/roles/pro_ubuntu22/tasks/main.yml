@@ -36,6 +36,8 @@
 
 # A kernel upgrade causes us to need to do this
 - name: Check that the reboot-requied exists
+  become: yes
+  become_user: root
   stat:
     path: /var/run/reboot-required
   register: rbrequired
