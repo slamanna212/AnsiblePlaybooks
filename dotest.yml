@@ -2,22 +2,22 @@
 - hosts: localhost
   tasks: 
 
-- name: Check if DO Floating IP exists
-  ansible.builtin.uri:
-    url: "https://api.digitalocean.com/v2/floating_ips//floating_ips/{{digital_ocean_floating_ip}}"
-    headers:
-      Content-Type: 'application/json'
-      Authorization: "Bearer {{BeneDOKey}}"
-    body_format: json
-    method: GET
-    status_code: 200
-    follow_redirects: all
-    return_content: yes
-    timeout: 60
-  delegate_to: localhost
-  register: do_floating_ip_json_response
+    - name: Check if DO Floating IP exists
+      ansible.builtin.uri:
+        url: "https://api.digitalocean.com/v2/floating_ips//floating_ips/{{ digital_ocean_floating_ip }}"
+        headers:
+          Content-Type: 'application/json'
+          Authorization: "Bearer {{ BeneDOKey }}"
+        body_format: json
+        method: GET
+        status_code: 200
+        follow_redirects: all
+        return_content: yes
+        timeout: 60
+      delegate_to: localhost
+      register: do_floating_ip_json_response
 
-- name: Display Results
-  ansible.builtin.debug:
-    var: do_floating_ip_json_response
+    - name: Display Results
+      ansible.builtin.debug:
+        var: do_floating_ip_json_response
 
