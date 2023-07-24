@@ -1,0 +1,3 @@
+#####
+##### Get all hosts in LB group, if theres 1 , end, if theres more than one, ensure floating IP is assigned ot newest host
+#####
