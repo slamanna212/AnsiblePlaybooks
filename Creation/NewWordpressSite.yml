@@ -56,7 +56,7 @@
             become: yes
             become_user: root  
             ansible.builtin.file:
-              path: /mnt/Web/Websites/{{ domain }}
+              path: /mnt/Web/Websites/Wordpress/{{ domain }}
               state: directory
 
           - name: Add Nginx vhost for website
@@ -78,19 +78,19 @@
             become_user: root          
             ansible.builtin.unarchive:
               src: https://wordpress.org/latest.tar.gz
-              dest: /mnt/Web/Websites/{{ domain }}/
+              dest: /mnt/Web/Websites/Wordpress/{{ domain }}/
               remote_src: yes    
 
           - name: Move wordpress files to public directory
             become: yes
             become_user: root   
-            command: mv /mnt/Web/Websites/{{ domain }}/wordpress /mnt/Web/Websites/{{ domain }}/public_html
+            command: mv /mnt/Web/Websites/Wordpress/{{ domain }}/wordpress /mnt/Web/Websites/Wordpress/{{ domain }}/public_html
 
           - name: Add custom WP-Config
             become: yes
             become_user: root             
             template: src=templates/wp-config.php 
-                        dest=/mnt/Web/Websites/{{ domain }}/public_html/wp-config.php 
+                        dest=/mnt/Web/Websites/Wordpress/{{ domain }}/public_html/wp-config.php 
                         backup=no                
 
           - name: Add HyperDB DB file to wp-content
@@ -98,7 +98,7 @@
             become_user: root    
             copy:
              src: files/wordpress/db.php
-             dest: /mnt/Web/Websites/{{ domain }}/public_html/wp-content/db.php
+             dest: /mnt/Web/Websites/Wordpress/{{ domain }}/public_html/wp-content/db.php
              remote_src: no
 
 
@@ -106,14 +106,14 @@
             become: yes
             become_user: root          
             template: src=templates/db-config.php 
-                        dest=/mnt/Web/Websites/{{ domain }}/public_html/db-config.php
+                        dest=/mnt/Web/Websites/Wordpress/{{ domain }}/public_html/db-config.php
                         backup=no                
 
           - name: Create robots.txt file
             become: yes
             become_user: root
             template: src=templates/robots.txt
-                          dest=/mnt/Web/Websites/{{ domain }}/public_html/robots.txt
+                          dest=/mnt/Web/Websites/Wordpress/{{ domain }}/public_html/robots.txt
                           backup=no
 
     # Cleanup
@@ -121,13 +121,13 @@
             become: yes
             become_user: root            
             ansible.builtin.file:
-              path: /mnt/Web/Websites/{{ domain }}
+              path: /mnt/Web/Websites/Wordpress/{{ domain }}
               state: directory
               owner: www-data
               group: www-data
               recurse: yes
 
-  #Have to generate a random number to be used in server name
+  #Have to generate a random number to be used for cron to prevent them all happening at once 
           - name: Genrate Random Cron Time 1
             set_fact:
               num1: "{{30 | random(start=1) }}"

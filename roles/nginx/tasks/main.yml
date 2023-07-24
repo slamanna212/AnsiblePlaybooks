@@ -62,7 +62,8 @@
 # Configure FastCGI Cache
 - name: Find all current live websites
   find:
-    paths: /mnt/Web/VHosts/
+    paths: /mnt/Web/Websites/Wordpress/
+    file_type: directory
   register: find_result
 
 - name: Create cache directories if missing
