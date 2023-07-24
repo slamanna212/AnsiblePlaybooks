@@ -35,12 +35,18 @@
   apt: name={{ add_packages }} state=present
 
 # A kernel upgrade causes us to need to do this
+- name: Check that the reboot-requied exists
+  stat:
+    path: /var/run/reboot-required
+  register: rbrequired
+
 - name: Reboot the server
   become: yes
   become_user: root
   shell: "sleep 5 && reboot"
   async: 1
   poll: 0
+  when: rbrequired.stat.exists
 
 - name: Wait for ndoe to come back
   ansible.builtin.wait_for:
