@@ -43,4 +43,4 @@
     wpanodes: "{{ groups['wpadmin'] }}"
   roles:
     - haproxy
-    - zabbix_agent       
+    - zabbix_agent
