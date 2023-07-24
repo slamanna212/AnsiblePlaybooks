@@ -1,9 +1,0 @@
----
-- name: Deploy the balance tier
-  hosts: Bene-NYC-LB65v
-  become: true
-  vars:
-    webnodes: "{{ groups['web'] }}"
-    wpanodes: "{{ groups['wpadmin'] }}"
-  roles:
-    - haproxy
