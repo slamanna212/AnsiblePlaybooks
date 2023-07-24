@@ -85,8 +85,8 @@
   become_user: root
   lineinfile:
     path: /etc/pam.d/sshd
-    regexp: '{{item.From}}'
-    line: '{{item.To}}'
+    regexp: '{{ item.From }}'
+    line: '{{ item.To }}'
     state: present  
   with_items:
       - { From: 'session    optional     pam_motd.so  motd=/run/motd.dynamic', To: '# session    optional     pam_motd.so  motd=/run/motd.dynamic' }
