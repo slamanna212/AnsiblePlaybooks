@@ -20,6 +20,7 @@
     name={{ sys_packages }} 
     state=present
     update_cache=yes
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")
 
 - name: Adds ansible user to www-data group
   user:
