@@ -4,7 +4,7 @@
 
     - name: Check if DO Floating IP exists
       ansible.builtin.uri:
-        url: "https://api.digitalocean.com/v2/floating_ips//floating_ips/{{ digital_ocean_floating_ip }}"
+        url: "https://api.digitalocean.com/v2/floating_ips//floating_ips/{{ BeneDOFloatIP }}"
         headers:
           Content-Type: 'application/json'
           Authorization: "Bearer {{ BeneDOKey }}"
