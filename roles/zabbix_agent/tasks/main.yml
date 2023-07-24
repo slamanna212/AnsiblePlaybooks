@@ -6,15 +6,25 @@
   package_facts:
     manager: "auto"
 
-- name: Download Zabbix deb file
+# Download Agent Deb File
+- name: Download Ubuntu 20 Zabbix deb file
   get_url:
     url: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4%2Bubuntu20.04_all.deb"
     dest: "/tmp/zabbix.deb"
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "20")
 
+- name: Download Ubuntu 22 Zabbix deb file
+  get_url:
+    url: "https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4%2Bubuntu22.04_all.deb"
+    dest: "/tmp/zabbix.deb"
+  when: (ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_major_version'] == "22")
+
+# Install Deb File
 - name: Install Zabbix deb file
   become: true
   apt: deb="/tmp/zabbix.deb"
 
+# Install Agent
 - name: install zabbix-agent2 v6 
   become: true
   apt:
