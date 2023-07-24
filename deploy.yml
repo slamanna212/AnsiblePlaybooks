@@ -45,7 +45,7 @@
     - haproxy
     - zabbix_agent
 
-#- hosts: localhost
-#  tasks: 
-#        - include_tasks: Creation/FloatingIP_Mover.yml 
-#          when: droplet_type == "loadbalancer"
+- hosts: localhost
+  tasks: 
+        - include_tasks: Creation/FloatingIP_Mover.yml 
+          when: droplet_type == "loadbalancer"
