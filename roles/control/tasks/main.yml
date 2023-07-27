@@ -1,0 +1,46 @@
+---
+# Place Nginx Snippets
+# Placing them here is super weird , but it ensures they are there before any web servers needing them start. 
+- name: Add Resource Cache Control snippet if missing
+  become: yes
+  become_user: root            
+  copy: 
+    src: cache-control.conf
+    dest:  /mnt/Web/Snippets/cache-control.conf
+    backup: no
+    user: www-data
+    group: www-data
+    mode: 0644
+
+- name: Add FastCGI Cache snippet if missing
+  become: yes
+  become_user: root            
+  copy: 
+    src: fastcgicache.conf
+    dest:  /mnt/Web/Snippets/fastcgicache.conf
+    backup: no
+    user: www-data
+    group: www-data
+    mode: 0644
+
+- name: Add PHP snippet if missing
+  become: yes
+  become_user: root            
+  copy: 
+    src: php.conf
+    dest:  /mnt/Web/Snippets/php.conf
+    backup: no
+    user: www-data
+    group: www-data
+    mode: 0644
+
+- name: Add Wordpress Security snippet if missing
+  become: yes
+  become_user: root            
+  copy: 
+    src: wp-block.conf
+    dest:  /mnt/Web/Snippets/wp-block.conf
+    backup: no
+    user: www-data
+    group: www-data
+    mode: 0644    

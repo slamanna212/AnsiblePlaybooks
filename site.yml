@@ -6,7 +6,8 @@
   become: true
   roles:
     - nfs_client
-
+    - control
+    
 - name: Configure and deploy the master database tier
   hosts: database_master
   become: true
