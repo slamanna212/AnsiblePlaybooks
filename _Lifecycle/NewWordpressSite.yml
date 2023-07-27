@@ -67,7 +67,7 @@
                         backup=no
                         owner=www-data
                         group=www-data
-                        mode=644
+                        mode=0644
 
           - name: "Add domain info to dummy host for use later in this playbook"
             add_host:
