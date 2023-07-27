@@ -3,20 +3,24 @@
 BeneEnv: prod
 
 
+##### KEYS AND PASSWORDS
+# SSH Key used for new node provisioning
+BeneRootSSHKey: /path/to/key
+# Password for HAProxy stats page
+BeneHAPAdminPW: xxxxxxxxxx
 
 ##### Digital Ocean
 # Digital Ocean API Key. Currently only used for checklist.yml
 BeneDOKey: xxxxxxxxxx
 # Digital Ocean Floating IP
 BeneDOFloatIP: 1.1.1.1
-
+# Digltal Ocean Spaces Access Key
+BeneDOSpacesAK: xxxxxxxxxx
+# Digltal Ocean Spaces Secret
+BeneDOSpacesS: xxxxxxxxxx
+# Digital OCean Spaces Endpoint
+BeneDOSpacesEP: xxx.digitaloceanspaces.com
 
 ##### API KEYS
 # PagerDuty API Key
 BenePagerDutyAPIKey: xxxxxxxxxx
-
-##### KEYS AND PASSWORDS
-# SSH Key used for new node provisioning
-BeneRootSSHKey: /path/to/key
-# Password for HAProxy stats page
-BeneHAPAdminPW: xxxxxxxxxx
