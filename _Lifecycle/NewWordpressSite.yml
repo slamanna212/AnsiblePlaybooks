@@ -65,6 +65,9 @@
             template: src=templates/wpnginxvhost 
                         dest=/mnt/Web/VHosts/{{ domain }} 
                         backup=no
+                        owner=www-data
+                        group=www-data
+                        mode=644
 
           - name: "Add domain info to dummy host for use later in this playbook"
             add_host:
