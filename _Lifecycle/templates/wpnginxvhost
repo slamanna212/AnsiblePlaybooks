@@ -18,4 +18,5 @@ server {
         include /mnt/Web/Snippets/fastcgicache.conf;
         include /mnt/Web/Snippets/cache-control.conf;
         include /mnt/Web/Snippets/wp-block.conf;
+        include /mnt/Web/Snippets/xmlrpc.conf;
 }
