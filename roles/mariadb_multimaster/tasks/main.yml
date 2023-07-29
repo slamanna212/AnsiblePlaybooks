@@ -1,0 +1,10 @@
+---
+# Get ID of server for replication
+- vars:
+  bene_server_id: "{{ inventory_hostname | regex_replace('[^0-9]','') }}"
+
+# Install System Packages
+- name: Install required system packages
+  apt: name={{ sys_packages }} state=present
+
+
