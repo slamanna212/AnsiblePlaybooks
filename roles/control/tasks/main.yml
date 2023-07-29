@@ -50,7 +50,7 @@
     group: www-data
     mode: 0644
 
-- name: Add Wordpress Security snippet if missing
+- name: Add XML-RPC Block snippet if missing
   become: yes
   become_user: root            
   template: 
