@@ -1,10 +1,33 @@
 ---
-# Get ID of server for replication
-- vars:
-  bene_server_id: "{{ inventory_hostname | regex_replace('[^0-9]','') }}"
-
 # Install System Packages
 - name: Install required system packages
   apt: name={{ sys_packages }} state=present
 
+# Configure MariaDB
+- name: Upload custom sqlmode file
+  become: yes
+  become_user: root
+  copy:
+    src: 00-servermode.cnf
+    dest: /etc/mysql/mariadb.conf.d/00-servermode.cnf
+    owner: root
+    group: root
+    mode: "0644"    
+    remote_src: no
+  notify: restart mysql      
 
+- name: Allow incoming connections to MariaDB
+  become: yes
+  become_user: root
+  lineinfile:
+    path: /etc/mysql/mariadb.conf.d/50-server.cnf
+    regexp: 'bind-address            = 127.0.0.1'
+    line: 'bind-address            = 0.0.0.0'
+    state: present  
+  notify: restart mysql
+
+- name: Add DB account info for ansible to find later
+  copy:
+    src: .my.cnf
+    dest: /home/ansible/.my.cnf
+    remote_src: no
