@@ -2,12 +2,22 @@
 # Running Envorinment, Prod or Dev
 BeneEnv: prod
 
+##### LOCAL INFO #####
 
-##### KEYS AND PASSWORDS
+##### SSH KEYS AND PASSWORDS
 # SSH Key used for new node provisioning
 BeneRootSSHKey: /path/to/key
 # Password for HAProxy stats page
 BeneHAPAdminPW: xxxxxxxxxx
+
+##### MariaDB Admin Account Info
+# SSH Key used for new node provisioning
+BeneSQLUsername: xxxxxxxx
+# Password for HAProxy stats page
+BeneSQLPW: xxxxxxxxxx
+
+
+##### CLOUD INFO #####
 
 ##### Digital Ocean
 # Digital Ocean API Key. Currently only used for checklist.yml
