@@ -13,7 +13,7 @@
     src: cache-control.conf
     dest:  /mnt/Web/Snippets/cache-control.conf
     backup: no
-    user: www-data
+    owner: www-data
     group: www-data
     mode: 0644
 
@@ -24,7 +24,7 @@
     src: fastcgicache.conf
     dest:  /mnt/Web/Snippets/fastcgicache.conf
     backup: no
-    user: www-data
+    owner: www-data
     group: www-data
     mode: 0644
 
@@ -35,7 +35,7 @@
     src: php.conf
     dest:  /mnt/Web/Snippets/php.conf
     backup: no
-    user: www-data
+    owner: www-data
     group: www-data
     mode: 0644
 
@@ -46,7 +46,7 @@
     src: wp-block.conf
     dest:  /mnt/Web/Snippets/wp-block.conf
     backup: no
-    user: www-data
+    owner: www-data
     group: www-data
     mode: 0644
 
@@ -57,6 +57,6 @@
     src: xmlrpc.conf
     dest:  /mnt/Web/Snippets/xmlrpc.conf
     backup: no
-    user: www-data
+    owner: www-data
     group: www-data
     mode: 0644
