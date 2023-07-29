@@ -1,5 +1,10 @@
 ---
 # Place Nginx Snippets
+# We need Jetpack IPs for XML-RPC Control
+- name: Setting host facts using complex arguments
+  ansible.builtin.set_fact:
+    jetpack_ips: "{{ lookup('ansible.builtin.url', 'https://jetpack.com/ips-v4.txt', wantlist=True) }}"
+
 # Placing them here is super weird , but it ensures they are there before any web servers needing them start. 
 - name: Add Resource Cache Control snippet if missing
   become: yes
@@ -43,4 +48,15 @@
     backup: no
     user: www-data
     group: www-data
-    mode: 0644    
+    mode: 0644
+
+- name: Add Wordpress Security snippet if missing
+  become: yes
+  become_user: root            
+  template: 
+    src: xmlrpc.conf
+    dest:  /mnt/Web/Snippets/xmlrpc.conf
+    backup: no
+    user: www-data
+    group: www-data
+    mode: 0644
