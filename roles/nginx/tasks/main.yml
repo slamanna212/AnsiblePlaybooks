@@ -34,7 +34,7 @@
   notify: restart nginx    
 
 
-- name: Add Fastcgi.conf if missing
+- name: Add Fastcgi.conf if missing, for cheverto 
   become: yes
   become_user: root            
   copy: 
