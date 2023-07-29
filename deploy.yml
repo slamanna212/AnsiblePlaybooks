@@ -4,6 +4,7 @@
   become: true
   roles:
     - nfs_client
+    - control
 
 - name: Deploy the storage tier
   hosts: file
