@@ -33,18 +33,6 @@
     state: absent
   notify: restart nginx    
 
-
-- name: Add Fastcgi.conf if missing, for cheverto 
-  become: yes
-  become_user: root            
-  copy: 
-    src: fastcgi.conf
-    dest:  /etc/nginx/fastcgi.conf
-    backup: no
-    owner: www-data
-    group: www-data
-    mode: 0644
-
 - name: Update Nginx config
   template: 
     src=nginx.conf 
