@@ -28,17 +28,6 @@
     group: www-data
     mode: 0644
 
-- name: Add Default FastCGI Cache snippet if missing
-  become: yes
-  become_user: root            
-  copy: 
-    src: fastcgi-php.conf
-    dest:  /mnt/Web/Snippets/fastcgi-php.conf
-    backup: no
-    owner: www-data
-    group: www-data
-    mode: 0644
-
 - name: Add PHP snippet if missing
   become: yes
   become_user: root            
