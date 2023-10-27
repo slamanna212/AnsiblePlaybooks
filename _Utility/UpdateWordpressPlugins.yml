@@ -4,10 +4,19 @@
 
 
   tasks: 
+        - name: Get List of Wordpress Sites
+          ansible.builtin.find:
+            paths: /mnt/Web/Websites/Wordpress
+            recurse: no
+            file_type: directory
+          register: wp_sites
+
+
         - name: Update Wordpress Plugins
-          command: /mnt/Web/Websites/Wordpress/*/public_html/wp plugin update --all
+          command: /mnt/Web/Websites/Wordpress/{{ item }}/public_html/wp plugin update --all
           become: true
           become_user: www-data  
           ignore_errors: yes
+        loop: "{{ wp_sites }}"
 
 
