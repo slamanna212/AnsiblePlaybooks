@@ -1,5 +1,5 @@
 ---
-- hosts: wp_admin[0]
+- hosts: wpadmin[0]
   become: true
 
 
