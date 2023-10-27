@@ -1,0 +1,13 @@
+---
+- hosts: wp_admin[0]
+  become: true
+
+
+  tasks: 
+        - name: Update Wordpress Plugins
+          command: /mnt/Web/Websites/Wordpress/*/public_html/wp plugin update --all
+          become: true
+          become_user: www-data  
+          ignore_errors: yes
+
+
