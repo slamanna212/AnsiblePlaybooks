@@ -10,19 +10,10 @@
             file_type: directory
           register: wp_sites
 
-
-        - name: Create list of directory names
-          find:
-            paths: /mnt/Web/Websites/Wordpress
-            file_type: directory
-          register: dir_list
-
-        - name: Set directory names as a list
+        - name: Remove prefix from paths
           set_fact:
-            dir_names: "{{ wp_sites.files | map(attribute='path') | list }}"
-
-
+            wp_sites: "{{ wp_sites | map(attribute='path') | map('regex_replace', '^/mnt/Web/Websites/Wordpress/') | list }}"
 
         - name: Update Wordpress Plugins
           command: "sudo -u www-data /mnt/Web/Websites/Wordpress/{{ item }}/public_html/wp plugin update --all"
-          loop: "{{ wp_sites.files | map(attribute='path') | list }}"
+          loop: "{{ wp_sites.files | map(attribute='path') | list }}"            
