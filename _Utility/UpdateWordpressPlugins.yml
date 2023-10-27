@@ -11,8 +11,7 @@
           register: wp_sites
 
         - name: Remove prefix from paths
-          set_fact:
-            wp_sites: "{{ wp_sites | map(attribute='path') | map('regex_replace', '^/mnt/Web/Websites/Wordpress/') | list }}"
+          set_fact: wp_sites="{{ wp_sites | map(attribute='path') | map('regex_replace', '^/mnt/Web/Websites/Wordpress/') | list }}"
 
         - name: Update Wordpress Plugins
           command: "sudo -u www-data /mnt/Web/Websites/Wordpress/{{ item }}/public_html/wp plugin update --all"
