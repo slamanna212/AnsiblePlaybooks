@@ -12,7 +12,7 @@
 
         - name: Update Wordpress Plugins
           command: /mnt/Web/Websites/Wordpress/{{ item }}/public_html/wp plugin update --all
-          become: true
-          become_user: www-data  
-          ignore_errors: yes
-        loop: "{{ wp_sites }}"
+            become: true
+            become_user: www-data  
+            ignore_errors: yes
+          loop: "{{ wp_sites }}"
