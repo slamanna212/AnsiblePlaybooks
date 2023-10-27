@@ -11,8 +11,5 @@
           register: wp_sites
 
         - name: Update Wordpress Plugins
-          command: "/mnt/Web/Websites/Wordpress/{{ item }}/public_html/wp plugin update --all"
-            become: true
-            become_user: www-data  
-            ignore_errors: yes
+          command: "sudo -u www-data /mnt/Web/Websites/Wordpress/{{ item }}/public_html/wp plugin update --all"
           loop: "{{ wp_sites }}"
