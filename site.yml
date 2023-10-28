@@ -1,5 +1,8 @@
 ---
 # This playbook deploys the entire web hosting stack
+- name: Tell Healthchecks.io that we started the playbook
+  ansible.builtin.uri:
+    url: https://hc-ping.com/f80785ad-413d-4731-b0c9-79fc37b6f73b/start
 
 - name: Configure and deploy the control tier
   hosts: command
@@ -66,4 +69,8 @@
   roles:
     - ubuntu22  
     - haproxy
-    - zabbix_agent       
+    - zabbix_agent
+
+- name: Tell Healthchecks.io that we finished the playbook
+  ansible.builtin.uri:
+    url: https://hc-ping.com/f80785ad-413d-4731-b0c9-79fc37b6f73b/start    
