@@ -1,18 +1,16 @@
 ---
 - hosts: wpadmin[0]
   become: true
+  vars:
+    wp_sites: "{{ output.files|map(attribute='path')|map('basename')|list }}"
 
   tasks: 
-        - name: Get List of Wordpress Sites
-          ansible.builtin.find:
-            paths: /mnt/Web/Websites/Wordpress
-            recurse: no
-            file_type: directory
-          register: wp_sites
+    - name: Get List of Wordpress Sites
+      ansible.builtin.find:
+        paths: /mnt/Web/Websites/Wordpress
+        recurse: no
+        file_type: directory
+      register: output
+    - debug:
+        var: wp_sites
 
-        - name: Remove prefix from paths
-          set_fact: wp_sites="{{ wp_sites | map(attribute='path') | map('regex_replace', '^/mnt/Web/Websites/Wordpress/') | list }}"
-
-        - name: Update Wordpress Plugins
-          command: "sudo -u www-data /mnt/Web/Websites/Wordpress/{{ item }}/public_html/wp plugin update --all"
-          loop: "{{ wp_sites.files | map(attribute='path') | list }}"            
