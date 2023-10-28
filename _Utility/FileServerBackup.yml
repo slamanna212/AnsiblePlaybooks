@@ -5,6 +5,13 @@
 - hosts: file[0]  
   tasks: 
 
+        - name: Tell Healthchecks.io that we started the playbook
+          ansible.builtin.uri:
+            url: https://hc-ping.com/a0784da6-4a36-486d-9f6a-2cc68072c0ad/start
+            timeout: 10
+            force: true        
+
+
 #Check if files exist on NFS share, if they dont this playbook will wipe directory
         - name: Make sure we have files to backup
           ansible.builtin.stat:
@@ -19,3 +26,8 @@
           when: nfs_share_data.stat.exists == true
           ignore_errors: true
  
+        - name: Tell Healthchecks.io that we finished the playbook
+          ansible.builtin.uri:
+            url: https://hc-ping.com/a0784da6-4a36-486d-9f6a-2cc68072c0ad
+            timeout: 10
+            force: true        
