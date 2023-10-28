@@ -15,6 +15,6 @@
         var: wp_sites
 
     - name: Update Wordpress Plugins
-      command: "cd /mnt/Web/Websites/Wordpress/{{ item }}/public_html/ && sudo -u www-data wp plugin update --all"
+      command: " cd /mnt/Web/Websites/Wordpress/{{ item }}/public_html/ && sudo -u www-data wp plugin update --all "
       loop: "{{ wp_sites }}"
       throttle: 1
