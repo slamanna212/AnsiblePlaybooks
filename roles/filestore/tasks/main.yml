@@ -28,7 +28,16 @@
     src: rclone.conf
     dest: /root/.config/rclone/rclone.conf
     trim_blocks: false
-    backup=no
+    backup: no
+
+- name: Update HAProxy config
+  template: 
+    src=haproxy.cfg 
+    dest=/etc/haproxy/haproxy.cfg
+    trim_blocks=false
+    backup=no                
+  notify: restart haproxy
+
 
 #Pull files from DO spaces if needed
 - name: Pull files from DO spaces
