@@ -24,10 +24,11 @@
     mode: '0755'
 
 - name: Place rclone config
-  ansible.builtin.copy:
-    src: files/rclone.conf
+  ansible.builtin.template:
+    src: rclone.conf
     dest: /root/.config/rclone/rclone.conf
-    remote_src: no
+    trim_blocks: false
+    backup=no
 
 #Pull files from DO spaces if needed
 - name: Pull files from DO spaces
