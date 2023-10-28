@@ -73,4 +73,4 @@
 
 - name: Tell Healthchecks.io that we finished the playbook
   ansible.builtin.uri:
-    url: https://hc-ping.com/f80785ad-413d-4731-b0c9-79fc37b6f73b/start    
+    url: https://hc-ping.com/f80785ad-413d-4731-b0c9-79fc37b6f73b
