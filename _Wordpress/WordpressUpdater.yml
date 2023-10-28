@@ -1,0 +1,39 @@
+---
+- hosts: wpadmin[0]
+  become: true
+  vars:
+    wp_sites: "{{ output.files|map(attribute='path')|map('basename')|list }}"
+
+  tasks: 
+    - name: Generate list of Wordpress sites
+      ansible.builtin.find:
+        paths: /mnt/Web/Websites/Wordpress
+        recurse: no
+        file_type: directory
+      register: output
+
+    - name: Update Wordpress Plugins
+      ansible.builtin.shell:
+        cmd: "sudo -u www-data wp plugin update --all"
+        chdir: "/mnt/Web/Websites/Wordpress/{{ item }}/public_html/"
+      loop: "{{ wp_sites }}"
+      throttle: 1
+      ignore_errors: True
+
+    - name: Update Wordpress Themes
+      ansible.builtin.shell:
+        cmd: "sudo -u www-data wp theme update --all"
+        chdir: "/mnt/Web/Websites/Wordpress/{{ item }}/public_html/"
+      loop: "{{ wp_sites }}"
+      throttle: 1
+      ignore_errors: True
+      
+    - name: Update Wordpress Core
+      ansible.builtin.shell:
+        cmd: "sudo -u www-data wp core update"
+        chdir: "/mnt/Web/Websites/Wordpress/{{ item }}/public_html/"
+      loop: "{{ wp_sites }}"
+      throttle: 1
+      ignore_errors: True
+
+      
