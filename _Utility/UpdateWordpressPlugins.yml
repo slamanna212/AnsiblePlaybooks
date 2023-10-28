@@ -13,7 +13,14 @@
       register: output
 
     - name: Update Wordpress Plugins
-      command: " cd /mnt/Web/Websites/Wordpress/{{ item }}/public_html/ && sudo -u www-data wp plugin update --all "
+      ansible.builtin.shell:
+        cmd: "sudo -u www-data wp plugin update --all"
+        chdir: "/mnt/Web/Websites/Wordpress/{{ item }}/public_html/"
       loop: "{{ wp_sites }}"
-      become: true
       throttle: 1
+
+
+      
+
+
+      
