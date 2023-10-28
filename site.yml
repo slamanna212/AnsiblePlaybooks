@@ -7,7 +7,9 @@
     - name: Tell Healthchecks.io that we started the playbook
       ansible.builtin.uri:
         url: https://hc-ping.com/f80785ad-413d-4731-b0c9-79fc37b6f73b/start
-
+        timeout: 10
+        force: true
+        
 - name: Configure and deploy the control tier
   hosts: command
   become: true
@@ -81,3 +83,5 @@
     - name: Tell Healthchecks.io that we finished the playbook
       ansible.builtin.uri:
         url: https://hc-ping.com/f80785ad-413d-4731-b0c9-79fc37b6f73b
+        timeout: 10
+        force: true
