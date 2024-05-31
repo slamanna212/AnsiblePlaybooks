@@ -4,5 +4,5 @@ Allow: /wp-admin/admin-ajax.php
 Disallow: /?s=
 Disallow: /search/
 
-Sitemap: http://{{domain}}/page-sitemap.xml
-Sitemap: http://{{domain}}/post-sitemap.xml
+Sitemap: https://{{domain}}/page-sitemap.xml
+Sitemap: https://{{domain}}/post-sitemap.xml
