@@ -35,7 +35,7 @@
 
 - name: Copy cforigin.pem
   ansible.builtin.copy:
-    src: /files/cforigin.pem
+    src: files/cforigin.pem
     dest: /opt/ssl/cforigin.pem
     owner: root
     group: root
@@ -43,7 +43,7 @@
 
 - name: Copy cfprivate.pem
   ansible.builtin.copy:
-    src: /files/cfprivate.pem
+    src: files/cfprivate.pem
     dest: /opt/ssl/cfprivate.pem
     owner: root
     group: root
