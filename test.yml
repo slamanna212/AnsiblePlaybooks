@@ -1,6 +1,6 @@
 ---
 - name: Bring Anayltics to baseline
-  hosts: command
+  hosts: analytics
   become: true
   roles:
     - _Lifecycle/pro_ubuntu22
