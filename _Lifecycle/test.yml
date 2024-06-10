@@ -3,4 +3,4 @@
   hosts: analytics
   become: true
   roles:
-    - _Lifecycle/pro_ubuntu22
+    - pro_ubuntu22
