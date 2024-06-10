@@ -1,5 +1,5 @@
 plugin: community.digitalocean.digitalocean
-
+oauth_token: {{ BeneDOKey }}
 attributes:
   - id
   - name
