@@ -27,7 +27,8 @@ UmamiRepo: https://github.com/umami-software/umami
 UmamiVersion: 2.11.3
 # Umami App Secret
 UmamiAppSecret: xxxxxxxxxx
-
+# Umami Analytics Domain
+UmamiDomain: analytics.example.com
 
 
 ##### API KEYS

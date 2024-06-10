@@ -1,2 +1,2 @@
 ---
-    sys_packages: [ 'git', 'docker.io', 'docker-compose', 'npm']
+    sys_packages: [ 'git', 'docker.io', 'docker-compose', 'npm', 'nginx']

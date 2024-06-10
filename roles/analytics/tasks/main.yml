@@ -18,5 +18,41 @@
     trim_blocks=false
     backup=no                
 
+# Nginx
+- name: Place dhparam file
+  ansible.builtin.copy:
+    src: files/dhparam.pem
+    dest: /etc/ssl/certs/dhparam.pem
+    owner: root
+    group: root
+    mode: 0644
 
+- name: Create SSL Directory
+  ansible.builtin.file:
+    path: /opt/ssl
+    state: directory
+    mode: '0755'
 
+- name: Copy cforigin.pem
+  ansible.builtin.copy:
+    src: /files/cforigin.pem
+    dest: /opt/ssl/cforigin.pem
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy cfprivate.pem
+  ansible.builtin.copy:
+    src: /files/cfprivate.pem
+    dest: /opt/ssl/cfprivate.pem
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Place Nginx Config
+  template: 
+    src=nginxvhost
+    dest=/etc/nginx/sites-enabled/analytics.conf
+    trim_blocks=false
+    backup=no             
+  notify: restart nginx    
