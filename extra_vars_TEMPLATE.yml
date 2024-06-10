@@ -25,7 +25,8 @@ BeneDOSpacesEP: xxx.digitaloceanspaces.com
 UmamiRepo: https://github.com/umami-software/umami
 # Umami Version
 UmamiVersion: 2.11.3
-
+# Umami App Secret
+UmamiAppSecret: xxxxxxxxxx
 
 
 

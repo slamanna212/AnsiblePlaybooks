@@ -11,6 +11,12 @@
     update: no
     clone: yes
 
+- name: Place Custom Docker-Compose
+  template: 
+    src=docker-compose.yml
+    dest=/home/ansible/Umami/docker-compose.yml
+    trim_blocks=false
+    backup=no                
 
 
 
