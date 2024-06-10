@@ -8,7 +8,9 @@
     repo: "{{ UmamiRepo }}"
     dest: /home/ansible/Umami
     version: "{{ UmamiVersion }}"
-    update: true
+    update: no
     clone: yes
+
+
 
 

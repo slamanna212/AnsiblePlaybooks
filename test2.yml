@@ -1,0 +1,6 @@
+---
+- name: Configure and deploy the Anayltics tier
+  hosts: analytics
+  become: true
+  roles:
+    - analytics
