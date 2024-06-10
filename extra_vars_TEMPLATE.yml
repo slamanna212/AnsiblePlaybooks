@@ -2,7 +2,6 @@
 # Running Envorinment, Prod or Dev
 BeneEnv: prod
 
-
 ##### KEYS AND PASSWORDS
 # SSH Key used for new node provisioning
 BeneRootSSHKey: /path/to/key
@@ -20,6 +19,15 @@ BeneDOSpacesAK: xxxxxxxxxx
 BeneDOSpacesS: xxxxxxxxxx
 # Digital OCean Spaces Endpoint
 BeneDOSpacesEP: xxx.digitaloceanspaces.com
+
+##### Unami Analytics
+# Umami Repo
+UmamiRepo: https://github.com/umami-software/umami
+# Umami Version
+UmamiVersion: 2.11.3
+
+
+
 
 ##### API KEYS
 # PagerDuty API Key
