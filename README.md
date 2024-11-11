@@ -1,5 +1,5 @@
 # Playbooks for Bene IT Web Infrastructure 
-Runs and manages all of the servers for the Bene IT web hosting infrastructure. Tuned to serve Wordpress Websites. Can also handling some droplet creation and new Wordpress site creation.
+Runs and manages all of the servers for the Bene IT web hosting infrastructure. Tuned to serve Wordpress Websites. Can also handling some droplet creation and new Wordpress site creation. Additional information available on my blog [here](https://slamanna.com/tags/web-cluster/).
 
 ## Features
  - HAProxy Loadbalancer. Can replace it via `NewNode.yml`
